@@ -13,129 +13,51 @@ export default async function handler(
 	const db = client.db("bountree-dev")
 	const collection = db.collection("opportunities")
 
-	const opportunities: IOpportunity[] = [
-		{
-			title: "Senior Software Engineer",
-			category: "Engineering",
-			description:
-				"We are looking for a Senior Software Engineer to join our team. You will be responsible for developing and implementing functional programs and applications. You will work with other engineers and developers to ensure the technical feasibility of UI/UX designs. You will also be responsible for developing and managing well-functioning databases and applications, as well as coding and documenting highly scalable software solutions. To be successful in this role, you should have experience with the full software development life cycle and software design. If you also have a talent for debugging and problem-solving, we’d like to meet you. Ultimately, you will build high-quality software that is aligned with our company needs.",
-			status: "open",
-			reward: {
-				amount: 1000,
-				currency: "USD",
-			},
-			salary: {
-				min: 100000,
-				max: 150000,
-				currency: "USD",
-			},
-			createdAt: new Date(),
-			updatedAt: new Date(),
-			location: "San Francisco, CA",
-			remote: false,
-			company: {
-				name: "Acme Inc.",
-				url: "https://acme.com",
-				image: "https://acme.com/logo.png",
-				slogan: "We make things",
-			},
-			contact: {
-				name: "John Doe",
-				email: "j@doe.com",
-				phone: "555-555-5555",
-				image: "https://via.placeholder.com/80",
-			},
-			links: {
-				apply: "https://acme.com/apply",
-				website: "https://acme.com",
-			},
-			recruiters: [],
-			perks: { description: "", items: [] },
-			applyLink: "https://acme.com/apply",
-			rejectionFeedback: [],
+	const opportunity: IOpportunity = {
+		title: "Machine Learning Engineer",
+		category: "Engineering",
+		description: `Dukkantek, a leader in the automated checkout space and a company embracing innovative computer vision technology, is seeking a highly skilled and motivated Machine Learning Engineer to join our dynamic team. We are open to remote candidates, as we believe in providing flexibility and embracing a diverse workforce. As a Machine Learning Engineer at Dukkantek, you will play a crucial role in developing and improving our cutting-edge products.`,
+		idealCandidate: `The ideal candidate is based in Europe and holds a Master's degree or PhD in Computer Science, with at least 2 years of experience in machine learning frameworks like TensorFlow and PyTorch, strong programming skills in Python, and knowledge of mathematical and statistical concepts. They should have experience with cloud-based machine learning platforms, familiarity with containerization technologies, and computer vision techniques and libraries.`,
+		responsibilities: [
+			"Design and maintain machine learning models for object recognition, classification, and tracking",
+			"Collaborate with cross-functional teams to integrate machine learning models into production systems",
+			"Research latest trends in artificial intelligence, and suggest improvements to existing models ",
+			"Develop and maintain documentation for machine learning models and algorithms",
+		],
+		status: "open",
+		perks: {
+			items: [
+				"Competitive salary and benefits package",
+				"Flexibility to work remotely, promoting a healthy work-life balance",
+			],
 		},
-		{
-			title: "Junior Software Engineer",
-			category: "Engineering",
-			description:
-				"We are looking for a Junior Software Engineer to join our team. You will be responsible for developing and implementing functional programs and applications. You will work with other engineers and developers to ensure the technical feasibility of UI/UX designs. You will also be responsible for developing and managing well-functioning databases and applications, as well as coding and documenting highly scalable software solutions. To be successful in this role, you should have experience with the full software development life cycle and software design. If you also have a talent for debugging and problem-solving, we’d like to meet you. Ultimately, you will build high-quality software that is aligned with our company needs.",
-			status: "open",
-			reward: {
-				amount: 1000,
-				currency: "USD",
-			},
-			salary: {
-				min: 100000,
-				max: 150000,
-				currency: "USD",
-			},
-			createdAt: new Date(),
-			updatedAt: new Date(),
-			location: "San Francisco, CA",
-			remote: false,
-			company: {
-				name: "GitHub",
-				url: "https://github.com",
-				image: "https://via.placeholder.com/80",
-				slogan: "We make things",
-			},
-			contact: {
-				name: "John Doe",
-				email: "jogn@do.com",
-				phone: "555-555-5555",
-				image: "https://via.placeholder.com/80",
-			},
-			links: {
-				apply: "https://acme.com/apply",
-				website: "https://acme.com",
-			},
-			recruiters: [],
-			perks: { description: "", items: [] },
-			applyLink: "https://acme.com/apply",
-			rejectionFeedback: [],
+		reward: {
+			amount: 5000,
+			currency: "USD",
 		},
-		{
-			title: "Marketing Manager",
-			category: "Marketing",
-			description:
-				"We are looking for a Marketing Manager to join our team. You will be responsible for developing and implementing functional programs and applications. You will work with other engineers and developers to ensure the technical feasibility of UI/UX designs. You will also be responsible for developing and managing well-functioning databases and applications, as well as coding and documenting highly scalable software solutions. To be successful in this role, you should have experience with the full software development life cycle and software design. If you also have a talent for debugging and problem-solving, we’d like to meet you. Ultimately, you will build high-quality software that is aligned with our company needs.",
-			status: "open",
-			reward: {
-				amount: 1000,
-				currency: "USD",
-			},
-			salary: {
-				min: 100000,
-				max: 150000,
-				currency: "USD",
-			},
-			createdAt: new Date(),
-			updatedAt: new Date(),
-			location: "San Francisco, CA",
-			remote: false,
-			company: {
-				name: "GitHub",
-				url: "https://github.com",
-				image: "https://via.placeholder.com/80",
-				slogan: "We make things",
-			},
-			contact: {
-				name: "John Doe",
-				email: "Jornathan@doe.com",
-				phone: "555-555-5555",
-				image: "https://via.placeholder.com/80",
-			},
-			links: {
-				apply: "https://acme.com/apply",
-				website: "https://acme.com",
-			},
-			recruiters: [],
-			perks: { description: "", items: [] },
-			applyLink: "https://acme.com/apply",
-			rejectionFeedback: [],
+		salary: {
+			min: 80000,
+			max: 100000,
+			currency: "USD",
 		},
-	]
-	const data = await collection.insertMany(opportunities)
+		location: "Europe",
+		remote: true,
+		company: {
+			name: "Dukkantek",
+			about: `Dukkantek enables traditional merchants to compete equally in an evolving digital world, and further empower their retail capacity. Redefining the conventional way of managing tasks and sales, the innovative platform aims to strengthen local community stores and power digital transformations with end-to-end technology that enhances and streamlines all business processes. The company recently announced a $10 million pre-Series A funding round as it powers the digital ecosystem for 13 million SMB retailers across the UAE, Oman, Qatar, Kuwait, Bahrain, Turkey, Saudi Arabia and searches for opportunities in North Africa.`,
+			url: "https://www.dukkantek.com/",
+			image: "/static/opportunities/dukkantek.png",
+			founded: "2021",
+			industry: "B2B SaaS",
+			employees: "100+",
+			stage: "A",
+		},
+		applications: [],
+		applyLink: "https://www.dukkantek.com/careers",
+		createdAt: new Date(),
+		updatedAt: new Date(),
+	}
+	const data = await collection.insertOne(opportunity)
 
 	res.status(200).json({ data })
 }

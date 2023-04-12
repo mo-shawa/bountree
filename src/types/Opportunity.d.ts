@@ -25,7 +25,7 @@ export default interface IOpportunity extends Document {
 	location: string
 	remote: boolean
 	company: Company
-	applyLink: string
+	applyLink?: string
 	rejectionFeedback?: Feedback[]
 	applications: Application[]
 	createdAt: Date

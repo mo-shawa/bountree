@@ -38,14 +38,14 @@ export default function Opportunities(props: any) {
 								id={item._id}
 								key={item._id}
 								company={item.company.name}
-								image={"https://via.placeholder.com/80"}
+								image={item.company.image}
 								slogan={item.company.slogan}
 								role={{
 									title: item.title,
 									category: item.category,
 									workFrom: item.remote ? "Remote" : "In person",
 									location: item.location,
-									salary: `$${item.salary.min.toLocaleString()} - $${item.salary.max.toLocaleString()}`,
+									salary: `$${item.salary.min!.toLocaleString()} - $${item.salary.max!.toLocaleString()}`,
 									reward: `$${item.reward.amount.toLocaleString()}`,
 								}}
 							/>
