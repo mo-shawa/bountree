@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import IOpportunity from "../../types/Opportunity"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
-import Loader from "@/components/Loader"
+import Loader from "@/components/Loader/Loader"
 import Link from "next/link"
 import { signIn } from "next-auth/react"
 

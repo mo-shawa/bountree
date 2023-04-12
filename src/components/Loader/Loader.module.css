@@ -1,18 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-#__next {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	justify-items: space-between;
-}
-
-main {
-	flex-grow: 1;
-}
-
 .loader {
 	width: 48px;
 	height: 48px;
@@ -35,7 +20,7 @@ main {
 	bottom: 0;
 	margin: auto;
 	border: 3px solid;
-	border-color: transparent transparent #ffd966 #ffd966;
+	border-color: transparent transparent #ff3d00 #ff3d00;
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
