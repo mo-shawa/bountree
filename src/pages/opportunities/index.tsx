@@ -4,8 +4,10 @@ import Layout from "@/components/Layout"
 import IOpportunity from "@/types/Opportunity"
 import { Loader } from "@/components/Loader/Loader"
 import { useSession, signIn } from "next-auth/react"
+import { useRouter } from "next/router"
 
 export default function Dashboard() {
+	const router = useRouter()
 	const { data: session, status } = useSession()
 	const [data, setData] = useState<IOpportunity[]>([])
 	useEffect(() => {
@@ -15,8 +17,8 @@ export default function Dashboard() {
 			console.log(data)
 			setData(data.data)
 		}
-		fetchData()
-	}, [])
+		if (router.isReady) fetchData()
+	}, [router.isReady])
 
 	if (status === "loading") return <Loader />
 

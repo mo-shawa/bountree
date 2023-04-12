@@ -32,8 +32,9 @@ export default function PostDetail() {
 
 			setPost(data.opportunity)
 		}
-		fetchPost()
-	}, [id])
+
+		if (router.isReady) fetchPost()
+	}, [id, router.isReady])
 
 	if (status === "loading") return <Loader />
 
