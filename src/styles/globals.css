@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#__next {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-items: space-between;
+}
+
+main {
+	flex-grow: 1;
+}
