@@ -31,7 +31,7 @@ export default function NavRight(props: any) {
 								<span className="sr-only">Open user menu</span>
 								<Image
 									className="h-8 w-8 rounded-full"
-									src={session.user!.image!}
+									src={session.user.image || "/static/png/user.png"}
 									alt="profile picture"
 									width={32}
 									height={32}

@@ -30,35 +30,41 @@ export default NextAuth({
 	},
 	adapter: MongoDBAdapter(clientPromise, { databaseName: "bountree-dev" }),
 	callbacks: {
-		jwt: async ({ token, user, account, profile, trigger }) => {
-			console.log("jwt", { token, user, account, profile, trigger })
-
-			if (user) {
-				token.id = user.id
-			}
-
-			if (trigger === "signUp") {
-				console.log("signUp", { user, account, profile, trigger })
-				// create a new user
-
-				const client = await clientPromise
-				const db = client.db("bountree-dev")
-				const newUser = await db.collection("users").updateOne(
-					{ _id: user.id },
-					{
-						$set: {
-							createdAt: new Date().toDateString(),
-							updatedAt: new Date().toDateString(),
-							opportunitiesPursued: [],
-							totalEarnings: 0,
-							potentialEarnings: 0,
-						},
-					}
-				)
-
-				console.log(newUser)
-			}
-			return token
+		session: async ({ session, token, user }) => {
+			session.user.id = token.sub as string
+			console.log("session", { session, token })
+			return Promise.resolve(session)
 		},
 	},
 })
+
+// jwt: async ({ token, user, account, profile, trigger }) => {
+// 	console.log("jwt", { token, user, account, profile, trigger })
+
+// 	if (user) {
+// 		token.id = user.id
+// 	}
+
+// 	if (trigger === "signUp") {
+// 		console.log("signUp", { user, account, profile, trigger })
+// 		// create a new user
+
+// 		const client = await clientPromise
+// 		const db = client.db("bountree-dev")
+// 		const newUser = await db.collection("users").updateOne(
+// 			{ _id: user.id },
+// 			{
+// 				$set: {
+// 					createdAt: new Date().toDateString(),
+// 					updatedAt: new Date().toDateString(),
+// 					opportunitiesPursued: [],
+// 					totalEarnings: 0,
+// 					potentialEarnings: 0,
+// 				},
+// 			}
+// 		)
+
+// 		console.log(newUser)
+// 	}
+// 	return token
+// },
