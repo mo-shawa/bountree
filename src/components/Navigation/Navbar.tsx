@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { classNames } from "@/utils"
+import Pill from "./Pill"
 
 export default function Navbar() {
 	const { data: session } = useSession()
@@ -88,6 +89,7 @@ export default function Navbar() {
 												aria-current={item.current ? "page" : undefined}
 											>
 												{item.name}
+												{item.href === "#" && <Pill>Soon</Pill>}
 											</Link>
 										))}
 									</div>

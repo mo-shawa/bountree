@@ -1,11 +1,12 @@
 import { Disclosure } from "@headlessui/react"
 import { classNames } from "@/utils"
+import Pill from "./Pill"
 export default function MobileMenu(props: any) {
 	{
 		/* Mobile menu, show/hide based on menu open state. */
 	}
 	return (
-		<Disclosure.Panel className="sm:hidden">
+		<Disclosure.Panel className="md:hidden">
 			<div className="space-y-1 px-2 pb-3 pt-2">
 				{props.navigation.map((item: any) => (
 					<Disclosure.Button
@@ -21,6 +22,8 @@ export default function MobileMenu(props: any) {
 						aria-current={item.current ? "page" : undefined}
 					>
 						{item.name}
+
+						{item.href === "#" && <Pill>Soon</Pill>}
 					</Disclosure.Button>
 				))}
 			</div>

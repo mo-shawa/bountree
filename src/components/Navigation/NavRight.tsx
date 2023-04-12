@@ -6,6 +6,7 @@ import { signIn, signOut } from "next-auth/react"
 import { useSession } from "next-auth/react"
 import { classNames } from "@/utils"
 import Image from "next/image"
+import Pill from "./Pill"
 
 export default function NavRight(props: any) {
 	const { data: session } = useSession()
@@ -51,26 +52,28 @@ export default function NavRight(props: any) {
 								<Menu.Item>
 									{({ active }) => (
 										<Link
-											href="/profile"
+											href="#"
 											className={classNames(
 												active ? "bg-gray-100" : "",
 												"block px-4 py-2 text-sm text-gray-700 transition-colors duration-150 ease-in-out hover:bg-gray-100"
 											)}
 										>
 											Your Profile
+											<Pill>Soon</Pill>
 										</Link>
 									)}
 								</Menu.Item>
 								<Menu.Item>
 									{({ active }) => (
 										<Link
-											href="/settings"
+											href="#"
 											className={classNames(
 												active ? "bg-gray-100" : "",
 												"block px-4 py-2 text-sm text-gray-700 transition-colors duration-150 ease-in-out hover:bg-gray-100"
 											)}
 										>
 											Settings
+											<Pill>Soon</Pill>
 										</Link>
 									)}
 								</Menu.Item>
