@@ -54,8 +54,8 @@ function Icon(props: IconProps) {
 	return (
 		<div
 			className={classNames(
-				props.filteredBy === props.text ? "bg-white/10" : "",
-				"text-white cursor-pointer flex flex-col justify-center items-center rounded-md py-5"
+				props.filteredBy === props.text ? "bg-b-yellow/20" : "",
+				"text-white cursor-pointer flex flex-col justify-center items-center rounded-md py-5 hover:bg-white/10 transition-colors"
 			)}
 			onClick={props.filter}
 		>

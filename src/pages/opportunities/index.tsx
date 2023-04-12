@@ -2,7 +2,7 @@ import { useEffect, useState, Suspense } from "react"
 import Opportunities from "@/components/Opportunities"
 import Layout from "@/components/Layout"
 import IOpportunity from "@/types/Opportunity"
-import Loader from "@/components/Loader"
+import { Loader } from "@/components/Loader"
 import { useSession, signIn } from "next-auth/react"
 
 export default function Dashboard() {
