@@ -99,7 +99,7 @@ export default function PrivacyandTermsModal({
 											type="checkbox"
 										/>
 										<span className="label-text">
-											I confirm that I agree to Bountree's{' '}
+											I confirm that I agree to Bountree&apos;s{' '}
 											<a
 												className="underline hover:text-b-yellow"
 												target="_blank"

@@ -34,7 +34,7 @@ export default function RecruiterContract() {
 				<li className="my-5">
 					Fees. Bountree shall pay the Recruiter a fee (the "Fee") for the
 					successful placement of the Candidate referred by the Recruiter. The
-					Fee shall be paid to the Recruiter within 30 days of Bountree's
+					Fee shall be paid to the Recruiter within 30 days of Bountree&apos;s
 					receipt of payment from the Client for the placement. The Recruiter is
 					responsible for any taxes or other fees related to the Fee.
 				</li>
