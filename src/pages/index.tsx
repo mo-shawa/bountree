@@ -1,6 +1,6 @@
-import Image from "next/image"
-import Link from "next/link"
-import Layout from "@/components/Layout"
+import Image from 'next/image'
+import Link from 'next/link'
+import Layout from '@/components/Layout'
 
 export default function Home() {
 	return (
@@ -51,17 +51,20 @@ export default function Home() {
 						</Link>
 					</div>
 					<Image
-						src="https://via.placeholder.com/584x456?text=Hero+Image"
-						height={456}
-						width={584}
-						className="max-w-50 h-auto hidden md:inline"
+						src="/static/hero.png"
+						height={416}
+						width={946}
+						className="max-w-50 my-auto h-auto hidden md:inline "
 						alt="hero image"
 					/>
 				</div>
 			</section>
 
-			<section id="details" className="mx-4 py-12 text-b-blue-dark">
-				<div className="mx-auto my-12 py-12 bg-b-blue w-full max-w-7xl  rounded-lg">
+			<section
+				id="details"
+				className="mx-4 py-12 text-b-blue-dark"
+			>
+				<div className="mx-auto my-12 py-12 bg-b-blue w-full max-w-7xl  rounded-lg shadow">
 					<div className="p-5 mx-auto max-w-4xl text-center">
 						<h1 className="md:text-5xl text-4xl  text-center font-bold mb-5">
 							Your network is your net worth... <br /> earn bounties by tapping
@@ -78,11 +81,11 @@ export default function Home() {
 							height={460}
 							width={937}
 							alt="Opportunity Detail"
-							className="rounded-lg shadow-xl"
+							className="rounded-lg shadow"
 						/>
 					</div>
 				</div>
-				<div className="px-5 mx-auto my-12 py-12 bg-gray-200 w-full max-w-7xl  rounded-lg grid md:grid-cols-2 gap-4">
+				<div className="px-5 mx-auto my-12 py-12 bg-gray-200 w-full max-w-7xl  rounded-lg grid md:grid-cols-2 gap-4 shadow">
 					<div className=" text-black flex flex-col justify-center">
 						<h4 className="font-semibold max-w-sm text-2xl ">
 							We&apos;ve built the tools and resources you need to excel as a
@@ -96,7 +99,7 @@ export default function Home() {
 					</div>
 					<Image
 						className=" md:inline"
-						src="https://via.placeholder.com/538x307?text=leads"
+						src="https://via.placeholder.com/538x307?text=Coming+Soon"
 						width={538}
 						height={307}
 						alt="leads"
@@ -104,7 +107,7 @@ export default function Home() {
 				</div>
 				<div className="mx-auto my-12 w-full max-w-7xl  rounded-lg">
 					<div className="grid grid-cols-5 gap-12 md:gap-4">
-						<div className="col-span-5 md:col-span-3 bg-b-blue  py-6 px-6 rounded-lg">
+						<div className="col-span-5 md:col-span-3 shadow bg-b-blue  py-6 px-6 rounded-lg">
 							<h3 className="text-3xl font-bold mb-5">Less is more.</h3>
 							<p className="text-lg">
 								Our platform prioritizes simplicity to enhance the user
@@ -113,10 +116,10 @@ export default function Home() {
 								and make the most of your time.
 							</p>
 						</div>
-						<div className="col-span-5 md:col-span-2 bg-b-blue-dark text-white py-6 px-6 rounded-lg">
+						<div className="col-span-5 md:col-span-2 shadow bg-b-blue-dark text-white py-6 px-6 rounded-lg">
 							<h3 className="text-3xl font-bold mb-5">No secrets here.</h3>
 							<p className="text-lg">
-								It&apos;s time to empower recruiters.{" "}
+								It&apos;s time to empower recruiters.{' '}
 								<span className="font-bold">βountree</span> let&apos;s you
 								unlock your full potential with clarity at every step. Startups
 								share their needs transparently with recruiters, who can
@@ -137,7 +140,7 @@ export default function Home() {
 				</p>
 
 				<Link href="/signup">
-					<div className=" mt-6 flex w-fit cursor-pointer rounded-lg bg-b-yellow px-4 py-1.5 text-base hover:bg-b-yellow">
+					<div className=" mt-6 flex w-fit cursor-pointer rounded-lg bg-b-yellow px-4 py-1.5 text-base hover:bg-b-yellow shadow">
 						<div className="my-auto mr-2 text-lg text-black">
 							Start recruiting now
 						</div>
