@@ -1,8 +1,9 @@
 import Head from "next/head"
 import Navbar from "./Navigation/Navbar"
 import Footer from "./Footer"
-import { ReactNode } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
+import PrivacyandTermsModal from "./PrivacyandTermsModal"
 
 type Props = {
 	children?: ReactNode
@@ -10,9 +11,18 @@ type Props = {
 }
 
 export default function Layout({ children, classNames }: Props): JSX.Element {
-	const session = useSession()
+	// const { data: session, status } = useSession()
 
-	console.log(session)
+	// const [acceptedPrivacyandTerms, setAcceptedPrivacyandTerms] =
+	// 	useState<Boolean>(
+	// 		session?.user?.acceptedPrivacy && session?.user?.acceptedTerms
+	// 	)
+
+	// useEffect(() => {
+	// 	if (!acceptedPrivacyandTerms) {
+	// 		document.body.style.overflow = "hidden"
+	// 	}
+	// }, [acceptedPrivacyandTerms])
 
 	return (
 		<>
@@ -37,11 +47,12 @@ export default function Layout({ children, classNames }: Props): JSX.Element {
 					rel="icon"
 					type="image/png"
 					sizes="16x16"
-					href="/favicon/favicon-16x16.png"
+					href="/favicon/favicon-16x16espng"
 				/>
 			</Head>
 			<Navbar />
 			<main className={classNames}>{children}</main>
+			{/* {!acceptedPrivacyandTerms && <PrivacyandTermsModal />} */}
 			<Footer />
 		</>
 	)

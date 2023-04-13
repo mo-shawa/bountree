@@ -175,7 +175,7 @@ function PrimarySection({ post }: { post: IOpportunity }) {
 						</h1>
 						<p className=" text-b-yellow">reward</p>
 					</div>
-					<p className="mt-5 font-thin">Position responsibilities:</p>
+					<p className="mt-5 font-bold">Position responsibilities:</p>
 					<ul className=" list-disc mx-4 xl:mx-8">
 						{post.responsibilities.map((item: string, i: number) => {
 							return (
@@ -223,7 +223,7 @@ function SecondarySection({ post }: { post: IOpportunity }) {
 				<ol className="list-decimal md:ml-14 ml-5 ">
 					{post.perks.items.map((item: string, i: number) => {
 						return (
-							<li key={i} className=" text-sm my-4">
+							<li key={i} className="my-4">
 								{item}
 							</li>
 						)
