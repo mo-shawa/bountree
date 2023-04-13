@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react"
-import Opportunity from "./Opportunity"
-import Filter from "./Filter"
-import IOpportunity from "@/types/Opportunity"
-import { Loader } from "./Loader/Loader"
+import { useState, useEffect } from 'react'
+import Opportunity from './Opportunity'
+import Filter from './Filter'
+import IOpportunity from '@/types/Opportunity'
+import { Loader } from './Loader/Loader'
 
 export default function Opportunities(props: any) {
 	const [filteredData, setFilteredData] = useState<IOpportunity[]>(props.data)
-	const [filteredBy, setFilteredBy] = useState<string>("All roles")
+	const [filteredBy, setFilteredBy] = useState<string>('All roles')
 
 	useEffect(() => {
 		setFilteredData(props.data)
 	}, [props.data])
 
 	useEffect(() => {
-		if (filteredBy === "All roles") setFilteredData(props.data)
+		if (filteredBy === 'All roles') setFilteredData(props.data)
 
-		if (filteredBy !== "All roles") {
+		if (filteredBy !== 'All roles') {
 			const dataCopy = structuredClone(props.data)
 
 			const filteredData = dataCopy.filter(
@@ -25,14 +25,17 @@ export default function Opportunities(props: any) {
 		}
 	}, [filteredBy, props.data])
 
-	if (props.data.length === 0) return <Loader />
+	if (!props.data) return <Loader />
 
 	return (
 		<>
 			<section className="bg-b-blue-dark">
 				<div className="mx-auto px-4 w-full max-w-7xl">
-					<Filter filteredBy={filteredBy} setFilteredBy={setFilteredBy} />
-					{filteredData.length ? (
+					<Filter
+						filteredBy={filteredBy}
+						setFilteredBy={setFilteredBy}
+					/>
+					{filteredData && filteredData.length ? (
 						filteredData.map((item) => (
 							<Opportunity
 								id={item._id}
@@ -43,7 +46,7 @@ export default function Opportunities(props: any) {
 								role={{
 									title: item.title,
 									category: item.category,
-									workFrom: item.remote ? "Remote" : "In person",
+									workFrom: item.remote ? 'Remote' : 'In person',
 									location: item.location,
 									salary: `$${item.salary.min!.toLocaleString()} - $${item.salary.max!.toLocaleString()}`,
 									reward: `$${item.reward.amount.toLocaleString()}`,
