@@ -5,10 +5,5 @@ export default function SecretTestPage() {
 	const { data: session } = useSession()
 	if (!session) return null
 
-	return (
-		<RecruitModal
-			opportunityId="64381dcae7bb57479945895b"
-			userId={session.user.id}
-		/>
-	)
+	return <h1>soon, {session.user.name}</h1>
 }
