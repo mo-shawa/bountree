@@ -1,21 +1,23 @@
-import { useRouter } from "next/router"
-import Layout from "@/components/Layout"
-import { useEffect, useState } from "react"
-import IOpportunity from "../../types/Opportunity"
-import { useSession } from "next-auth/react"
-import Image from "next/image"
-import Loader from "@/components/Loader/Loader"
-import Link from "next/link"
-import { signIn } from "next-auth/react"
-import { classNames } from "@/utils"
+import { useRouter } from 'next/router'
+import Layout from '@/components/Layout'
+import { useEffect, useState } from 'react'
+import IOpportunity from '../../types/Opportunity'
+import { useSession } from 'next-auth/react'
+import Image from 'next/image'
+import Loader from '@/components/Loader/Loader'
+import Link from 'next/link'
+import { signIn } from 'next-auth/react'
+import { classNames } from '@/utils'
+import RecruitModal from '@/components/Modals/RecruitModal'
 
 export default function PostDetail() {
 	const router = useRouter()
-	const { id } = router.query
+	const { id } = router.query as { id: string }
 
 	const { data: session, status } = useSession()
 
 	const [post, setPost] = useState<IOpportunity>()
+	const [modalOpen, setModalOpen] = useState<boolean>(false)
 	const [error, setError] = useState<string>()
 
 	useEffect(() => {
@@ -25,7 +27,7 @@ export default function PostDetail() {
 
 			if (!res.ok || data.success === false) {
 				setError(
-					"An error occurred while loading the post. Please try again in a few minutes."
+					'An error occurred while loading the post. Please try again in a few minutes.'
 				)
 				return
 			}
@@ -37,10 +39,10 @@ export default function PostDetail() {
 		if (router.isReady) fetchPost()
 	}, [id, router.isReady])
 
-	if (status === "loading") return <Loader />
+	if (status === 'loading') return <Loader />
 
-	if (status === "unauthenticated" || session === null) {
-		signIn("", { callbackUrl: window.location.href })
+	if (status === 'unauthenticated' || session === null) {
+		signIn('', { callbackUrl: window.location.href })
 	}
 
 	if (error) {
@@ -55,16 +57,31 @@ export default function PostDetail() {
 
 	if (!post) return <Loader />
 
-	// const applicationsRemaining = 5 - post.applications.filter(a => a.recruiter === session.user._id).length
+	const applicationsRemaining =
+		5 -
+		post.applications.filter((a) => a.recruiter === session?.user._id).length
 
 	return (
 		<Layout classNames="bg-b-blue-dark flex justify-center">
 			<section className="px-4 text-white max-w-7xl w-full">
 				<Top post={post} />
-				<PrimarySection post={post} />
+				<PrimarySection
+					applicationsRemaining={applicationsRemaining}
+					post={post}
+					setModalOpen={setModalOpen}
+				/>
 				<SecondarySection post={post} />
 				{post.rejectionFeedback && post.rejectionFeedback.length && (
 					<FeedbackSection post={post} />
+				)}
+				{modalOpen && (
+					<RecruitModal
+						opportunityId={id}
+						userId={session?.user.id}
+						setModalOpen={setModalOpen}
+						setPost={setPost}
+						applicationsRemaining={applicationsRemaining}
+					/>
 				)}
 			</section>
 		</Layout>
@@ -90,7 +107,7 @@ function Top({ post }: { post: IOpportunity }) {
 						</h4>
 
 						<p className="flex gap-2 text-xs  text-b-yellow">
-							{post.remote ? "Remote" : "In Office"} - {post.location}
+							{post.remote ? 'Remote' : 'In Office'} - {post.location}
 						</p>
 					</div>
 				</div>
@@ -113,9 +130,9 @@ function Top({ post }: { post: IOpportunity }) {
 						className="h-12 w-12 hover:bg-white/10 transition-colors rounded-full p-2 "
 						href={`https://wa.me/?text=${encodeURIComponent(
 							`Check out this recruiting opportunity on Bountree - the reward is ${post.reward.amount.toLocaleString(
-								"en-US",
+								'en-US',
 								{
-									style: "currency",
+									style: 'currency',
 									currency: post.reward.currency,
 								}
 							)}!\n https://bountree.app/opportunities/${post._id}`
@@ -134,7 +151,15 @@ function Top({ post }: { post: IOpportunity }) {
 	)
 }
 
-function PrimarySection({ post }: { post: IOpportunity }) {
+function PrimarySection({
+	post,
+	applicationsRemaining,
+	setModalOpen,
+}: {
+	post: IOpportunity
+	applicationsRemaining: number
+	setModalOpen: (open: boolean) => void
+}) {
 	return (
 		<div className="grid grid-cols-6 border-b pb-10 md:pb-0 md:border-b-0">
 			<div className="col-span-6 md:col-span-4 py-5 md:border-b">
@@ -144,7 +169,7 @@ function PrimarySection({ post }: { post: IOpportunity }) {
 				<p className="max-w-2xl my-4  ">{post.description}</p>
 				<div className="grid max-w-xl grid-cols-2 gap-4 grid-rows-2 py-10 ">
 					<GridIcon
-						text={post.company.employees + " Employees"}
+						text={post.company.employees + ' Employees'}
 						icon="/static/svg/opportunity/people.svg"
 					/>
 					<GridIcon
@@ -160,7 +185,10 @@ function PrimarySection({ post }: { post: IOpportunity }) {
 						target="_blank"
 						href={post.company.url}
 					>
-						<GridIcon text="Website" icon="/static/svg/all-roles.svg" />
+						<GridIcon
+							text="Website"
+							icon="/static/svg/all-roles.svg"
+						/>
 					</a>
 				</div>
 			</div>
@@ -168,8 +196,8 @@ function PrimarySection({ post }: { post: IOpportunity }) {
 				<div>
 					<div className="flex items-center py-5 border-b">
 						<h1 className="text-2xl mr-3 ">
-							{post.reward.amount.toLocaleString("en-US", {
-								style: "currency",
+							{post.reward.amount.toLocaleString('en-US', {
+								style: 'currency',
 								currency: post.reward.currency,
 							})}
 						</h1>
@@ -179,25 +207,30 @@ function PrimarySection({ post }: { post: IOpportunity }) {
 					<ul className=" list-disc mx-4 xl:mx-8">
 						{post.responsibilities.map((item: string, i: number) => {
 							return (
-								<li key={i} className="my-4">
+								<li
+									key={i}
+									className="my-4"
+								>
 									{item}
 								</li>
 							)
 						})}
 					</ul>
 				</div>
-				<a
-					target="_blank"
+
+				<button
+					onClick={
+						applicationsRemaining ? () => setModalOpen(true) : () => null
+					}
 					className={classNames(
-						post.status == "open" ? "disabled" : "",
-						"flex"
+						applicationsRemaining > 0 ? 'bg-b-yellow' : 'disabled',
+						'btn text-black hover:text-white'
 					)}
-					href={post.applyLink}
 				>
-					<button className=" bg-b-yellow text-black font-bold py-2 w-full max-w-xs rounded mx-auto shadow-lg shadow-b-yellow/30 transition-shadow hover:shadow-b-yellow/50 hover:shadow-xl">
-						RECRUIT
-					</button>
-				</a>
+					{applicationsRemaining > 0
+						? `Recruit (${applicationsRemaining} submissions left)`
+						: 'Applications Closed'}
+				</button>
 			</div>
 		</div>
 	)
@@ -206,7 +239,12 @@ function PrimarySection({ post }: { post: IOpportunity }) {
 function GridIcon({ icon, text }: { icon: string; text: string }) {
 	return (
 		<div className="col-span-1 row-span-2 md:row-span-1 flex items-center gap-4 p-4 ">
-			<Image src={icon} width={34} height={34} alt={icon} />
+			<Image
+				src={icon}
+				width={34}
+				height={34}
+				alt={icon}
+			/>
 			<h4 className="text-sm ">{text}</h4>
 		</div>
 	)
@@ -223,7 +261,10 @@ function SecondarySection({ post }: { post: IOpportunity }) {
 				<ol className="list-decimal md:ml-14 ml-5 ">
 					{post.perks.items.map((item: string, i: number) => {
 						return (
-							<li key={i} className="my-4">
+							<li
+								key={i}
+								className="my-4"
+							>
 								{item}
 							</li>
 						)
