@@ -8,13 +8,12 @@ import { useRouter } from "next/router"
 
 export default function Dashboard() {
 	const router = useRouter()
-	const { data: session, status } = useSession()
+	const { status } = useSession()
 	const [data, setData] = useState<IOpportunity[]>([])
 	useEffect(() => {
 		async function fetchData() {
 			const res = await fetch("/api/opportunities")
 			const data = await res.json()
-			console.log(data)
 			setData(data.data)
 		}
 		if (router.isReady) fetchData()

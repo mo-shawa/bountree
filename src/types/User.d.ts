@@ -1,10 +1,7 @@
 import { ObjectId } from "mongodb"
+import { DefaultUser } from "next-auth"
 
-export default interface IUser {
-	name: string
-	email: string
-	image: string
-	emailVerified: Date | null
+export default interface IUser extends DefaultUser {
 	acceptedTerms: Date | null
 	acceptedPrivacy: Date | null
 	createdAt: Date

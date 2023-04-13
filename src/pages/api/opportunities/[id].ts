@@ -1,32 +1,26 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import clientPromise from "../../../../db/connect"
-import { ObjectId } from "mongodb"
+import { getOpportunityById } from "../../../../controllers/opportunity"
 import serverAuthenticate from "@/utils/serverAuthenticate"
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	await serverAuthenticate(req, res)
+	try {
+		await serverAuthenticate(req, res)
 
-	const { method, query } = req
-	const { id } = query
+		const { method, query } = req
+		const { id } = query
 
-	console.log({ id, method, query })
+		if (method === "GET") {
+			if (!id || typeof id !== "string")
+				return res.status(400).json({ error: "Invalid ID" })
 
-	if (method === "GET") {
-		if (!id || typeof id !== "string")
-			return res.status(400).json({ error: "Invalid ID" })
+			const opportunity = await getOpportunityById(id)
 
-		const client = await clientPromise
-		const db = client.db("bountree-dev")
-
-		const opportunity = await db
-			.collection("opportunities")
-			.findOne({ _id: new ObjectId(id) })
-
-		console.log({ opportunity })
-
-		res.status(200).json({ opportunity })
+			res.status(200).json({ opportunity })
+		}
+	} catch (error) {
+		res.status(500).json({ error })
 	}
 }

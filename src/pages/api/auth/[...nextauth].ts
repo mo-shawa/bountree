@@ -3,6 +3,8 @@ import LinkedInProvider from "next-auth/providers/linkedin"
 import GoogleProvider from "next-auth/providers/google"
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import clientPromise from "../../../../db/connect"
+import { ObjectId } from "mongodb"
+import { updateUser, getUser } from "../../../../controllers/user"
 
 export default NextAuth({
 	session: {
@@ -30,41 +32,33 @@ export default NextAuth({
 	},
 	adapter: MongoDBAdapter(clientPromise, { databaseName: "bountree-dev" }),
 	callbacks: {
-		session: async ({ session, token, user }) => {
-			session.user.id = token.sub as string
-			console.log("session", { session, token })
+		session: async ({ session, token }) => {
+			const id = token.sub!
+			session.user.id = id
+
+			const foundUser = await getUser(id)
+
+			if (foundUser) {
+				session.user = { ...session.user, ...foundUser }
+			}
+
 			return Promise.resolve(session)
 		},
 	},
+
+	events: {
+		signIn: async ({ user, isNewUser }) => {
+			if (!isNewUser) return
+
+			await updateUser(user.id, {
+				createdAt: new Date(),
+				updatedAt: new Date(),
+				opportunitiesPursued: [],
+				totalEarnings: 0,
+				potentialEarnings: 0,
+				acceptedTerms: null,
+				acceptedPrivacy: null,
+			})
+		},
+	},
 })
-
-// jwt: async ({ token, user, account, profile, trigger }) => {
-// 	console.log("jwt", { token, user, account, profile, trigger })
-
-// 	if (user) {
-// 		token.id = user.id
-// 	}
-
-// 	if (trigger === "signUp") {
-// 		console.log("signUp", { user, account, profile, trigger })
-// 		// create a new user
-
-// 		const client = await clientPromise
-// 		const db = client.db("bountree-dev")
-// 		const newUser = await db.collection("users").updateOne(
-// 			{ _id: user.id },
-// 			{
-// 				$set: {
-// 					createdAt: new Date().toDateString(),
-// 					updatedAt: new Date().toDateString(),
-// 					opportunitiesPursued: [],
-// 					totalEarnings: 0,
-// 					potentialEarnings: 0,
-// 				},
-// 			}
-// 		)
-
-// 		console.log(newUser)
-// 	}
-// 	return token
-// },

@@ -8,6 +8,5 @@ export default async function handler(
 ) {
 	const session = await serverAuthenticate(req, res)
 
-	console.log(session)
 	res.status(200).json({ name: "nice", session })
 }

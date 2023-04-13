@@ -2,7 +2,7 @@ import Head from "next/head"
 import Navbar from "./Navigation/Navbar"
 import Footer from "./Footer"
 import { ReactNode } from "react"
-import { isPropertySignature } from "typescript"
+import { useSession } from "next-auth/react"
 
 type Props = {
 	children?: ReactNode
@@ -10,6 +10,10 @@ type Props = {
 }
 
 export default function Layout({ children, classNames }: Props): JSX.Element {
+	const session = useSession()
+
+	console.log(session)
+
 	return (
 		<>
 			<Head>

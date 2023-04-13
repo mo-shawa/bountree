@@ -13,8 +13,6 @@ export default function Navbar() {
 	const { data: session } = useSession()
 	const router = useRouter()
 
-	console.log(session)
-
 	const isCurrent = (href: string) => {
 		return router.pathname === href
 	}

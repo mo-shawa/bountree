@@ -29,6 +29,7 @@ export default function PostDetail() {
 				)
 				return
 			}
+			console.log(data)
 
 			setPost(data.opportunity)
 		}
