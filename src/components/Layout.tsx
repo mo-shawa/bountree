@@ -11,18 +11,27 @@ type Props = {
 }
 
 export default function Layout({ children, classNames }: Props): JSX.Element {
-	// const { data: session, status } = useSession()
+	const { data: session, status, update } = useSession()
 
-	// const [acceptedPrivacyandTerms, setAcceptedPrivacyandTerms] =
-	// 	useState<Boolean>(
-	// 		session?.user?.acceptedPrivacy && session?.user?.acceptedTerms
-	// 	)
+	console.log({ session, status })
 
-	// useEffect(() => {
-	// 	if (!acceptedPrivacyandTerms) {
-	// 		document.body.style.overflow = "hidden"
-	// 	}
-	// }, [acceptedPrivacyandTerms])
+	const [showModal, setShowModal] = useState<boolean>(false)
+
+	useEffect(() => {
+		if (
+			status === 'authenticated' &&
+			!session?.user.acceptedTerms &&
+			!session?.user.acceptedPrivacy
+		) {
+			setShowModal(true)
+			document.body.style.overflow = 'hidden'
+		}
+
+		if (status === 'unauthenticated') {
+			setShowModal(false)
+			document.body.style.overflow = 'unset'
+		}
+	}, [showModal, status])
 
 	return (
 		<>
@@ -61,7 +70,14 @@ export default function Layout({ children, classNames }: Props): JSX.Element {
 			</Head>
 			<Navbar />
 			<main className={classNames}>{children}</main>
-			{/* {!acceptedPrivacyandTerms && <PrivacyandTermsModal />} */}
+			{showModal && (
+				<PrivacyandTermsModal
+					showModal={showModal}
+					setShowModal={setShowModal}
+					userId={session?.user.id}
+					updateSession={update}
+				/>
+			)}
 			<Footer />
 		</>
 	)

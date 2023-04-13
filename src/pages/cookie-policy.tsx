@@ -1,7 +1,18 @@
-import Layout from "@/components/Layout"
+import Link from 'next/link'
+import Image from 'next/image'
+
 export default function CookiePolicy() {
 	return (
-		<Layout classNames="w-full max-w-7xl mx-auto py-12 px-4">
+		<div className="py-12 px-4 w-full max-w-4xl mx-auto">
+			<Link href="/">
+				<Image
+					src="/static/svg/logo-dark.svg"
+					alt="Bountree logo"
+					height={54}
+					width={232}
+					className=" mb-10"
+				/>
+			</Link>
 			<h1 className="text-4xl">Cookie Policy</h1>
 
 			<span className="text-sm">Last updated: 11th April 2023</span>
@@ -73,6 +84,9 @@ export default function CookiePolicy() {
 				If you have any questions or concerns about this Cookie Policy or our
 				use of cookies, please contact us at help@bountree.com.
 			</p>
-		</Layout>
+			<Link href="/">
+				<button className="btn btn-block no-animation">Back to home</button>
+			</Link>
+		</div>
 	)
 }

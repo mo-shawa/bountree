@@ -1,8 +1,17 @@
-import Layout from "@/components/Layout"
-
+import Link from 'next/link'
+import Image from 'next/image'
 export default function PrivacyPolicy() {
 	return (
-		<Layout classNames="py-12 px-4 w-full max-w-7xl mx-auto">
+		<div className="py-12 px-4 w-full max-w-4xl mx-auto">
+			<Link href="/">
+				<Image
+					src="/static/svg/logo-dark.svg"
+					alt="Bountree logo"
+					height={54}
+					width={232}
+					className=" mb-10"
+				/>
+			</Link>
 			<h1 className="text-4xl">Privacy Policy of Bountree, Inc.</h1>
 
 			<p className="my-5">
@@ -168,6 +177,9 @@ export default function PrivacyPolicy() {
 				If you have any questions or concerns about this Privacy Policy, please
 				contact us
 			</p>
-		</Layout>
+			<Link href="/">
+				<button className="btn btn-block no-animation">Back to home</button>
+			</Link>
+		</div>
 	)
 }

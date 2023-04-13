@@ -1,5 +1,5 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Footer() {
 	return (
@@ -22,12 +22,24 @@ export default function Footer() {
 				</div>
 
 				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col sm:flex-row gap-2">
-					<Link className="text-gray-400 text-xs" href="/cookie-policy">
+					<Link
+						className="text-gray-400 text-xs"
+						href="/cookie-policy"
+					>
 						Cookie Policy
 					</Link>
 
-					<Link className="text-gray-400 text-xs" href="/privacy-policy">
+					<Link
+						className="text-gray-400 text-xs"
+						href="/privacy-policy"
+					>
 						Privacy Policy
+					</Link>
+					<Link
+						className="text-gray-400 text-xs"
+						href="/recruiter-contract"
+					>
+						Recruiter Agreement
 					</Link>
 				</div>
 

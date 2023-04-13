@@ -1,71 +1,157 @@
-import { useEffect, useState } from "react"
+import { useState, useEffect } from 'react'
+import { classNames } from '@/utils'
 
-export default function PrivacyandTermsModal() {
-	const [accepted, setAccepted] = useState(false)
+type Props = {
+	showModal: boolean | undefined
+	setShowModal: (accepted: boolean) => void
+	userId: string
+	updateSession: () => void
+}
+
+export default function PrivacyandTermsModal({
+	setShowModal,
+	userId,
+	updateSession,
+}: Props) {
+	const [formData, setFormData] = useState({
+		acceptedTerms: false,
+		acceptedPrivacy: false,
+	})
+
+	const [disabled, setDisabled] = useState(true)
+	const [success, setSuccess] = useState<boolean>()
 
 	useEffect(() => {
-		if (accepted) {
-			document.body.style.overflow = "auto"
+		if (formData.acceptedTerms && formData.acceptedPrivacy) {
+			setDisabled(false)
+		} else {
+			setDisabled(true)
 		}
-	}, [accepted])
+	}, [formData])
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setFormData({ ...formData, [e.target.name]: e.target.checked })
+	}
+
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault()
+		console.log(formData)
+
+		const res = await fetch(`/api/users/${userId}/accept-tos`, {
+			method: 'PUT',
+			body: JSON.stringify(formData),
+		})
+		const json = await res.json()
+
+		console.log({ json })
+
+		if (!res.ok) {
+			setSuccess(false)
+			return
+		}
+		setShowModal(true)
+		setSuccess(true)
+	}
 
 	return (
-		<div
-			className="fixed z-50 inset-0 overflow-y-auto"
-			aria-labelledby="modal-title"
-			role="dialog"
-			aria-modal="true"
-		>
+		<div className="fixed z-10 inset-0 overflow-y-auto">
 			<div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 				<div
-					className="fixed inset-0 backdrop-blur-md "
-					aria-hidden="true"
-				></div>
-				<span
-					className="hidden sm:inline-block sm:align-middle sm:h-screen"
+					className="fixed inset-0 transition-opacity"
 					aria-hidden="true"
 				>
-					&#8203;
-				</span>
-				<div
-					className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-					role="dialog"
-					aria-modal="true"
-					aria-labelledby="modal-title"
-				>
-					<div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-						<div className="sm:flex sm:items-start">
-							<div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-								<h3
-									className="text-lg leading-6 font-medium text-gray-900"
-									id="modal-title"
-								>
-									Privacy and Terms
-								</h3>
-								<div className="mt-2">
-									<p className="text-sm text-gray-500">
-										Lorem ipsum dolor sit amet consectetur adipisicing elit.
-										Consequuntur voluptatibus laboriosam veniam, delectus
-										accusamus harum?
-									</p>
+					<div className="absolute inset-0 backdrop-blur-md  flex items-center justify-center">
+						{success === undefined && (
+							<form
+								onClick={(e) => e.stopPropagation()}
+								className="mx-4 shadow text-black bg-white px-5 py-10 rounded w-full max-w-sm flex flex-col items-center"
+							>
+								<h2 className="text-2xl font-bold mb-5">Privacy and Terms</h2>
+
+								<div className="form-control w-full max-w-sm">
+									<label
+										htmlFor="acceptedTerms"
+										className="label cursor-pointer"
+									>
+										<input
+											name="acceptedTerms"
+											onChange={handleChange}
+											type="checkbox"
+										/>
+										<span className="label-text">
+											I confirm that I agree to the{' '}
+											<a
+												className="underline hover:text-b-yellow"
+												target="_blank"
+												href="/recruiter-contract"
+											>
+												Recruiter Agreement
+											</a>
+										</span>
+									</label>
+									<label
+										htmlFor="acceptedPrivacy"
+										className="label cursor-pointer"
+									>
+										<input
+											name="acceptedPrivacy"
+											onChange={handleChange}
+											type="checkbox"
+										/>
+										<span className="label-text">
+											I confirm that I agree to Bountree's{' '}
+											<a
+												className="underline hover:text-b-yellow"
+												target="_blank"
+												href="/privacy-policy"
+											>
+												Privacy Policy
+											</a>
+										</span>
+									</label>
 								</div>
+
+								<button
+									type="submit"
+									onClick={handleSubmit}
+									className={classNames(
+										disabled
+											? 'btn-disabled'
+											: 'bg-b-yellow text-black hover:bg-b-blue-dark hover:text-white',
+										'btn mt-4'
+									)}
+								>
+									Accept
+								</button>
+							</form>
+						)}
+
+						{success && (
+							<div className="mx-4 text-black bg-white px-5 py-10 rounded w-full max-w-sm flex flex-col items-center">
+								<h1 className="text-2xl font-bold mb-4">Success!</h1>
+								<p className="text-center mb-4">
+									{`Successfully accepted the terms of service and privacy policy.`}
+								</p>
+								<button
+									onClick={() => {
+										updateSession()
+										setShowModal(false)
+									}}
+									className="btn bg-b-yellow text-black hover:bg-b-blue-dark hover:text-white"
+								>
+									Continue
+								</button>
 							</div>
-						</div>
-					</div>
-					<div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-						<button
-							onClick={() => setAccepted(true)}
-							type="button"
-							className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
-						>
-							Accept
-						</button>
-						<button
-							type="button"
-							className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-						>
-							Decline
-						</button>
+						)}
+
+						{success === false && (
+							<div className="text-black bg-white px-5 py-10 rounded w-full max-w-sm flex flex-col items-center">
+								<h1 className="text-2xl font-bold mb-4">Error</h1>
+								<p className="text-center mb-4">
+									Something unexpected happened. Please try again later.
+								</p>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
