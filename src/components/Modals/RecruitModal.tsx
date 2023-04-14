@@ -40,7 +40,7 @@ export default function RecruitModal({
 		} else {
 			setDisabled(true)
 		}
-	}, [formData])
+	}, [formData, userId])
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -50,7 +50,15 @@ export default function RecruitModal({
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		console.log(formData)
+		if (
+			!(
+				userId &&
+				formData.linkedin.length > 0 &&
+				formData.secondary.length > 0 &&
+				formData.description.length > 0
+			)
+		)
+			return
 
 		const res = await fetch(`/api/opportunities/${opportunityId}`, {
 			method: 'POST',
@@ -100,6 +108,7 @@ export default function RecruitModal({
 										<span className="label-text">LinkedIn</span>
 									</label>
 									<input
+										required
 										value={formData.linkedin}
 										name="linkedin"
 										onChange={handleChange}

@@ -31,7 +31,12 @@ export default function Layout({ children, classNames }: Props): JSX.Element {
 			setShowModal(false)
 			document.body.style.overflow = 'unset'
 		}
-	}, [showModal, status])
+	}, [
+		showModal,
+		status,
+		session?.user.acceptedPrivacy,
+		session?.user.acceptedTerms,
+	])
 
 	return (
 		<>
