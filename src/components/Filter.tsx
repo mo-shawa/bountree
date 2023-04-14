@@ -75,5 +75,5 @@ type IconProps = {
 	src: string
 	filter: () => void
 	text: string
-	filteredBy: null | string
+	filteredBy: string
 }

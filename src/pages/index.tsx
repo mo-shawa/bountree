@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Layout from '@/components/Layout'
+import { signIn, useSession } from 'next-auth/react'
 
 export default function Home() {
+	const { status } = useSession()
 	return (
 		<Layout>
 			<section
@@ -35,10 +37,19 @@ export default function Home() {
 							Say goodbye to traditional recruiting and hello to flexible,
 							bounty-based rewards.
 						</div>
-						<Link href="/signup">
+						<Link
+							onClick={() =>
+								status !== 'authenticated'
+									? signIn('', { callbackUrl: '/opportunities' })
+									: null
+							}
+							href={status === 'authenticated' ? '/opportunities' : '#'}
+						>
 							<div className=" mt-6 flex w-fit cursor-pointer rounded-lg bg-b-yellow px-4 py-1.5 text-base hover:bg-b-yellow">
 								<div className="my-auto mr-2 text-lg text-black">
-									Start recruiting now
+									{status === 'authenticated'
+										? 'Current Opportunities'
+										: 'Start Recruiting Now'}
 								</div>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +97,7 @@ export default function Home() {
 					</div>
 				</div>
 				<div className="px-5 mx-auto my-12 py-12 bg-gray-200 w-full max-w-7xl  rounded-lg grid md:grid-cols-2 gap-4 shadow">
-					<div className=" text-black flex flex-col justify-center">
+					<div className=" text-black flex flex-col  justify-center">
 						<h4 className="font-semibold max-w-sm text-2xl ">
 							We&apos;ve built the tools and resources you need to excel as a
 							recruiter and find the perfect matches.
@@ -98,7 +109,7 @@ export default function Home() {
 						</p>
 					</div>
 					<Image
-						className=" md:inline"
+						className=" md:inline m-auto"
 						src="https://via.placeholder.com/538x307?text=Coming+Soon"
 						width={538}
 						height={307}
@@ -139,10 +150,19 @@ export default function Home() {
 					bounty recruitment program.
 				</p>
 
-				<Link href="/signup">
+				<Link
+					onClick={() =>
+						status !== 'authenticated'
+							? signIn('', { callbackUrl: '/opportunities' })
+							: null
+					}
+					href={status === 'authenticated' ? '/opportunities' : '#'}
+				>
 					<div className=" mt-6 flex w-fit cursor-pointer rounded-lg bg-b-yellow px-4 py-1.5 text-base hover:bg-b-yellow shadow">
 						<div className="my-auto mr-2 text-lg text-black">
-							Start recruiting now
+							{status === 'authenticated'
+								? 'Current Opportunities'
+								: 'Start Recruiting Now'}{' '}
 						</div>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
