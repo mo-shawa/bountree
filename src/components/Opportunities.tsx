@@ -48,9 +48,9 @@ export default function Opportunities(props: any) {
 									category: item.category,
 									workFrom: item.remote ? 'Remote' : 'In person',
 									location: item.location,
-									salary: `$${item.salary.min!.toLocaleString()} - $${item.salary.max!.toLocaleString()}`,
 									reward: `$${item.reward.amount.toLocaleString()}`,
 								}}
+								salary={item.salary}
 							/>
 						))
 					) : (

@@ -1,7 +1,14 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Opportunity(props: any) {
+	const salary = props.salary.fixed
+		? toCurrency(props.salary.fixed, props.salary.currency)
+		: `${toCurrency(props.salary.min, props.salary.currency)} - ${toCurrency(
+				props.salary.max,
+				props.salary.currency
+		  )}`
+
 	return (
 		<Link
 			href={`/opportunities/${props.id}`}
@@ -27,17 +34,24 @@ export default function Opportunity(props: any) {
 							<span>•</span>
 							<p>{props.role.location}</p>
 							<span>•</span>
-							<p>{props.role.salary}</p>
+							<p>{salary}</p>
 						</div>
 					</div>
 				</div>
 				<div id="right">
 					<p className="text-xl">
-						{props.role.reward}{" "}
+						{props.role.reward}{' '}
 						<span className="text-xs font-thin text-gray-500">reward</span>
 					</p>
 				</div>
 			</div>
 		</Link>
 	)
+}
+
+function toCurrency(amount: number, currency: string) {
+	return amount.toLocaleString('en-US', {
+		style: 'currency',
+		currency: currency,
+	})
 }
