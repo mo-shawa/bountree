@@ -1,14 +1,14 @@
-import NextAuth from "next-auth"
-import LinkedInProvider from "next-auth/providers/linkedin"
-import GoogleProvider from "next-auth/providers/google"
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
-import clientPromise from "../../../../db/connect"
-import { ObjectId } from "mongodb"
-import { updateUser, getUser } from "../../../../controllers/user"
+import NextAuth from 'next-auth'
+import LinkedInProvider from 'next-auth/providers/linkedin'
+import GoogleProvider from 'next-auth/providers/google'
+import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
+import clientPromise from '../../../../db/connect'
+import { ObjectId } from 'mongodb'
+import { updateUser, getUser } from '../../../../controllers/user'
 
 export default NextAuth({
 	session: {
-		strategy: "jwt",
+		strategy: 'jwt',
 	},
 	jwt: {
 		secret: process.env.JWT_SECRET as string,
@@ -23,14 +23,15 @@ export default NextAuth({
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
 		}),
 	],
-	debug: process.env.NODE_ENV === "development",
+	debug: process.env.NODE_ENV === 'development',
 
 	theme: {
 		// logo: "/favicon/android-chrome-512x512.png",
-		logo: "/static/svg/logo.svg",
-		brandColor: "#1B262C",
+		logo: '/static/svg/logo.svg',
+		brandColor: '#1B262C',
+		colorScheme: 'dark',
 	},
-	adapter: MongoDBAdapter(clientPromise, { databaseName: "bountree-dev" }),
+	adapter: MongoDBAdapter(clientPromise, { databaseName: 'bountree-dev' }),
 	callbacks: {
 		session: async ({ session, token }) => {
 			const id = token.sub!
