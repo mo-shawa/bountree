@@ -1,7 +1,7 @@
-import Layout from '@/components/Layout'
-import Image from 'next/image'
-import { useSession } from 'next-auth/react'
-import { Session } from 'next-auth'
+import Layout from "@/components/Layout"
+import Image from "next/image"
+import { useSession } from "next-auth/react"
+import { Session } from "next-auth"
 
 export default function Dashboard() {
 	const { data: session } = useSession()
@@ -21,7 +21,7 @@ function SideBar({ session }: Props) {
 		<div className="bg-white rounded mx-auto w-full max-w-7xl h-100 py-10 grid col-span-1 p-6 shadow">
 			<div className="flex flex-col items-center">
 				<Image
-					src={session?.user.image}
+					src={session?.user.image || "/static/png/user.png"}
 					alt="User image"
 					height={128}
 					width={128}
@@ -41,9 +41,9 @@ function SideBar({ session }: Props) {
 					<p className="text-gray-500 text-xl">Potential rewards</p>
 					<div className="flex items-center">
 						<p className="text-2xl font-bold">
-							{session?.user.potentialEarnings.toLocaleString('en-US', {
-								style: 'currency',
-								currency: 'USD',
+							{session?.user.potentialEarnings.toLocaleString("en-US", {
+								style: "currency",
+								currency: "USD",
 							})}
 						</p>
 					</div>
@@ -52,9 +52,9 @@ function SideBar({ session }: Props) {
 					<p className="text-gray-500 text-xl">Total Earnings</p>
 					<div className="flex items-center">
 						<p className="text-2xl font-bold">
-							{session?.user.totalEarnings.toLocaleString('en-US', {
-								style: 'currency',
-								currency: 'USD',
+							{session?.user.totalEarnings.toLocaleString("en-US", {
+								style: "currency",
+								currency: "USD",
 							})}
 						</p>
 					</div>
