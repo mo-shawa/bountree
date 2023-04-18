@@ -1,5 +1,5 @@
-import type { ObjectId } from 'mongodb'
-import type { Document } from 'mongodb'
+import type { ObjectId } from "mongodb"
+import type { Document } from "mongodb"
 
 export default interface IOpportunity extends Document {
 	title: string
@@ -25,14 +25,13 @@ export default interface IOpportunity extends Document {
 	location: string
 	remote: boolean
 	company: Company
-	applyLink?: string
 	rejectionFeedback?: Feedback[]
 	applications: Application[]
 	createdAt: Date
 	updatedAt: Date
 }
 
-type Status = 'open' | 'closed' | 'paused'
+type Status = "open" | "closed" | "paused"
 
 type company = {
 	name: string
@@ -43,20 +42,23 @@ type company = {
 	industry?: string
 	employees?: string
 	stage:
-		| 'preseed'
-		| 'seed'
-		| 'A'
-		| 'B'
-		| 'C'
-		| 'D'
-		| 'E'
-		| 'F'
-		| 'IPO'
-		| 'acquired'
-		| 'growth'
+		| "preseed"
+		| "seed"
+		| "A"
+		| "B"
+		| "C"
+		| "D"
+		| "E"
+		| "F"
+		| "IPO"
+		| "acquired"
+		| "growth"
 }
 
 export type Application = {
+	_id?: ObjectId | string
+	name: string
+	cv: File | string
 	recruiter: ObjectId | string
 	linkedin: string
 	secondary: string
@@ -64,6 +66,7 @@ export type Application = {
 }
 
 type Feedback = {
+	application: ObjectId | string
 	date: Date
 	content: string
 }

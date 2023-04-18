@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
-import { classNames } from '@/utils'
-import { useSession } from 'next-auth/react'
-import type { Application } from '@/types/Opportunity'
-import IOpportunity from '@/types/Opportunity'
+import { useState, useEffect, useRef } from "react"
+import { classNames } from "@/utils"
+import type { Application } from "@/types/Opportunity"
+import IOpportunity from "@/types/Opportunity"
+import { Loader } from "../Loader/Loader"
 
 type Props = {
 	userId: string
@@ -12,6 +12,14 @@ type Props = {
 	applicationsRemaining: number
 }
 
+type GCSUploadData =
+	| {
+			url: string
+			gcsFormData: FormData
+			fileName: string
+	  }
+	| undefined
+
 export default function RecruitModal({
 	userId,
 	opportunityId,
@@ -20,18 +28,25 @@ export default function RecruitModal({
 	applicationsRemaining,
 }: Props) {
 	const [formData, setFormData] = useState<Application>({
+		name: "",
+		cv: "",
 		recruiter: userId,
-		linkedin: '',
-		secondary: '',
-		description: '',
+		linkedin: "",
+		secondary: "",
+		description: "",
 	})
 
+	const [file, setFile] = useState<File>()
 	const [disabled, setDisabled] = useState(true)
 	const [success, setSuccess] = useState<boolean>()
+	const [loading, setLoading] = useState(false)
+	const [message, setMessage] = useState("")
 
 	useEffect(() => {
 		if (
 			userId &&
+			formData.name.length > 0 &&
+			formData.cv &&
 			formData.linkedin.length > 0 &&
 			formData.secondary.length > 0 &&
 			formData.description.length > 0
@@ -48,11 +63,31 @@ export default function RecruitModal({
 		setFormData({ ...formData, [e.target.name]: e.target.value })
 	}
 
+	const getUploadData = async () => {
+		if (!file) return
+
+		const filename = encodeURIComponent(file.name)
+		const res = await fetch(`/api/get-upload-url?file=${filename}`)
+		const data = await res.json()
+		const { url, fields, fileName } = data
+
+		const gcsFormData = new FormData()
+
+		Object.entries({ ...fields, file }).forEach(
+			([key, value]: [key: any, value: any]) => {
+				gcsFormData.append(key, value)
+			}
+		)
+
+		return { url, gcsFormData, fileName } as GCSUploadData
+	}
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		if (
 			!(
 				userId &&
+				formData.name.length > 0 &&
+				formData.cv &&
 				formData.linkedin.length > 0 &&
 				formData.secondary.length > 0 &&
 				formData.description.length > 0
@@ -60,9 +95,41 @@ export default function RecruitModal({
 		)
 			return
 
+		setLoading(true)
+		setMessage("Uploading CV")
+		// Get GCS upload data
+
+		const gcsUploadData: GCSUploadData = await getUploadData()
+
+		if (!gcsUploadData) return
+
+		const { url, gcsFormData, fileName } = gcsUploadData
+
+		// Upload to GCS
+
+		setLoading(true)
+		setMessage("Uploading CV")
+
+		const resGCS = await fetch(url, {
+			method: "POST",
+			body: gcsFormData,
+		})
+
+		if (!resGCS.ok) {
+			setSuccess(false)
+			setLoading(false)
+			setMessage("Error uploading CV")
+			return
+		}
+
+		// Upload to DB
+		setMessage("Uploading to database")
 		const res = await fetch(`/api/opportunities/${opportunityId}`, {
-			method: 'POST',
-			body: JSON.stringify(formData),
+			method: "POST",
+			body: JSON.stringify({
+				...formData,
+				cv: `https://storage.googleapis.com/bountree-pdf-bucket/${fileName}`,
+			}),
 		})
 		const json = await res.json()
 
@@ -70,9 +137,12 @@ export default function RecruitModal({
 
 		if (!res.ok) {
 			setSuccess(false)
+			setLoading(false)
+			setMessage("Error uploading to database")
 			return
 		}
 		setPost(json.opportunity.value)
+		setLoading(false)
 		setSuccess(true)
 	}
 
@@ -87,25 +157,59 @@ export default function RecruitModal({
 	return (
 		<div className="fixed z-10 inset-0 overflow-y-auto">
 			<div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-				<div
-					className="fixed inset-0 transition-opacity"
-					aria-hidden="true"
-				>
+				<div className="fixed inset-0 transition-opacity" aria-hidden="true">
 					<div
 						onClick={handleOnClose}
 						className="absolute inset-0 backdrop-blur-md  flex items-center justify-center"
 					>
-						{success === undefined && (
+						{loading && (
+							<>
+								<Loader>
+									<p className="text-white text-2xl">{message}</p>
+								</Loader>
+							</>
+						)}
+						{success === undefined && !loading && (
 							<form
 								onClick={(e) => e.stopPropagation()}
 								className="text-black bg-white px-5 py-10 rounded w-full max-w-sm flex flex-col items-center"
 							>
 								<div className="form-control w-full max-w-xs">
-									<label
-										htmlFor="linkedin"
-										className="label"
-									>
-										<span className="label-text">LinkedIn</span>
+									<label htmlFor="name" className="label">
+										<span className="label-text">Name*</span>
+									</label>
+									<input
+										required
+										value={formData.name}
+										name="name"
+										onChange={handleChange}
+										type="text"
+										placeholder="Candidate's full name"
+										className="input  bg-gray-100 shadow"
+									/>
+								</div>
+								<div className="form-control w-full max-w-xs">
+									<label htmlFor="cv" className="label">
+										<span className="label-text">CV*</span>
+										<span className="label-text-alt rounded-full py-0.5 px-1.5 bg-warning">
+											PDF only
+										</span>
+									</label>
+									<input
+										required
+										name="cv"
+										onChange={(e) => {
+											handleChange(e)
+											setFile(e.target.files![0])
+										}}
+										type="file"
+										accept="application/pdf"
+										className="file-input bg-gray-100 shadow"
+									/>
+								</div>
+								<div className="form-control w-full max-w-xs">
+									<label htmlFor="linkedin" className="label">
+										<span className="label-text">LinkedIn*</span>
 									</label>
 									<input
 										required
@@ -118,10 +222,7 @@ export default function RecruitModal({
 									/>
 								</div>
 								<div className="form-control w-full max-w-xs my-4">
-									<label
-										htmlFor="secondary"
-										className="label"
-									>
+									<label htmlFor="secondary" className="label">
 										<span className="label-text">Secondary link</span>
 									</label>
 									<input
@@ -134,11 +235,8 @@ export default function RecruitModal({
 									/>
 								</div>
 								<div className="form-control w-full max-w-xs mb-4">
-									<label
-										htmlFor="description"
-										className="label"
-									>
-										<span className="label-text">Candidate description</span>
+									<label htmlFor="description" className="label">
+										<span className="label-text">Candidate description*</span>
 									</label>
 									<textarea
 										value={formData.description}
@@ -154,9 +252,9 @@ export default function RecruitModal({
 									onClick={handleSubmit}
 									className={classNames(
 										disabled
-											? 'btn-disabled'
-											: 'bg-b-yellow text-black hover:bg-b-blue-dark hover:text-white',
-										'btn mt-4'
+											? "btn-disabled"
+											: "bg-b-yellow text-black hover:bg-b-blue-dark hover:text-white",
+										"btn mt-4"
 									)}
 								>
 									Submit Candidate
@@ -193,6 +291,9 @@ export default function RecruitModal({
 								>
 									Ok
 								</button>
+								{message && (
+									<p className="text-center text-red-500 mt-4">{message}</p>
+								)}
 							</div>
 						)}
 					</div>
