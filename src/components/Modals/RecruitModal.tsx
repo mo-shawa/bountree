@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { classNames } from "@/utils"
 import type { Application } from "@/types/Opportunity"
 import IOpportunity from "@/types/Opportunity"
@@ -48,7 +48,6 @@ export default function RecruitModal({
 			formData.name.length > 0 &&
 			formData.cv &&
 			formData.linkedin.length > 0 &&
-			formData.secondary.length > 0 &&
 			formData.description.length > 0
 		) {
 			setDisabled(false)
@@ -63,7 +62,7 @@ export default function RecruitModal({
 		setFormData({ ...formData, [e.target.name]: e.target.value })
 	}
 
-	const getUploadData = async () => {
+	const getUploadData = async (): Promise<GCSUploadData> => {
 		if (!file) return
 
 		const filename = encodeURIComponent(file.name)
@@ -79,7 +78,7 @@ export default function RecruitModal({
 			}
 		)
 
-		return { url, gcsFormData, fileName } as GCSUploadData
+		return { url, gcsFormData, fileName }
 	}
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -89,19 +88,24 @@ export default function RecruitModal({
 				formData.name.length > 0 &&
 				formData.cv &&
 				formData.linkedin.length > 0 &&
-				formData.secondary.length > 0 &&
 				formData.description.length > 0
 			)
 		)
 			return
 
 		setLoading(true)
-		setMessage("Uploading CV")
+		setMessage("Generating secure URL")
+
 		// Get GCS upload data
 
 		const gcsUploadData: GCSUploadData = await getUploadData()
 
-		if (!gcsUploadData) return
+		if (!gcsUploadData) {
+			setSuccess(false)
+			setLoading(false)
+			setMessage("Error uploading CV")
+			return
+		}
 
 		const { url, gcsFormData, fileName } = gcsUploadData
 
@@ -122,18 +126,18 @@ export default function RecruitModal({
 			return
 		}
 
+		const encodedFileName = encodeURIComponent(fileName)
+
 		// Upload to DB
 		setMessage("Uploading to database")
 		const res = await fetch(`/api/opportunities/${opportunityId}`, {
 			method: "POST",
 			body: JSON.stringify({
 				...formData,
-				cv: `https://storage.googleapis.com/bountree-pdf-bucket/${fileName}`,
+				cv: `https://storage.googleapis.com/bountree-pdf-bucket/${encodedFileName}`,
 			}),
 		})
 		const json = await res.json()
-
-		console.log({ json })
 
 		if (!res.ok) {
 			setSuccess(false)
@@ -165,14 +169,14 @@ export default function RecruitModal({
 						{loading && (
 							<>
 								<Loader>
-									<p className="text-white text-2xl">{message}</p>
+									<p className="text-white text-2xl mt-3">{message}</p>
 								</Loader>
 							</>
 						)}
 						{success === undefined && !loading && (
 							<form
 								onClick={(e) => e.stopPropagation()}
-								className="text-black bg-white px-5 py-10 rounded w-full max-w-sm flex flex-col items-center"
+								className="text-black bg-white px-5 py-10 rounded w-full max-w-sm flex flex-col items-center max-h-screen overflow-auto"
 							>
 								<div className="form-control w-full max-w-xs">
 									<label htmlFor="name" className="label">
@@ -266,8 +270,10 @@ export default function RecruitModal({
 							<div className="mx-4 text-black bg-white px-5 py-10 rounded w-full max-w-sm flex flex-col items-center">
 								<h1 className="text-2xl font-bold mb-4">Success!</h1>
 								<p className="text-center mb-4">
-									{`Your candidate has been submitted. You can submit
-									${applicationsRemaining} more candidate(s) to this position.`}
+									{applicationsRemaining
+										? `Your candidate has been submitted. You can submit
+									${applicationsRemaining} more candidate(s) to this position.`
+										: `Your candidate has been submitted. You can not submit any more candidates to this position.`}
 								</p>
 								<button
 									onClick={handleOnClose}

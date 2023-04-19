@@ -61,8 +61,10 @@ export type Application = {
 	cv: File | string
 	recruiter: ObjectId | string
 	linkedin: string
-	secondary: string
+	secondary?: string
 	description: string
+	createdAt?: Date
+	updatedAt?: Date
 }
 
 type Feedback = {
@@ -70,10 +72,3 @@ type Feedback = {
 	date: Date
 	content: string
 }
-
-// type Contact = {
-// 	name: string
-// 	image: string
-// 	email: string
-// 	phone: string
-// }

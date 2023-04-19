@@ -13,8 +13,6 @@ type Props = {
 export default function Layout({ children, classNames }: Props): JSX.Element {
 	const { data: session, status, update } = useSession()
 
-	console.log({ session, status })
-
 	const [showModal, setShowModal] = useState<boolean>(false)
 
 	useEffect(() => {

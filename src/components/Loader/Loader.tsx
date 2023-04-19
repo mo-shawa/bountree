@@ -1,7 +1,7 @@
 import Layout from "../Layout"
 
 type Props = {
-	children: React.ReactNode
+	children?: React.ReactNode
 }
 
 export default function LoaderLayout({ children }: Props) {

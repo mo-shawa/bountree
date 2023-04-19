@@ -1,22 +1,22 @@
-import { PushOperator } from 'mongodb'
-import clientPromise from '../db/connect'
-import IOpportunity, { Application } from '../src/types/Opportunity'
-import { updateUser } from './user'
-import { ObjectId, Filter } from 'mongodb'
+import { PushOperator } from "mongodb"
+import clientPromise from "../db/connect"
+import IOpportunity, { Application } from "../src/types/Opportunity"
+import { updateUser } from "./user"
+import { ObjectId, Filter } from "mongodb"
 
 export async function getOpportunityById(id: string) {
 	const client = await clientPromise
-	const db = client.db('bountree-dev')
+	const db = client.db("bountree-dev")
 	const foundOpportunity = await db
-		.collection('opportunities')
+		.collection("opportunities")
 		.findOne({ _id: new ObjectId(id) })
 	return foundOpportunity
 }
 
 export async function createOpportunity(opportunity: IOpportunity) {
 	const client = await clientPromise
-	const db = client.db('bountree-dev')
-	const newOpportunity = await db.collection('opportunities').insertOne({
+	const db = client.db("bountree-dev")
+	const newOpportunity = await db.collection("opportunities").insertOne({
 		...opportunity,
 		createdAt: new Date(),
 		updatedAt: new Date(),
@@ -26,24 +26,27 @@ export async function createOpportunity(opportunity: IOpportunity) {
 
 export async function getOpportunities() {
 	const client = await clientPromise
-	const db = client.db('bountree-dev')
-	const opportunities = await db.collection('opportunities').find({}).toArray()
+	const db = client.db("bountree-dev")
+	const opportunities = await db.collection("opportunities").find({}).toArray()
 	return opportunities
 }
 
 export async function addApplicationToOpportunity(
 	opportunityId: string,
 	application: any // dunno how to type this
-) {
+): Promise<any> {
 	try {
 		const client = await clientPromise
-		const db = client.db('bountree-dev')
+		const db = client.db("bountree-dev")
 
 		const parsedApplication = JSON.parse(application)
+		parsedApplication._id = new ObjectId()
 		parsedApplication.recruiter = new ObjectId(parsedApplication.recruiter)
+		parsedApplication.createdAt = new Date()
+		parsedApplication.updatedAt = new Date()
 
 		const updatedOpportunity = await db
-			.collection('opportunities')
+			.collection("opportunities")
 			.findOneAndUpdate(
 				{ _id: new ObjectId(opportunityId) },
 				{
@@ -51,10 +54,10 @@ export async function addApplicationToOpportunity(
 						applications: parsedApplication,
 					},
 				},
-				{ returnDocument: 'after' }
+				{ returnDocument: "after" }
 			)
-		return updatedOpportunity
+		return { updatedOpportunity, applicationId: parsedApplication._id }
 	} catch (error) {
-		return error
+		console.error(error)
 	}
 }

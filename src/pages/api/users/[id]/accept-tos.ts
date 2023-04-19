@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import serverAuthenticate from '@/utils/serverAuthenticate'
-import { acceptTOS } from '../../../../../controllers/user'
+import type { NextApiRequest, NextApiResponse } from "next"
+import serverAuthenticate from "@/utils/serverAuthenticate"
+import { acceptTOS } from "../../../../../controllers/user"
 
 export default async function handler(
 	req: NextApiRequest,
@@ -13,16 +13,15 @@ export default async function handler(
 	console.log({ session, id, method })
 
 	if (session?.user.id !== id && token?.sub !== id) {
-		return res.status(401).json({ 401: 'Unauthorized' })
+		return res.status(401).json({ 401: "Unauthorized" })
 	}
 
-	if (!id || typeof id !== 'string')
-		return res.status(400).json({ error: 'Invalid ID' })
+	if (!id || typeof id !== "string")
+		return res.status(400).json({ error: "Invalid ID" })
 
 	try {
-		if (method === 'PUT') {
+		if (method === "PUT") {
 			const user = await acceptTOS(id)
-			console.log({ user })
 
 			res.status(200).json({ user })
 		}

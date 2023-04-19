@@ -27,7 +27,6 @@ export default async function handler(
 	}
 
 	const signed = await file.generateSignedPostPolicyV4(options)
-	console.log(signed)
 	const [response] = signed
 	res.status(200).json({ ...response, fileName })
 }

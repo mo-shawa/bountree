@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { classNames } from '@/utils'
+import { useState, useEffect } from "react"
+import { classNames } from "@/utils"
 
 type Props = {
 	showModal: boolean | undefined
@@ -35,15 +35,11 @@ export default function PrivacyandTermsModal({
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		console.log(formData)
 
 		const res = await fetch(`/api/users/${userId}/accept-tos`, {
-			method: 'PUT',
+			method: "PUT",
 			body: JSON.stringify(formData),
 		})
-		const json = await res.json()
-
-		console.log({ json })
 
 		if (!res.ok) {
 			setSuccess(false)
@@ -56,10 +52,7 @@ export default function PrivacyandTermsModal({
 	return (
 		<div className="fixed z-10 inset-0 overflow-y-auto">
 			<div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-				<div
-					className="fixed inset-0 transition-opacity"
-					aria-hidden="true"
-				>
+				<div className="fixed inset-0 transition-opacity" aria-hidden="true">
 					<div className="absolute inset-0 backdrop-blur-md  flex items-center justify-center">
 						{success === undefined && (
 							<form
@@ -79,7 +72,7 @@ export default function PrivacyandTermsModal({
 											type="checkbox"
 										/>
 										<span className="label-text">
-											I confirm that I agree to the{' '}
+											I confirm that I agree to the{" "}
 											<a
 												className="underline hover:text-b-yellow"
 												target="_blank"
@@ -99,7 +92,7 @@ export default function PrivacyandTermsModal({
 											type="checkbox"
 										/>
 										<span className="label-text">
-											I confirm that I agree to Bountree&apos;s{' '}
+											I confirm that I agree to Bountree&apos;s{" "}
 											<a
 												className="underline hover:text-b-yellow"
 												target="_blank"
@@ -116,9 +109,9 @@ export default function PrivacyandTermsModal({
 									onClick={handleSubmit}
 									className={classNames(
 										disabled
-											? 'btn-disabled'
-											: 'bg-b-yellow text-black hover:bg-b-blue-dark hover:text-white',
-										'btn mt-4'
+											? "btn-disabled"
+											: "bg-b-yellow text-black hover:bg-b-blue-dark hover:text-white",
+										"btn mt-4"
 									)}
 								>
 									Accept
