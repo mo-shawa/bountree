@@ -1,14 +1,15 @@
 import Image from "next/image"
 import Link from "next/link"
 import Pill from "./Navigation/Pill"
+import { formatCurrency } from "@/utils"
 
 export default function Opportunity(props: any) {
 	const salary = props.salary.fixed
-		? toCurrency(props.salary.fixed, props.salary.currency)
-		: `${toCurrency(props.salary.min, props.salary.currency)} - ${toCurrency(
-				props.salary.max,
+		? formatCurrency(props.salary.fixed, props.salary.currency)
+		: `${formatCurrency(
+				props.salary.min,
 				props.salary.currency
-		  )}`
+		  )} - ${formatCurrency(props.salary.max, props.salary.currency)}`
 
 	const statusPill =
 		props.status === "paused" ? <Pill type="yellow">II Paused</Pill> : null
@@ -33,7 +34,7 @@ export default function Opportunity(props: any) {
 							<h4>{props.company}</h4>
 							<p className="font-thin text-xs">{props.slogan}</p>
 						</div>
-						<div className="flex gap-4">
+						<div className="flex ">
 							<p className="font-thin text-gray-500">{props.role.title}</p>
 							{statusPill}
 						</div>
@@ -55,11 +56,4 @@ export default function Opportunity(props: any) {
 			</div>
 		</Link>
 	)
-}
-
-function toCurrency(amount: number, currency: string) {
-	return amount.toLocaleString("en-US", {
-		style: "currency",
-		currency: currency,
-	})
 }

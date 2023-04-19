@@ -9,6 +9,7 @@ import Link from "next/link"
 import { signIn } from "next-auth/react"
 import { classNames } from "@/utils"
 import RecruitModal from "@/components/Modals/RecruitModal"
+import { formatCurrency } from "@/utils"
 
 export default function PostDetail() {
 	const router = useRouter()
@@ -88,6 +89,13 @@ export default function PostDetail() {
 }
 
 function Top({ post }: { post: IOpportunity }) {
+	const salary = post.salary.fixed
+		? formatCurrency(post.salary.fixed, post.salary.currency)
+		: `${formatCurrency(
+				post.salary.min!,
+				post.salary.currency
+		  )} - ${formatCurrency(post.salary.max!, post.salary.currency)}`
+
 	return (
 		<div className="w-full  text-white flex flex-row justify-between items-center mt-12 pb-10 border-b">
 			<div className="h-full gap-8 flex flex-col sm:flex-row justify-between items-center w-full">
@@ -106,7 +114,8 @@ function Top({ post }: { post: IOpportunity }) {
 						</h4>
 
 						<p className="flex gap-2 text-xs  text-b-yellow">
-							{post.remote ? "Remote" : "In Office"} - {post.location}
+							{post.remote ? "Remote" : "In Office"} - {post.location} -{" "}
+							{salary}
 						</p>
 					</div>
 				</div>
@@ -250,15 +259,19 @@ function SecondarySection({ post }: { post: IOpportunity }) {
 				{post.perks.description && (
 					<p className=" max-w-2xl my-4 ">{post.perks.description}</p>
 				)}
-				<ol className="list-decimal md:ml-14 ml-5 ">
-					{post.perks.items.map((item: string, i: number) => {
-						return (
-							<li key={i} className="my-4">
-								{item}
-							</li>
-						)
-					})}
-				</ol>
+				{post.perks.items.length > 0 ? (
+					<ol className="list-decimal md:ml-14 ml-5 ">
+						{post.perks.items.map((item: string, i: number) => {
+							return (
+								<li key={i} className="my-4">
+									{item}
+								</li>
+							)
+						})}
+					</ol>
+				) : (
+					<p className=" max-w-2xl my-4 ">No perks listed</p>
+				)}
 			</div>
 			<div className="md:ml-10 col-span-6 md:col-span-2 pb-5 md:py-5">
 				<h1 className="text-xl text-left text-b-yellow">The Ideal Candidate</h1>

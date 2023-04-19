@@ -3,6 +3,7 @@ import Opportunity from "./Opportunity"
 import Filter from "./Filter"
 import IOpportunity from "@/types/Opportunity"
 import { Loader } from "./Loader/Loader"
+import { formatCurrency } from "@/utils"
 
 type OpportunitiesProps = {
 	data: IOpportunity[]
@@ -49,7 +50,10 @@ export default function Opportunities({ data }: OpportunitiesProps) {
 									category: item.category,
 									workFrom: item.remote ? "Remote" : "In person",
 									location: item.location,
-									reward: `$${item.reward.amount.toLocaleString()}`,
+									reward: formatCurrency(
+										item.reward.amount,
+										item.reward.currency
+									),
 								}}
 								salary={item.salary}
 								status={item.status}
