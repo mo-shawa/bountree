@@ -1,7 +1,6 @@
 import clientPromise from "../db/connect"
-import IOpportunity, { Application } from "../src/types/Opportunity"
-import { updateUser } from "./user"
-import { ObjectId, Filter } from "mongodb"
+import IOpportunity from "../src/types/Opportunity"
+import { ObjectId } from "mongodb"
 
 export async function getOpportunityById(id: string) {
 	const client = await clientPromise
@@ -9,6 +8,14 @@ export async function getOpportunityById(id: string) {
 	const foundOpportunity = await db
 		.collection("opportunities")
 		.findOne({ _id: new ObjectId(id) })
+	if (!foundOpportunity) return null
+
+	const applications = await db
+		.collection("applications")
+		.find({ opportunityId: new ObjectId(id) })
+		.toArray()
+
+	foundOpportunity.applications = applications
 	return foundOpportunity
 }
 

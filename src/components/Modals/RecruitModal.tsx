@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
 import { classNames } from "@/utils"
-import type { Application } from "@/types/Opportunity"
+import IApplication from "@/types/Application"
 import IOpportunity from "@/types/Opportunity"
 import { Loader } from "../Loader/Loader"
+import { useSession } from "next-auth/react"
 
 type Props = {
 	userId: string
@@ -27,10 +28,13 @@ export default function RecruitModal({
 	setPost,
 	applicationsRemaining,
 }: Props) {
-	const [formData, setFormData] = useState<Application>({
+	const { data: session, status } = useSession()
+
+	const [formData, setFormData] = useState<Partial<IApplication>>({
+		userId: session?.user?.id,
+		opportunityId,
 		name: "",
 		cv: "",
-		recruiter: userId,
 		linkedin: "",
 		secondary: "",
 		description: "",
@@ -45,10 +49,10 @@ export default function RecruitModal({
 	useEffect(() => {
 		if (
 			userId &&
-			formData.name.length > 0 &&
+			formData.name?.length! > 0 &&
 			formData.cv &&
-			formData.linkedin.length > 0 &&
-			formData.description.length > 0
+			formData.linkedin?.length! > 0 &&
+			formData.description?.length! > 0
 		) {
 			setDisabled(false)
 		} else {
@@ -85,10 +89,10 @@ export default function RecruitModal({
 		if (
 			!(
 				userId &&
-				formData.name.length > 0 &&
+				formData.name?.length! > 0 &&
 				formData.cv &&
-				formData.linkedin.length > 0 &&
-				formData.description.length > 0
+				formData.linkedin?.length! > 0 &&
+				formData.description?.length! > 0
 			)
 		)
 			return
@@ -130,7 +134,7 @@ export default function RecruitModal({
 
 		// Upload to DB
 		setMessage("Uploading to database")
-		const res = await fetch(`/api/opportunities/${opportunityId}`, {
+		const res = await fetch(`/api/applications/`, {
 			method: "POST",
 			body: JSON.stringify({
 				...formData,
@@ -139,13 +143,15 @@ export default function RecruitModal({
 		})
 		const json = await res.json()
 
+		console.log(json)
+
 		if (!res.ok) {
 			setSuccess(false)
 			setLoading(false)
 			setMessage("Error uploading to database")
 			return
 		}
-		setPost(json.opportunity.value)
+		setPost(json.opportunity)
 		setLoading(false)
 		setSuccess(true)
 	}

@@ -3,10 +3,8 @@ import clientPromise from "../db/connect"
 import { ObjectId } from "mongodb"
 
 export async function createApplication(
-	application: IApplication,
-	userId: string,
-	opportunityId: string
-) {
+	application: IApplication
+): Promise<any> {
 	const client = await clientPromise
 	const db = client.db("bountree-dev")
 	const applications = db.collection("applications")
@@ -14,8 +12,8 @@ export async function createApplication(
 	const newApplication = await applications.insertOne({
 		...application,
 		_id: new ObjectId(),
-		userId: userId,
-		opportunityId: opportunityId,
+		userId: new ObjectId(application.userId),
+		opportunityId: new ObjectId(application.opportunityId),
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	})
@@ -23,10 +21,13 @@ export async function createApplication(
 	return newApplication
 }
 
-export async function getApplications() {
+export async function getApplications(query?: any) {
 	const client = await clientPromise
 	const db = client.db("bountree-dev")
-	const applications = await db.collection("applications").find({}).toArray()
+	const applications = await db
+		.collection("applications")
+		.find(query || {})
+		.toArray()
 	return applications
 }
 
