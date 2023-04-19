@@ -153,6 +153,7 @@ export default function RecruitModal({
 	const handleOnClose = (
 		e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
 	) => {
+		if (loading) return
 		e.preventDefault()
 		e.stopPropagation()
 		setModalOpen(false)
