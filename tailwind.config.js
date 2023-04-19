@@ -1,4 +1,12 @@
-const { black, white, gray, green, blue, red } = require("tailwindcss/colors")
+const {
+	black,
+	white,
+	gray,
+	green,
+	blue,
+	red,
+	yellow,
+} = require("tailwindcss/colors")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -19,6 +27,7 @@ module.exports = {
 			green,
 			blue,
 			red,
+			yellow,
 			current: "currentColor",
 			"b-blue": "#BBE1FA",
 			"b-blue-dark": "#1B262C",

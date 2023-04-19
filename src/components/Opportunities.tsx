@@ -1,40 +1,41 @@
-import { useState, useEffect } from 'react'
-import Opportunity from './Opportunity'
-import Filter from './Filter'
-import IOpportunity from '@/types/Opportunity'
-import { Loader } from './Loader/Loader'
+import { useState, useEffect } from "react"
+import Opportunity from "./Opportunity"
+import Filter from "./Filter"
+import IOpportunity from "@/types/Opportunity"
+import { Loader } from "./Loader/Loader"
 
-export default function Opportunities(props: any) {
-	const [filteredData, setFilteredData] = useState<IOpportunity[]>(props.data)
-	const [filteredBy, setFilteredBy] = useState<string>('All roles')
+type OpportunitiesProps = {
+	data: IOpportunity[]
+}
+
+export default function Opportunities({ data }: OpportunitiesProps) {
+	const [filteredData, setFilteredData] = useState<IOpportunity[]>(data)
+	const [filteredBy, setFilteredBy] = useState<string>("All roles")
 
 	useEffect(() => {
-		setFilteredData(props.data)
-	}, [props.data])
+		setFilteredData(data)
+	}, [data])
 
 	useEffect(() => {
-		if (filteredBy === 'All roles') setFilteredData(props.data)
+		if (filteredBy === "All roles") setFilteredData(data)
 
-		if (filteredBy !== 'All roles') {
-			const dataCopy = structuredClone(props.data)
+		if (filteredBy !== "All roles") {
+			const dataCopy = structuredClone(data)
 
 			const filteredData = dataCopy.filter(
 				(element: any) => element.category === filteredBy
 			)
 			setFilteredData(() => filteredData)
 		}
-	}, [filteredBy, props.data])
+	}, [filteredBy, data])
 
-	if (!props.data) return <Loader />
+	if (!data) return <Loader />
 
 	return (
 		<>
 			<section className="bg-b-blue-dark">
 				<div className="mx-auto px-4 w-full max-w-7xl">
-					<Filter
-						filteredBy={filteredBy}
-						setFilteredBy={setFilteredBy}
-					/>
+					<Filter filteredBy={filteredBy} setFilteredBy={setFilteredBy} />
 					{filteredData && filteredData.length ? (
 						filteredData.map((item) => (
 							<Opportunity
@@ -46,11 +47,12 @@ export default function Opportunities(props: any) {
 								role={{
 									title: item.title,
 									category: item.category,
-									workFrom: item.remote ? 'Remote' : 'In person',
+									workFrom: item.remote ? "Remote" : "In person",
 									location: item.location,
 									reward: `$${item.reward.amount.toLocaleString()}`,
 								}}
 								salary={item.salary}
+								status={item.status}
 							/>
 						))
 					) : (

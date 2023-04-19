@@ -1,5 +1,6 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from "next/image"
+import Link from "next/link"
+import Pill from "./Navigation/Pill"
 
 export default function Opportunity(props: any) {
 	const salary = props.salary.fixed
@@ -8,6 +9,10 @@ export default function Opportunity(props: any) {
 				props.salary.max,
 				props.salary.currency
 		  )}`
+
+	const statusPill =
+		props.status === "paused" ? <Pill type="yellow">II Paused</Pill> : null
+	// <Pill type="green">Active</Pill>
 
 	return (
 		<Link
@@ -28,7 +33,10 @@ export default function Opportunity(props: any) {
 							<h4>{props.company}</h4>
 							<p className="font-thin text-xs">{props.slogan}</p>
 						</div>
-						<p className="font-thin text-gray-500">{props.role.title}</p>
+						<div className="flex gap-4">
+							<p className="font-thin text-gray-500">{props.role.title}</p>
+							{statusPill}
+						</div>
 						<div className="hidden md:flex gap-2 text-xs font-thin text-gray-500">
 							<p>{props.role.workFrom}</p>
 							<span>•</span>
@@ -40,7 +48,7 @@ export default function Opportunity(props: any) {
 				</div>
 				<div id="right">
 					<p className="text-xl">
-						{props.role.reward}{' '}
+						{props.role.reward}{" "}
 						<span className="text-xs font-thin text-gray-500">reward</span>
 					</p>
 				</div>
@@ -50,8 +58,8 @@ export default function Opportunity(props: any) {
 }
 
 function toCurrency(amount: number, currency: string) {
-	return amount.toLocaleString('en-US', {
-		style: 'currency',
+	return amount.toLocaleString("en-US", {
+		style: "currency",
 		currency: currency,
 	})
 }

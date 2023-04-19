@@ -29,7 +29,7 @@ export default function Dashboard() {
 	return (
 		<Layout classNames="bg-b-blue-dark">
 			<Suspense fallback={<Loader />}>
-				<Opportunities data={data} />
+				<Opportunities data={data || []} />
 			</Suspense>
 		</Layout>
 	)

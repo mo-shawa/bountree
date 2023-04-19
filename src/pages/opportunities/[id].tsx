@@ -213,14 +213,18 @@ function PrimarySection({
 
 				<button
 					onClick={
-						applicationsRemaining ? () => setModalOpen(true) : () => null
+						applicationsRemaining && post.status === "open"
+							? () => setModalOpen(true)
+							: () => null
 					}
 					className={classNames(
-						applicationsRemaining > 0 ? "bg-b-yellow" : "disabled",
+						applicationsRemaining > 0 && post.status === "open"
+							? "bg-b-yellow"
+							: "disabled",
 						"btn text-black hover:text-white"
 					)}
 				>
-					{applicationsRemaining > 0
+					{applicationsRemaining > 0 && post.status === "open"
 						? `Refer (${applicationsRemaining} remaining)`
 						: "Applications Closed"}
 				</button>

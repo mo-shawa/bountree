@@ -27,7 +27,11 @@ export async function createOpportunity(opportunity: IOpportunity) {
 export async function getOpportunities() {
 	const client = await clientPromise
 	const db = client.db("bountree-dev")
-	const opportunities = await db.collection("opportunities").find({}).toArray()
+	const opportunities = await db
+		.collection("opportunities")
+		.find({})
+		.sort("status") // this sort won't work if we're serving closed opportunities
+		.toArray()
 	return opportunities
 }
 
