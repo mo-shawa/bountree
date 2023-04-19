@@ -1,4 +1,3 @@
-import { PushOperator } from "mongodb"
 import clientPromise from "../db/connect"
 import IOpportunity, { Application } from "../src/types/Opportunity"
 import { updateUser } from "./user"

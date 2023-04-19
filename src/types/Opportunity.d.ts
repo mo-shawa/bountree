@@ -1,5 +1,4 @@
-import type { ObjectId } from "mongodb"
-import type { Document } from "mongodb"
+import type { ObjectId, Document } from "mongodb"
 
 export default interface IOpportunity extends Document {
 	title: string

@@ -1,7 +1,7 @@
 import clientPromise from "../db/connect"
 import { ObjectId } from "mongodb"
 import IUser from "@/types/User"
-import type { RecruiterOpportunity } from "@/types/User"
+import type IApplication from "@/types/Application"
 
 export async function updateUser(id: string, data: Partial<IUser>) {
 	const client = await clientPromise
@@ -18,7 +18,7 @@ export async function updateUser(id: string, data: Partial<IUser>) {
 
 export async function addApplicationToUser(
 	id: string,
-	application: RecruiterOpportunity
+	application: IApplication
 ) {
 	const client = await clientPromise
 	const db = client.db("bountree-dev")
@@ -59,6 +59,24 @@ export async function acceptTOS(id: string) {
 				{ _id: new ObjectId(id) },
 				{ $set: { acceptedTerms: new Date(), acceptedPrivacy: new Date() } }
 			)
+	} catch (error) {
+		return { error }
+	}
+}
+
+export async function getRecruiterOpportunities(id: string) {
+	const client = await clientPromise
+	const db = client.db("bountree-dev")
+
+	try {
+		return db
+			.collection("users")
+			.aggregate([
+				{ $match: { _id: new ObjectId(id) } },
+				{ $unwind: "$opportunitiesPursued" },
+				{ $replaceRoot: { newRoot: "$opportunitiesPursued" } },
+			])
+			.toArray()
 	} catch (error) {
 		return { error }
 	}
