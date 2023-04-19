@@ -226,7 +226,7 @@ function PrimarySection({
 				>
 					{applicationsRemaining > 0 && post.status === "open"
 						? `Refer (${applicationsRemaining} remaining)`
-						: "Applications Closed"}
+						: `Applications ${post.status === "paused" ? "Paused" : "Closed"}`}
 				</button>
 			</div>
 		</div>

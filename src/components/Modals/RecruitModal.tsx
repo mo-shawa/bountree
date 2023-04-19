@@ -181,7 +181,9 @@ export default function RecruitModal({
 							>
 								<div className="form-control w-full max-w-xs">
 									<label htmlFor="name" className="label">
-										<span className="label-text">Name*</span>
+										<span className="label-text">
+											Name<span className="text-red-500">*</span>
+										</span>
 									</label>
 									<input
 										required
@@ -195,7 +197,9 @@ export default function RecruitModal({
 								</div>
 								<div className="form-control w-full max-w-xs">
 									<label htmlFor="cv" className="label">
-										<span className="label-text">CV*</span>
+										<span className="label-text">
+											CV<span className="text-red-500">*</span>
+										</span>
 										<span className="label-text-alt rounded-full py-0.5 px-1.5 bg-warning">
 											PDF only
 										</span>
@@ -214,7 +218,9 @@ export default function RecruitModal({
 								</div>
 								<div className="form-control w-full max-w-xs">
 									<label htmlFor="linkedin" className="label">
-										<span className="label-text">LinkedIn*</span>
+										<span className="label-text">
+											LinkedIn<span className="text-red-500">*</span>
+										</span>
 									</label>
 									<input
 										required
@@ -235,13 +241,16 @@ export default function RecruitModal({
 										name="secondary"
 										onChange={handleChange}
 										type="text"
-										placeholder="Candidate's GitHub, Behance, etc."
+										placeholder="(Optional) GitHub, Behance, etc."
 										className="input  bg-gray-100 shadow"
 									/>
 								</div>
 								<div className="form-control w-full max-w-xs mb-4">
 									<label htmlFor="description" className="label">
-										<span className="label-text">Candidate description*</span>
+										<span className="label-text">
+											Candidate description
+											<span className="text-red-500">*</span>
+										</span>
 									</label>
 									<textarea
 										value={formData.description}
