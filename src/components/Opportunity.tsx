@@ -4,16 +4,24 @@ import Pill from "./Navigation/Pill"
 import { formatCurrency } from "@/utils"
 
 export default function Opportunity(props: any) {
-	const salary = props.salary.fixed
-		? formatCurrency(props.salary.fixed, props.salary.currency)
-		: `${formatCurrency(
-				props.salary.min,
-				props.salary.currency
-		  )} - ${formatCurrency(props.salary.max, props.salary.currency)}`
+	const { fixed, min, max, currency } = props.salary
 
-	const statusPill =
-		props.status === "paused" ? <Pill type="yellow">II Paused</Pill> : null
-	// <Pill type="green">Active</Pill>
+	const salary = fixed
+		? formatCurrency(fixed, currency)
+		: `${formatCurrency(min, currency)} - ${formatCurrency(max, currency)}`
+
+	const statusPillLeft =
+		props.status === "paused" ? (
+			<Pill classes="ml-0 hidden sm:block" type="yellow">
+				II Paused
+			</Pill>
+		) : null
+	const statusPillRight =
+		props.status === "paused" ? (
+			<Pill classes="ml-0 sm:hidden" type="yellow">
+				II Paused
+			</Pill>
+		) : null
 
 	return (
 		<Link
@@ -23,20 +31,20 @@ export default function Opportunity(props: any) {
 			<div className="h-full flex justify-between w-full items-center">
 				<div className="flex gap-4">
 					<Image
-						className="rounded-md"
+						className="rounded-md object-contain"
 						src={props.image}
 						alt="company logo"
 						width={80}
 						height={80}
 					/>
-					<div className="flex flex-col justify-between">
+					<div className="flex flex-col md:justify-between">
 						<div className="flex items-center gap-2 whitespace-nowrap text-ellipsis">
 							<h4>{props.company}</h4>
 							<p className="font-thin text-xs">{props.slogan}</p>
 						</div>
-						<div className="flex ">
-							<p className="font-thin text-gray-500">{props.role.title}</p>
-							{statusPill}
+						<div className="flex flex-wrap items-center gap-2">
+							<p className="font-thin text-gray-500 m-0">{props.role.title}</p>
+							{statusPillLeft}
 						</div>
 						<div className="hidden md:flex gap-2 text-xs font-thin text-gray-500">
 							<p>{props.role.workFrom}</p>
@@ -49,9 +57,12 @@ export default function Opportunity(props: any) {
 				</div>
 				<div id="right">
 					<p className="text-xl">
-						{props.role.reward}{" "}
-						<span className="text-xs font-thin text-gray-500">reward</span>
+						{props.role.reward}
+						<span className="text-xs font-thin text-gray-500 hidden sm:block">
+							reward
+						</span>
 					</p>
+					{statusPillRight}
 				</div>
 			</div>
 		</Link>

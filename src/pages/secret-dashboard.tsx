@@ -103,8 +103,8 @@ function Content({ session, applicants }: Props) {
 				<h1 className="text-4xl font-bold mt-4">Your Referrals</h1>
 				<div className="flex flex-col gap-3 mt-4 w-full bg-gray-200 h-full">
 					{<Loader /> &&
-						applicants?.length &&
-						applicants.map((applicant) => (
+						applicants?.length !== 0 &&
+						applicants!.map((applicant) => (
 							<ApplicantCard key={applicant._id as string} {...applicant} />
 						))}
 				</div>
