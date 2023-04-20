@@ -53,7 +53,6 @@ export default NextAuth({
 			await updateUser(user.id, {
 				createdAt: new Date(),
 				updatedAt: new Date(),
-				opportunitiesPursued: [],
 				totalEarnings: 0,
 				potentialEarnings: 0,
 				acceptedTerms: null,
