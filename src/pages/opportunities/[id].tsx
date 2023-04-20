@@ -58,8 +58,7 @@ export default function PostDetail() {
 	if (!post) return <Loader />
 
 	const applicationsRemaining =
-		5 -
-		post.applications.filter((a) => a.recruiter === session?.user._id).length
+		5 - post.applications.filter((a) => a.userId === session?.user._id).length
 
 	return (
 		<Layout classNames="bg-b-blue-dark flex justify-center">

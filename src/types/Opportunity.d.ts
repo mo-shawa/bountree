@@ -1,5 +1,5 @@
-import type { ObjectId } from "mongodb"
-import type { Document } from "mongodb"
+import type { ObjectId, Document } from "mongodb"
+import IApplication from "./Application"
 
 export default interface IOpportunity extends Document {
 	title: string
@@ -26,7 +26,7 @@ export default interface IOpportunity extends Document {
 	remote: boolean
 	company: Company
 	rejectionFeedback?: Feedback[]
-	applications: Application[]
+	applications: IApplication[]
 	createdAt: Date
 	updatedAt: Date
 }
@@ -53,18 +53,6 @@ type company = {
 		| "IPO"
 		| "acquired"
 		| "growth"
-}
-
-export type Application = {
-	_id?: ObjectId | string
-	name: string
-	cv: File | string
-	recruiter: ObjectId | string
-	linkedin: string
-	secondary?: string
-	description: string
-	createdAt?: Date
-	updatedAt?: Date
 }
 
 type Feedback = {

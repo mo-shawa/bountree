@@ -1,13 +1,13 @@
-import { Disclosure } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import Image from 'next/image'
-import MobileMenu from './MobileMenu'
-import NavRight from './NavRight'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { classNames } from '@/utils'
-import Pill from './Pill'
+import { Disclosure } from "@headlessui/react"
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import Image from "next/image"
+import MobileMenu from "./MobileMenu"
+import NavRight from "./NavRight"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/router"
+import Link from "next/link"
+import { classNames } from "@/utils"
+import Pill from "../Misc/Pill"
 
 export default function Navbar() {
 	const { data: session } = useSession()
@@ -20,20 +20,20 @@ export default function Navbar() {
 	const navigation = session
 		? [
 				{
-					name: 'Open roles',
-					href: '/opportunities',
-					current: isCurrent('/opportunities'),
+					name: "Open roles",
+					href: "/opportunities",
+					current: isCurrent("/opportunities"),
 				},
 				{
-					name: 'Dashboard',
-					href: '#',
-					current: isCurrent('/dashboard'),
+					name: "Dashboard",
+					href: "/dashboard",
+					current: isCurrent("/dashboard"),
 				},
 		  ]
 		: [
-				{ name: 'Post a Role', href: '#', current: isCurrent('#') },
-				{ name: 'Recruit', href: '#', current: isCurrent('#') },
-				{ name: 'Blog', href: '#', current: isCurrent('#') },
+				{ name: "Post a Role", href: "#", current: isCurrent("#") },
+				{ name: "Recruit", href: "#", current: isCurrent("#") },
+				{ name: "Blog", href: "#", current: isCurrent("#") },
 		  ]
 	return (
 		<Disclosure
@@ -49,23 +49,14 @@ export default function Navbar() {
 								<Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
 									<span className="sr-only">Open main menu</span>
 									{open ? (
-										<XMarkIcon
-											className="block h-6 w-6"
-											aria-hidden="true"
-										/>
+										<XMarkIcon className="block h-6 w-6" aria-hidden="true" />
 									) : (
-										<Bars3Icon
-											className="block h-6 w-6"
-											aria-hidden="true"
-										/>
+										<Bars3Icon className="block h-6 w-6" aria-hidden="true" />
 									)}
 								</Disclosure.Button>
 							</div>
 							<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-								<Link
-									href="/"
-									className="flex flex-shrink-0 items-center"
-								>
+								<Link href="/" className="flex flex-shrink-0 items-center">
 									<Image
 										src="/favicon/android-chrome-192x192.png"
 										alt="Mobile Logo"
@@ -89,14 +80,14 @@ export default function Navbar() {
 												href={item.href}
 												className={classNames(
 													item.current
-														? 'bg-black/40 text-white'
-														: 'text-gray-300 hover:bg-white/10 hover:text-white',
-													'rounded-md px-3 py-2 text-sm font-medium transition-colors duration-150 ease-in-out'
+														? "bg-black/40 text-white"
+														: "text-gray-300 hover:bg-white/10 hover:text-white",
+													"rounded-md px-3 py-2 text-sm font-medium transition-colors duration-150 ease-in-out"
 												)}
-												aria-current={item.current ? 'page' : undefined}
+												aria-current={item.current ? "page" : undefined}
 											>
 												{item.name}
-												{item.href === '#' && <Pill>Soon</Pill>}
+												{item.href === "#" && <Pill classes="ml-2">Soon</Pill>}
 											</Link>
 										))}
 									</div>

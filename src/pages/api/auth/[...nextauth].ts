@@ -13,10 +13,10 @@ export default NextAuth({
 		secret: process.env.JWT_SECRET as string,
 	},
 	providers: [
-		LinkedInProvider({
-			clientId: process.env.LINKEDIN_CLIENT_ID as string,
-			clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
-		}),
+		// LinkedInProvider({
+		// 	clientId: process.env.LINKEDIN_CLIENT_ID as string,
+		// 	clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
+		// }),
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID as string,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
@@ -53,7 +53,6 @@ export default NextAuth({
 			await updateUser(user.id, {
 				createdAt: new Date(),
 				updatedAt: new Date(),
-				opportunitiesPursued: [],
 				totalEarnings: 0,
 				potentialEarnings: 0,
 				acceptedTerms: null,

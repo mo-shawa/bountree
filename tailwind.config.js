@@ -7,6 +7,7 @@ const {
 	red,
 	yellow,
 } = require("tailwindcss/colors")
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -34,6 +35,12 @@ module.exports = {
 			"b-mint": "#E1FFEE",
 			"b-yellow": "#FFD966",
 			"b-dark-gray": "#222222",
+		},
+
+		screens: {
+			// prettier-ignore
+			'xs': "475px",
+			...defaultTheme.screens,
 		},
 		extend: {},
 	},

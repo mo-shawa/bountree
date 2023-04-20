@@ -1,6 +1,6 @@
 import { Disclosure } from "@headlessui/react"
 import { classNames } from "@/utils"
-import Pill from "./Pill"
+import Pill from "../Misc/Pill"
 export default function MobileMenu(props: any) {
 	{
 		/* Mobile menu, show/hide based on menu open state. */
@@ -23,7 +23,7 @@ export default function MobileMenu(props: any) {
 					>
 						{item.name}
 
-						{item.href === "#" && <Pill>Soon</Pill>}
+						{item.href === "#" && <Pill classes="ml-2">Soon</Pill>}
 					</Disclosure.Button>
 				))}
 			</div>

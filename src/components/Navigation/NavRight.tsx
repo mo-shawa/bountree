@@ -6,7 +6,7 @@ import { signIn, signOut } from "next-auth/react"
 import { useSession } from "next-auth/react"
 import { classNames } from "@/utils"
 import Image from "next/image"
-import Pill from "./Pill"
+import Pill from "../Misc/Pill"
 
 export default function NavRight(props: any) {
 	const { data: session } = useSession()
@@ -59,7 +59,7 @@ export default function NavRight(props: any) {
 											)}
 										>
 											Your Profile
-											<Pill>Soon</Pill>
+											<Pill classes="ml-2">Soon</Pill>
 										</Link>
 									)}
 								</Menu.Item>
@@ -73,7 +73,7 @@ export default function NavRight(props: any) {
 											)}
 										>
 											Settings
-											<Pill>Soon</Pill>
+											<Pill classes="ml-2">Soon</Pill>
 										</Link>
 									)}
 								</Menu.Item>
