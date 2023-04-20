@@ -73,11 +73,8 @@ export default function ApplicantCard({
 					</div>
 				</div>
 			</div>
-			<div
-				tabIndex={0}
-				className="collapse mt-4 border-t collapse-arrow rounded-b p-0 hover:text-blue-500 focus:text-blue-500 transition-colors duration-300 ease-in-out"
-			>
-				<input type="checkbox" className="peer" />
+			<div className="collapse mt-4 border-t collapse-arrow rounded-b p-0 hover:text-blue-500 focus:text-blue-500 transition-colors duration-300 ease-in-out">
+				<input tabIndex={0} type="checkbox" className="peer" />
 				<div className=" collapse-title text-md font-medium px-0 peer-checked:text-blue-500 ">
 					Details
 				</div>
