@@ -31,7 +31,7 @@ export default function Dashboard() {
 
 	return (
 		<Layout classNames="bg-gray-50">
-			<div className="mx-auto w-full max-w-7xl h-100 py-10 grid md:grid-cols-3 grid-cols-1 gap-28">
+			<div className="mx-auto w-full max-w-7xl h-100 py-10 md:grid md:grid-cols-3 grid-cols-1 xl:gap-20 lg:gap-12 ">
 				<Sidebar session={session} />
 				<MainContent applicants={applicants} />
 			</div>
