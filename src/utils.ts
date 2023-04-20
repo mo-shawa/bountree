@@ -6,6 +6,6 @@ export function formatCurrency(amount: number, currency: string) {
 	return amount.toLocaleString("en-US", {
 		style: "currency",
 		currency: currency,
-		maximumFractionDigits: 2,
+		maximumFractionDigits: 0,
 	})
 }

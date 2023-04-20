@@ -12,13 +12,13 @@ export default function Opportunity(props: any) {
 
 	const statusPillLeft =
 		props.status === "paused" ? (
-			<Pill classes="ml-0 hidden sm:block" type="yellow">
+			<Pill classes="hidden sm:block " type="yellow">
 				II Paused
 			</Pill>
 		) : null
 	const statusPillRight =
 		props.status === "paused" ? (
-			<Pill classes="ml-0 sm:hidden" type="yellow">
+			<Pill classes="sm:hidden whitespace-nowrap" type="yellow">
 				II Paused
 			</Pill>
 		) : null
@@ -37,7 +37,7 @@ export default function Opportunity(props: any) {
 						width={80}
 						height={80}
 					/>
-					<div className="flex flex-col md:justify-between">
+					<div className="flex flex-col xs:justify-between gap-2">
 						<div className="flex items-center gap-2 whitespace-nowrap text-ellipsis">
 							<h4>{props.company}</h4>
 							<p className="font-thin text-xs">{props.slogan}</p>
@@ -46,7 +46,7 @@ export default function Opportunity(props: any) {
 							<p className="font-thin text-gray-500 m-0">{props.role.title}</p>
 							{statusPillLeft}
 						</div>
-						<div className="hidden md:flex gap-2 text-xs font-thin text-gray-500">
+						<div className="hidden xs:flex gap-2 text-xs font-thin text-gray-500">
 							<p>{props.role.workFrom}</p>
 							<span>•</span>
 							<p>{props.role.location}</p>

@@ -18,7 +18,7 @@ export default function Pill({ children, type = "blue", classes }: PillProps) {
 		<>
 			<span
 				className={classNames(
-					"rounded-xl ml-2 px-2 m-auto py-0.5 text-xs",
+					"rounded-xl px-2 m-auto py-0.5 text-xs",
 					pillColors[type],
 					classes ? classes : ""
 				)}
