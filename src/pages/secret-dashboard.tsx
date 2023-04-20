@@ -5,17 +5,18 @@ import { Session } from "next-auth"
 import { signIn } from "next-auth/react"
 import { useState, useEffect } from "react"
 import { Loader } from "@/components/Loader/Loader"
+import IApplication from "@/types/Application"
 
 export default function Dashboard() {
 	const { data: session, status } = useSession()
 
-	const [applicants, setApplicants] = useState([])
+	const [applicants, setApplicants] = useState<IApplication[]>([])
 
 	useEffect(() => {
 		async function getDashboardData() {
 			const res = await fetch(`/api/users/${session?.user.id}/dashboard`)
 			const data = await res.json()
-
+			console.log(data)
 			setApplicants(data.opportunities)
 		}
 
@@ -103,7 +104,9 @@ function Content({ session, applicants }: Props) {
 				<div className="flex flex-col gap-3 mt-4 w-full bg-gray-200 h-full">
 					{<Loader /> &&
 						applicants?.length &&
-						applicants.map(() => <ApplicantCard />)}
+						applicants.map((applicant) => (
+							<ApplicantCard key={applicant._id as string} {...applicant} />
+						))}
 				</div>
 			</div>
 		</div>
@@ -112,7 +115,7 @@ function Content({ session, applicants }: Props) {
 
 type Props = {
 	session: Session | null
-	applicants?: any[]
+	applicants?: IApplication[]
 }
 
 function ApplicantCard({
@@ -121,18 +124,11 @@ function ApplicantCard({
 	email,
 	cv,
 	opportunityID,
-}: ApplicantCardProps) {
+	status,
+}: IApplication) {
 	return (
 		<div className="w-full h-20 bg-white shadow-md rounded-md flex flex-row items-center justify-between px-4">
-			yo
+			{JSON.stringify({ date, name, email, cv, opportunityID, status })}
 		</div>
 	)
-}
-
-type ApplicantCardProps = {
-	date?: string
-	name?: string
-	email?: string
-	cv?: string
-	opportunityID?: string
 }
