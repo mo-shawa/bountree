@@ -13,10 +13,10 @@ export default NextAuth({
 		secret: process.env.JWT_SECRET as string,
 	},
 	providers: [
-		LinkedInProvider({
-			clientId: process.env.LINKEDIN_CLIENT_ID as string,
-			clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
-		}),
+		// LinkedInProvider({
+		// 	clientId: process.env.LINKEDIN_CLIENT_ID as string,
+		// 	clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
+		// }),
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID as string,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,

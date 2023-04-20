@@ -34,9 +34,34 @@ export async function getApplications(query?: any) {
 export async function getApplicationsByUser(id: string) {
 	const client = await clientPromise
 	const db = client.db("bountree-dev")
+	// const applications = await db
+	// 	.collection("applications")
+	// 	.find({ userId: new ObjectId(id) })
+	// 	.toArray()
+
 	const applications = await db
 		.collection("applications")
-		.find({ userId: id })
+		.aggregate([
+			{
+				$match: {
+					userId: new ObjectId(id),
+				},
+			},
+			{
+				$lookup: {
+					from: "opportunities",
+					localField: "opportunityId",
+					foreignField: "_id",
+					as: "opportunity",
+				},
+			},
+			{
+				$unwind: "$opportunity",
+			},
+		])
 		.toArray()
+
+	console.log(applications)
+
 	return applications
 }

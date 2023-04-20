@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { getApplications } from "../../../../../controllers/application"
+import { getApplicationsByUser } from "../../../../../controllers/application"
 
 export default async function handler(
 	req: NextApiRequest,
@@ -14,7 +14,7 @@ export default async function handler(
 		return
 	}
 
-	const opportunities = await getApplications()
+	const opportunities = await getApplicationsByUser(id)
 
 	res.status(200).json({ opportunities })
 }

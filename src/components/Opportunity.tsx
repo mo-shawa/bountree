@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import Pill from "./Navigation/Pill"
+import Pill from "./Misc/Pill"
 import { formatCurrency } from "@/utils"
 
 export default function Opportunity(props: any) {
