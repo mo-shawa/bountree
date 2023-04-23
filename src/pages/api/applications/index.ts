@@ -8,7 +8,7 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	await serverAuthenticate(req, res)
+	const { token } = await serverAuthenticate(req, res)
 	const { method } = req
 
 	try {

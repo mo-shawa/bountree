@@ -9,6 +9,9 @@ const statusColors = {
 	rejected: "bg-red-500",
 	hired: "bg-green-500",
 }
+type Props = IApplication & {
+	open: boolean
+}
 
 export default function ApplicantCard({
 	createdAt,
@@ -20,7 +23,8 @@ export default function ApplicantCard({
 	description,
 	secondary,
 	linkedin,
-}: IApplication) {
+	open,
+}: Props) {
 	const { fixed, min, max, currency } = opportunity!.salary
 
 	const salary = fixed
@@ -73,7 +77,12 @@ export default function ApplicantCard({
 					</div>
 				</div>
 			</div>
-			<div className="collapse mt-4 border-t collapse-arrow rounded-b p-0 hover:text-blue-500 focus:text-blue-500 transition-colors duration-300 ease-in-out">
+			<div
+				className={classNames(
+					open ? "collapse-open pb-4" : "",
+					"collapse mt-4 border-t collapse-arrow rounded-b p-0 hover:text-blue-500 focus:text-blue-500 transition-colors duration-300 ease-in-out"
+				)}
+			>
 				<input tabIndex={0} type="checkbox" className="peer" />
 				<div className=" collapse-title text-md font-medium px-0 peer-checked:text-blue-500 ">
 					Details

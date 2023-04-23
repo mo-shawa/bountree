@@ -15,7 +15,11 @@ export default function Content({ applicants }: Props) {
 				<div className="flex flex-col gap-3 mt-4 w-full h-full">
 					{applicants && applicants?.length !== 0 ? (
 						applicants.map((applicant) => (
-							<ApplicantCard key={applicant._id as string} {...applicant} />
+							<ApplicantCard
+								open={false}
+								key={applicant._id as string}
+								{...applicant}
+							/>
 						))
 					) : (
 						<h1 className="">
