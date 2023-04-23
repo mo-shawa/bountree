@@ -29,7 +29,7 @@ export default function GenericModal({
 				<div className="fixed inset-0 transition-opacity" aria-hidden="true">
 					<div
 						onClick={handleOnClose}
-						className="absolute inset-0 backdrop-blur-md  flex items-center justify-center"
+						className="absolute inset-0 backdrop-blur-md  flex items-center justify-center p-4"
 					>
 						<div
 							onClick={(e) => e.stopPropagation()}

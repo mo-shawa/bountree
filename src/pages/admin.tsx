@@ -64,10 +64,10 @@ export default function Admin() {
 	}
 
 	return (
-		<Layout classNames="bg-gray-50">
+		<Layout classNames="bg-b-blue-dark">
 			<div className="overflow-x-auto w-full max-w-7xl mx-auto  p-4">
-				<h1 className="text-2xl font-bold my-5">Applications</h1>
-				<table className=" w-full">
+				<h1 className="text-2xl font-bold my-5 text-white">Applications</h1>
+				<table className="table table-zebra w-full">
 					<thead>
 						<tr>
 							<th></th>
@@ -114,21 +114,15 @@ function Row({
 }) {
 	return (
 		<tr
-			className="cursor-pointer bg-white hover:bg-gray-100 h-12 border"
+			className="hover cursor-pointer"
 			onClick={() => handleOnSelectApplication(application)}
 		>
 			<th>{num}</th>
-			<td className="border whitespace-nowrap">
-				{new Date(application.createdAt).toDateString()}
-			</td>
-			<td className="border whitespace-nowrap">{application.name}</td>
-			<td className="border whitespace-nowrap">{application.user?.name}</td>
-			<td className="border whitespace-nowrap">
-				{application.opportunity?.title}
-			</td>
-			<td className="border whitespace-nowrap">
-				{application.opportunity?.company.name}
-			</td>
+			<td>{new Date(application.createdAt).toDateString()}</td>
+			<td>{application.name}</td>
+			<td>{application.user?.name}</td>
+			<td>{application.opportunity?.title}</td>
+			<td>{application.opportunity?.company.name}</td>
 		</tr>
 	)
 }

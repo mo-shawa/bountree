@@ -52,6 +52,7 @@ export async function getAdminApplications() {
 				},
 			},
 		])
+		.sort({ createdAt: -1 })
 		.toArray()
 	return applications
 }
