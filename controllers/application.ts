@@ -21,12 +21,37 @@ export async function createApplication(
 	return newApplication
 }
 
-export async function getApplications(query?: any) {
+export async function getAdminApplications() {
 	const client = await clientPromise
 	const db = client.db("bountree-dev")
 	const applications = await db
 		.collection("applications")
-		.find(query || {})
+		.aggregate([
+			{
+				$lookup: {
+					from: "opportunities",
+					localField: "opportunityId",
+					foreignField: "_id",
+					as: "opportunity",
+				},
+			},
+			{
+				$unwind: "$opportunity",
+			},
+			{
+				$lookup: {
+					from: "users",
+					localField: "userId",
+					foreignField: "_id",
+					as: "user",
+				},
+			},
+			{
+				$unwind: {
+					path: "$user",
+				},
+			},
+		])
 		.toArray()
 	return applications
 }
