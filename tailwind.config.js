@@ -35,6 +35,7 @@ module.exports = {
 			"b-mint": "#E1FFEE",
 			"b-yellow": "#FFD966",
 			"b-dark-gray": "#222222",
+			"b-lavender": "#E6E6FA",
 		},
 
 		screens: {
