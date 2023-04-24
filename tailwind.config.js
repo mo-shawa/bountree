@@ -23,7 +23,7 @@ module.exports = {
 		colors: {
 			transparent: "transparent",
 			black,
-			white,
+			white: "#F2F2F2",
 			gray,
 			green,
 			blue,
@@ -35,6 +35,7 @@ module.exports = {
 			"b-mint": "#E1FFEE",
 			"b-yellow": "#FFD966",
 			"b-dark-gray": "#222222",
+			"b-lavender": "#E6E6FA",
 		},
 
 		screens: {
