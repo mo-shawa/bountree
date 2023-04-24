@@ -10,7 +10,7 @@ type OpportunitiesProps = {
 }
 
 export default function Opportunities({ data }: OpportunitiesProps) {
-	const [filteredData, setFilteredData] = useState<IOpportunity[]>(data)
+	const [filteredData, setFilteredData] = useState<IOpportunity[]>()
 	const [filteredBy, setFilteredBy] = useState<string>("All roles")
 
 	useEffect(() => {
@@ -26,11 +26,11 @@ export default function Opportunities({ data }: OpportunitiesProps) {
 			const filteredData = dataCopy.filter(
 				(element: any) => element.category === filteredBy
 			)
-			setFilteredData(() => filteredData)
+			setFilteredData(() => {
+				return filteredData
+			})
 		}
 	}, [filteredBy, data])
-
-	if (!data) return <Loader />
 
 	return (
 		<>

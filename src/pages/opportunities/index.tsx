@@ -10,12 +10,14 @@ export default function Dashboard() {
 	const router = useRouter()
 	const { status } = useSession()
 	const [data, setData] = useState<IOpportunity[]>()
+	const [loading, setLoading] = useState(true)
 	useEffect(() => {
 		async function fetchData() {
 			const res = await fetch("/api/opportunities")
 			const data = await res.json()
 
 			setData(data.data)
+			setLoading(false)
 		}
 		if (router.isReady) fetchData()
 	}, [router.isReady])
@@ -28,9 +30,15 @@ export default function Dashboard() {
 
 	return (
 		<Layout classNames="bg-b-blue-dark">
-			<Suspense fallback={<Loader />}>
+			{loading ? (
+				<Loader>
+					<h1 className="text-white text-2xl font-bold">
+						Loading Opportunities
+					</h1>
+				</Loader>
+			) : (
 				<Opportunities data={data || []} />
-			</Suspense>
+			)}
 		</Layout>
 	)
 }
