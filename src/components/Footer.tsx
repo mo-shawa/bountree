@@ -1,9 +1,9 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from "next/image"
+import Link from "next/link"
 
 export default function Footer() {
 	return (
-		<footer className="w-full bg-gray-100 relative">
+		<footer className="w-full bg-b-blue-dark relative border-t">
 			<div className="mx-auto px-4 max-w-7xl flex gap-4 py-4 justify-between items-center">
 				<div className="flex flex-col sm:flex-row gap-8">
 					<Image
@@ -22,28 +22,19 @@ export default function Footer() {
 				</div>
 
 				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col sm:flex-row gap-2">
-					<Link
-						className="text-gray-400 text-xs"
-						href="/cookie-policy"
-					>
+					<Link className="text-white text-xs" href="/cookie-policy">
 						Cookie Policy
 					</Link>
 
-					<Link
-						className="text-gray-400 text-xs"
-						href="/privacy-policy"
-					>
+					<Link className="text-white text-xs" href="/privacy-policy">
 						Privacy Policy
 					</Link>
-					<Link
-						className="text-gray-400 text-xs"
-						href="/recruiter-contract"
-					>
+					<Link className="text-white text-xs" href="/recruiter-contract">
 						Recruiter Agreement
 					</Link>
 				</div>
 
-				<small className="text-gray-400 flex gap-2 flex-col sm:flex-row">
+				<small className="text-white flex gap-2 flex-col sm:flex-row">
 					<span>2023 βountree</span> <span>© All Right Reserved</span>
 				</small>
 			</div>

@@ -23,7 +23,7 @@ module.exports = {
 		colors: {
 			transparent: "transparent",
 			black,
-			white,
+			white: "#F2F2F2",
 			gray,
 			green,
 			blue,

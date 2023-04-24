@@ -83,12 +83,12 @@ export default function Home() {
 					</div>
 				</div>
 				<div className="px-5 mx-auto my-12 py-12 bg-gray-200 w-full max-w-7xl  rounded-lg grid md:grid-cols-2 gap-4 shadow">
-					<div className=" text-b-blue-dark flex flex-col  justify-center">
+					<div className=" text-b-blue-dark flex flex-col gap-4">
+						<h3 className="text-3xl font-bold ">Recruit like a pro</h3>
 						<h4 className="font-semibold max-w-sm text-2xl ">
 							We&apos;ve built the tools and resources you need to excel as a
 							recruiter and find the perfect matches.
 						</h4>
-						<h3 className="text-3xl font-bold my-5">Recruit like a pro</h3>
 						<p className="text-xl text-gray-500 mb-13">
 							βountree&apos;s recruiter tools help you succeed at every stage of
 							the interview process.
@@ -145,18 +145,12 @@ export default function Home() {
 					href={status === "authenticated" ? "/opportunities" : "#"}
 				>
 					<div className=" mt-6 flex w-fit cursor-pointer rounded-lg bg-b-yellow px-4 py-1.5 text-base hover:bg-b-yellow shadow">
-						<div className="my-auto mr-2 text-lg text-b-blue-dark">
+						<div className="my-auto text-lg text-b-blue-dark">
 							{status === "authenticated"
 								? "Current Opportunities"
 								: "Start Recruiting Now"}{" "}
 						</div>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 448 512"
-							className="w-3"
-						>
-							<path d="M440.6 273.4c4.7-4.5 7.4-10.8 7.4-17.4s-2.7-12.8-7.4-17.4l-176-168c-9.6-9.2-24.8-8.8-33.9 .8s-8.8 24.8 .8 33.9L364.1 232 24 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l340.1 0L231.4 406.6c-9.6 9.2-9.9 24.3-.8 33.9s24.3 9.9 33.9 .8l176-168z"></path>
-						</svg>
+						<ArrowSVG classes="w-3 ml-2" />
 					</div>
 				</Link>
 			</section>
