@@ -5,11 +5,17 @@ import { formatCurrency } from "@/utils"
 import { signOut } from "next-auth/react"
 
 type SidebarProps = {
+	totalEarnings: number
+	potentialEarnings: number
 	session: Session | null
 	applicants?: IApplication[]
 }
 
-export default function SideBar({ session }: SidebarProps) {
+export default function SideBar({
+	session,
+	potentialEarnings,
+	totalEarnings,
+}: SidebarProps) {
 	return (
 		<div className="p-4">
 			<div className="bg-white md:sticky top-20 rounded md:mx-auto w-full max-w-7xl h-min py-10 lg:grid col-span-1 p-6 shadow">
@@ -35,7 +41,7 @@ export default function SideBar({ session }: SidebarProps) {
 						<p className="text-gray-500 text-xl">Potential rewards</p>
 						<div className="flex items-center">
 							<p className="text-2xl font-bold">
-								{formatCurrency(session?.user.potentialEarnings, "USD")}
+								{formatCurrency(potentialEarnings, "USD")}
 							</p>
 						</div>
 					</div>
@@ -43,7 +49,7 @@ export default function SideBar({ session }: SidebarProps) {
 						<p className="text-gray-500 text-xl">Total Earnings</p>
 						<div className="flex items-center">
 							<p className="text-2xl font-bold">
-								{formatCurrency(session?.user.totalEarnings, "USD")}
+								{formatCurrency(totalEarnings, "USD")}
 							</p>
 						</div>
 					</div>

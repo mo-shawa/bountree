@@ -9,10 +9,36 @@ import MainContent from "@/components/Dashboard/MainContent"
 
 export default function Dashboard() {
 	const { data: session, status } = useSession()
-	console.log(session)
 
 	const [applicants, setApplicants] = useState<IApplication[]>([])
 	const router = useRouter()
+
+	const getPotentialEarnings = (applicants: IApplication[]) => {
+		const uniqueApplicants = applicants.filter(
+			(app, index, self) =>
+				index ===
+					self.findIndex((t) => t.opportunityId === app.opportunity?._id) &&
+				["pending", "interviewing"].includes(app.status)
+		)
+
+		console.log({ uniqueApplicants })
+
+		const potentialEarnings = uniqueApplicants.reduce((acc, curr) => {
+			return acc + curr.opportunity?.reward.amount!
+		}, 0)
+
+		return potentialEarnings
+	}
+
+	getPotentialEarnings(applicants)
+
+	const totalEarnings = applicants
+		.filter((app) => app.status === "hired")
+		.reduce((acc, curr) => {
+			return acc + curr.opportunity?.reward.amount!
+		}, 0)
+
+	// console.log(potentialEarnings)
 
 	useEffect(() => {
 		async function getDashboardData() {
@@ -32,7 +58,11 @@ export default function Dashboard() {
 	return (
 		<Layout classNames="bg-gray-50">
 			<div className="mx-auto w-full max-w-7xl h-100 py-10 md:grid md:grid-cols-3 grid-cols-1 xl:gap-20 lg:gap-12 ">
-				<Sidebar session={session} />
+				<Sidebar
+					totalEarnings={totalEarnings}
+					potentialEarnings={getPotentialEarnings(applicants)}
+					session={session}
+				/>
 				<MainContent applicants={applicants} />
 			</div>
 		</Layout>
