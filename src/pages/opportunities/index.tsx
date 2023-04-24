@@ -32,7 +32,7 @@ export default function Dashboard() {
 		<Layout classNames="bg-b-blue-dark">
 			{loading ? (
 				<Loader>
-					<h1 className="text-white text-2xl font-bold">
+					<h1 className="text-white text-2xl mt-2 font-medium">
 						Loading Opportunities
 					</h1>
 				</Loader>
