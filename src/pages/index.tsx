@@ -78,7 +78,7 @@ export default function Home() {
 							height={460}
 							width={937}
 							alt="Opportunity Detail"
-							className="rounded-lg shadow"
+							className="rounded-lg shadow-md shadow-gray-500"
 						/>
 					</div>
 				</div>
@@ -96,7 +96,7 @@ export default function Home() {
 					</div>
 					<Image
 						className=" md:inline m-auto"
-						src="https://via.placeholder.com/538x307?text=Coming+Soon"
+						src="/static/dashboard.png"
 						width={538}
 						height={307}
 						alt="leads"
