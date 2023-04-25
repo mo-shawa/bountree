@@ -4,8 +4,8 @@ import Link from "next/link"
 export default function Footer() {
 	return (
 		<footer className="w-full bg-b-blue-dark relative border-t">
-			<div className="mx-auto px-4 max-w-7xl flex gap-4 py-4 justify-between items-center">
-				<div className="flex flex-col sm:flex-row gap-8">
+			<div className="mx-auto px-4 max-w-7xl flex w-full flex-col md:flex-row md:flex-nowrap flex-wrap gap-4 py-4 justify-between items-center">
+				<div className="flex flex-row gap-8">
 					<Image
 						src="/static/svg/linkedin.svg"
 						height={20}
@@ -21,7 +21,7 @@ export default function Footer() {
 					/>
 				</div>
 
-				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col sm:flex-row gap-2">
+				<div className="text-center md:absolute md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 flex flex-row gap-2">
 					<Link className="text-white text-xs" href="/cookie-policy">
 						Cookie Policy
 					</Link>
@@ -34,7 +34,7 @@ export default function Footer() {
 					</Link>
 				</div>
 
-				<small className="text-white flex gap-2 flex-col sm:flex-row">
+				<small className="text-white flex gap-2 flex-row">
 					<span>2023 βountree</span> <span>© All Right Reserved</span>
 				</small>
 			</div>
