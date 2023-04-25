@@ -6,7 +6,7 @@ export default interface IOpportunity extends Document {
 	category: string
 	description: string
 	idealCandidate: string
-	responsibilities: string[]
+	requirements: string[]
 	status: Status
 	perks: {
 		description?: string

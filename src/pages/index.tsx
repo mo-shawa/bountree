@@ -18,7 +18,7 @@ export default function Home() {
 					<div className=" flex flex-col items-center md:items-start justify-start ">
 						<div className="bg-b-lavender text-b-blue-dark  mb-3 flex w-fit rounded-full border border-neutral-500 px-4 py-0.5">
 							<div className="text-base">Looking for talent?</div>
-							<Link href="/opportunities">
+							<Link href="/product">
 								<div className="group ml-2 flex items-center cursor-pointer">
 									<div className="text-base font-semibold group-hover:text-blue group-hover:underline flex  items-center h-full">
 										Explore

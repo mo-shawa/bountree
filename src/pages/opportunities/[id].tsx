@@ -163,7 +163,7 @@ function ReferralCard({
 	return (
 		<div
 			className={classNames(
-				"h-min col-span-6 lg:col-span-2 border rounded-xl lg:mt-6 mx-auto lg:mx-0 lg:w-auto w-full max-w-sm  flex flex-col justify-between p-5 bg-white text-b-blue-dark",
+				"h-min col-span-6 lg:col-span-2 border rounded-xl lg:mt-12 mx-auto lg:mx-0 lg:w-auto w-full max-w-sm  flex flex-col justify-between p-5 bg-white text-b-blue-dark",
 				mobile ? "flex lg:hidden mb-10" : "hidden lg:flex"
 			)}
 		>
@@ -200,9 +200,9 @@ function ReferralCard({
 						/>
 					</a>
 				</div>
-				<p className="mt-5 font-bold">Position responsibilities:</p>
+				<p className="mt-5 font-bold">Position requirements:</p>
 				<ul className=" list-disc mx-4 xl:mx-8">
-					{post.responsibilities.map((item: string, i: number) => {
+					{post.requirements.map((item: string, i: number) => {
 						return (
 							<li key={i} className="my-4">
 								{item}
