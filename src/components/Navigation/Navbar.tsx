@@ -31,8 +31,7 @@ export default function Navbar() {
 				},
 		  ]
 		: [
-				{ name: "Post a Role", href: "#", current: isCurrent("#") },
-				{ name: "Recruit", href: "#", current: isCurrent("#") },
+				{ name: "Product", href: "/product", current: isCurrent("#") },
 				{ name: "Blog", href: "#", current: isCurrent("#") },
 		  ]
 	return (
