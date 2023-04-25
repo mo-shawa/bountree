@@ -3,11 +3,13 @@ import Link from "next/link"
 import Layout from "@/components/Layout"
 import { signIn, useSession } from "next-auth/react"
 import ArrowSVG from "@/components/Misc/ArrowSVG"
+import ArrowButton from "@/components/Misc/ArrowButton"
 
 export default function Home() {
 	const { status } = useSession()
+
 	return (
-		<Layout classNames="bg-b-blue-dark text-b-blue-dark">
+		<Layout classNames="bg-b-blue-dark">
 			<section
 				id="hero"
 				className=" flex flex-col justify-center items-center bg-b-blue-dark text-white"
@@ -32,23 +34,11 @@ export default function Home() {
 							Say goodbye to traditional recruiting and hello to flexible,
 							bounty-based rewards.
 						</div>
-						<Link
-							onClick={() =>
-								status !== "authenticated"
-									? signIn("", { callbackUrl: "/opportunities" })
-									: null
-							}
-							href={status === "authenticated" ? "/opportunities" : "#"}
-						>
-							<div className=" mt-6 flex items-center w-fit cursor-pointer rounded-lg bg-b-yellow px-4 py-1.5 text-base hover:bg-b-yellow">
-								<div className="my-auto mr-2 text-lg text-b-blue-dark">
-									{status === "authenticated"
-										? "Current Opportunities"
-										: "Start Recruiting Now"}
-								</div>
-								<ArrowSVG classes="m-0 p-0" />
-							</div>
-						</Link>
+						<ArrowButton href="/opportunities">
+							{status === "authenticated"
+								? "Current Opportunities"
+								: "Start Recruiting Now"}
+						</ArrowButton>
 					</div>
 					<Image
 						src="/static/hero.png"
@@ -78,7 +68,7 @@ export default function Home() {
 							height={460}
 							width={937}
 							alt="Opportunity Detail"
-							className="rounded-lg shadow"
+							className="rounded-lg shadow-md shadow-gray-500"
 						/>
 					</div>
 				</div>
@@ -96,7 +86,7 @@ export default function Home() {
 					</div>
 					<Image
 						className=" md:inline m-auto"
-						src="https://via.placeholder.com/538x307?text=Coming+Soon"
+						src="/static/dashboard.png"
 						width={538}
 						height={307}
 						alt="leads"
@@ -136,23 +126,11 @@ export default function Home() {
 					bounty recruitment program.
 				</p>
 
-				<Link
-					onClick={() =>
-						status !== "authenticated"
-							? signIn("", { callbackUrl: "/opportunities" })
-							: null
-					}
-					href={status === "authenticated" ? "/opportunities" : "#"}
-				>
-					<div className=" mt-6 flex w-fit cursor-pointer rounded-lg bg-b-yellow px-4 py-1.5 text-base hover:bg-b-yellow shadow">
-						<div className="my-auto text-lg text-b-blue-dark">
-							{status === "authenticated"
-								? "Current Opportunities"
-								: "Start Recruiting Now"}{" "}
-						</div>
-						<ArrowSVG classes="w-3 ml-2" />
-					</div>
-				</Link>
+				<ArrowButton href="/opportunities">
+					{status === "authenticated"
+						? "Current Opportunities"
+						: "Start Recruiting Now"}
+				</ArrowButton>
 			</section>
 		</Layout>
 	)

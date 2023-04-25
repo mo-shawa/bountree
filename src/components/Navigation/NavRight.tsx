@@ -52,28 +52,13 @@ export default function NavRight(props: any) {
 								<Menu.Item>
 									{({ active }) => (
 										<Link
-											href="#"
+											href="/dashboard"
 											className={classNames(
 												active ? "bg-gray-100" : "",
 												"block px-4 py-2 text-sm text-gray-700 transition-colors duration-150 ease-in-out hover:bg-gray-100"
 											)}
 										>
-											Your Profile
-											<Pill classes="ml-2">Soon</Pill>
-										</Link>
-									)}
-								</Menu.Item>
-								<Menu.Item>
-									{({ active }) => (
-										<Link
-											href="#"
-											className={classNames(
-												active ? "bg-gray-100" : "",
-												"block px-4 py-2 text-sm text-gray-700 transition-colors duration-150 ease-in-out hover:bg-gray-100"
-											)}
-										>
-											Settings
-											<Pill classes="ml-2">Soon</Pill>
+											Dashboard
 										</Link>
 									)}
 								</Menu.Item>
