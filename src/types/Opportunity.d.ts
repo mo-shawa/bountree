@@ -3,7 +3,7 @@ import IApplication from "./Application"
 
 export default interface IOpportunity extends Document {
 	title: string
-	category: string
+	category: "Engineering" | "Product" | "Marketing" | "Operations" | "Legal"
 	description: string
 	idealCandidate: string
 	requirements: string[]

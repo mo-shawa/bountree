@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout"
 import ArrowButton from "@/components/Misc/ArrowButton"
 import Image from "next/image"
+import JobDescriptionGenerator from "@/components/JobDescriptionGenerator"
 
 export default function ProductPage() {
 	return (
@@ -55,6 +56,7 @@ export default function ProductPage() {
 						></Image>
 					</div>
 				</div>
+				<JobDescriptionGenerator />
 			</section>
 		</Layout>
 	)
