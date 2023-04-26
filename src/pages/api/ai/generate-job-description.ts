@@ -20,17 +20,22 @@ export default async function handler(
 	try {
 		const { jobTitle, tone, email } = query
 
+		const funTones = ["Surfer", "Playful", "Sarcastic", "Old English"]
+
 		const openai = new OpenAIApi(configuration)
 		const response = await openai.createChatCompletion({
 			model: "gpt-3.5-turbo",
 			messages: [
 				{
 					role: "user",
-					content: `Generate a job description for a ${jobTitle} with the following sections: job title, job description, ideal candidate, requirements, and perks. The tone of the posting should be ${tone}.`,
+					content: `Generate a job description for a ${jobTitle} with the following sections: job title, job description, ideal candidate, requirements, and perks. The tone of the posting should be ${tone}.${
+						funTones.includes(tone as string)
+							? "Really exaggerate. Play up the tone and use plenty of emojis to emphasize the tone selected"
+							: ""
+					}`,
 				},
 			],
 		})
-		console.log(response)
 
 		// save email for marketing
 		await addEmailAddress(email as string)
