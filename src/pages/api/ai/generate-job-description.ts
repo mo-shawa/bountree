@@ -3,6 +3,10 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { addEmailAddress } from "../../../../controllers/leads"
 import { checkEmailListForUser } from "../../../../controllers/leads"
 
+export const config = {
+	runtime: "edge",
+}
+
 const configuration = new Configuration({
 	organization: "org-uLiuLoOSQPQRPeb7UPbSIaUV",
 	apiKey: process.env.OPENAI_API_KEY,
