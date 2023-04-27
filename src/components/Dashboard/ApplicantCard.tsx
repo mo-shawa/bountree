@@ -24,6 +24,7 @@ export default function ApplicantCard({
 	secondary,
 	linkedin,
 	open,
+	rejectionFeedback,
 }: Props) {
 	const { fixed, min, max, currency } = opportunity!.salary
 
@@ -48,10 +49,6 @@ export default function ApplicantCard({
 							</a>
 							<div className="flex flex-wrap items-center gap-2">
 								<p className="font-bold text-black text-lg m-0">{name}</p>
-								{/* -
-                    <a href="#" className="text-black text-lg m-0">
-                      Candidate details
-                    </a> */}
 							</div>
 							<div className="flex gap-2 text-xs font-thin text-gray-500 hover:text-blue">
 								<p>Applied {new Date(createdAt).toLocaleDateString()}</p>-
@@ -62,6 +59,16 @@ export default function ApplicantCard({
 									</p>
 								</a>
 							</div>
+							{status === "rejected" && rejectionFeedback && (
+								<div className="flex flex-col gap-2 mt-2">
+									<p className="text-xs font-thin text-gray-500">
+										Rejection Feedback
+									</p>
+									<p className="text-sm font-medium text-black">
+										{rejectionFeedback}
+									</p>
+								</div>
+							)}
 						</div>
 					</div>
 					<div className="w-24">
