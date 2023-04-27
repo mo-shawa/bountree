@@ -21,7 +21,7 @@ export default function Admin() {
 
 	useEffect(() => {
 		async function getDashboardData() {
-			const res = await fetch(`/api/applications/admin`)
+			const res = await fetch(`/api/admin/applications`)
 			const data = await res.json()
 			console.log(data)
 			setApplications(data.applications)

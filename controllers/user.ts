@@ -3,6 +3,22 @@ import { ObjectId } from "mongodb"
 import IUser from "@/types/User"
 import type IApplication from "@/types/Application"
 
+export async function getAdminUsers() {
+	const client = await clientPromise
+	const db = client.db("bountree-dev")
+
+	try {
+		return db
+			.collection("users")
+			.find({})
+			.project({ name: 1, email: 1, createdAt: 1 })
+			.sort({ createdAt: -1 })
+			.toArray()
+	} catch (error) {
+		return { error }
+	}
+}
+
 export async function updateUser(id: string, data: Partial<IUser>) {
 	const client = await clientPromise
 	const db = client.db("bountree-dev")
