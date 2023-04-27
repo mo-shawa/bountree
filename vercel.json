@@ -1,6 +1,6 @@
 {
 	"functions": {
-		"api/ai/generate-job-description.ts": {
+		"pages/api/ai/generate-job-description.ts": {
 			"maxDuration": 60
 		}
 	}
