@@ -16,4 +16,5 @@ export default interface IApplication extends Document {
 	status: "pending" | "interviewing" | "rejected" | "hired"
 	createdAt: Date
 	updatedAt: Date
+	rejectionFeedback?: string
 }

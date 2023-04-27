@@ -10,6 +10,7 @@ import { classNames } from "@/utils"
 import RecruitModal from "@/components/Modals/RecruitModal"
 import { formatCurrency } from "@/utils"
 import Pill from "@/components/Misc/Pill"
+import IApplication from "@/types/Application"
 
 export default function PostDetail() {
 	const router = useRouter()
@@ -96,6 +97,9 @@ function PrimarySection({
 	applicationsRemaining: number
 	setModalOpen: (open: boolean) => void
 }) {
+	const hasRejectionFeedback = post.applications.some(
+		(a) => a.status === "rejected" && a.rejectionFeedback
+	)
 	return (
 		<div className="col-span-6 lg:col-span-4">
 			<Top post={post} />
@@ -107,9 +111,7 @@ function PrimarySection({
 			/>
 			<SecondarySection post={post} />
 			<CompanySection post={post} />
-			{post.rejectionFeedback && post.rejectionFeedback.length && (
-				<FeedbackSection post={post} />
-			)}
+			{hasRejectionFeedback && <FeedbackSection post={post} />}
 		</div>
 	)
 }
@@ -315,30 +317,13 @@ function FeedbackSection({ post }: { post: IOpportunity }) {
 					better understanding of the requirements.
 				</p>
 			</div>
-			<p className="my-5">*SECTION WILL ONLY SHOW IF THERE IS FEEDBACK*</p>
-			<div className="flex justify-between gap-5 flex-wrap">
-				<FeedbackItem post={post} />
-				<FeedbackItem post={post} />
-			</div>
-		</div>
-	)
-}
-
-function FeedbackItem({ post }: { post: IOpportunity }) {
-	return (
-		<div className="flex flex-col  py-6 w-full md:w-5/12 ">
-			<div className="flex items-center gap-4">
-				<div className="w-12 h-12 rounded-full bg-gray-200"></div>
-				<div className="flex flex-col">
-					<p className="text-lg">John Doe</p>
-					<p className="">3 days ago</p>
-				</div>
-			</div>
-			<p className="mt-3">
-				Dude sux Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				Repellendus tenetur ipsa, tempore error odit totam omnis, perferendis
-				est blanditiis
-			</p>
+			<ul className="list-disc md:ml-14 ml-5 ">
+				{post.applications.map((app, i) => (
+					<li key={app._id as string} className="my-4">
+						{app.rejectionFeedback}
+					</li>
+				))}
+			</ul>
 		</div>
 	)
 }

@@ -2,6 +2,7 @@ import Layout from "../Layout"
 
 type Props = {
 	children?: React.ReactNode
+	absolute?: boolean
 }
 
 export default function LoaderLayout({ children }: Props) {
@@ -18,11 +19,14 @@ export default function LoaderLayout({ children }: Props) {
 	)
 }
 
-export function Loader({ children }: Props) {
+export function Loader({ children, absolute = true }: Props) {
 	return (
 		<div
-			className="flex flex-col justify-between items-center p-4 my-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-		"
+			className={`flex flex-col justify-between items-center  ${
+				absolute
+					? "p-4 my-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+					: ""
+			}`}
 		>
 			<span className="loader"></span>
 			{children}

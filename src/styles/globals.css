@@ -66,3 +66,21 @@ main {
 		transform: rotate(-360deg);
 	}
 }
+
+.cursor {
+	display: inline-block;
+	width: 1ch;
+	animation: flicker 0.7s infinite;
+	margin-bottom: 4px;
+}
+@keyframes flicker {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
