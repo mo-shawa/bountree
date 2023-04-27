@@ -56,7 +56,7 @@ export default function ProductPage() {
 						></Image>
 					</div>
 				</div>
-				<JobDescriptionGenerator />
+				{/* <JobDescriptionGenerator /> */}
 			</section>
 		</Layout>
 	)
