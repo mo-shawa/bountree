@@ -1,6 +1,7 @@
 import { Configuration, OpenAIApi } from "openai"
 import { NextApiRequest, NextApiResponse } from "next"
 import { addEmailAddress } from "../../../../controllers/leads"
+import { checkEmailListForUser } from "../../../../controllers/leads"
 
 const configuration = new Configuration({
 	organization: "org-uLiuLoOSQPQRPeb7UPbSIaUV",
@@ -38,8 +39,10 @@ export default async function handler(
 		})
 
 		// save email for marketing
-		await addEmailAddress(email as string)
-
+		const foundUser = await checkEmailListForUser(email as string)
+		if (!foundUser) {
+			await addEmailAddress(email as string)
+		}
 		res.status(200).json(response.data)
 	} catch (error: any) {
 		res.status(500).json({ success: false, error: error.message })
