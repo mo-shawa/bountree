@@ -135,12 +135,12 @@ function Form({
 					className="input input-bordered text-black"
 				/>
 			</label>
-			<div className="form-control w-full max-w-xs">
+			<div className="form-control w-full">
 				<span>Desired tone</span>
 				<select
 					name="tone"
 					onChange={handleChange}
-					className="select select-bordered text-black"
+					className="select select-bordered text-black w-full"
 				>
 					<option selected>Professional</option>
 					<option>Casual</option>
