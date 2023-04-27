@@ -307,6 +307,9 @@ function SecondarySection({ post }: { post: IOpportunity }) {
 }
 
 function FeedbackSection({ post }: { post: IOpportunity }) {
+	const applicationsWithFeedback = post.applications.filter(
+		(app) => app.rejectionFeedback
+	)
 	return (
 		<div className="pb-10">
 			<div className="col-span-6 lg:col-span-4 py-6 ">
@@ -318,7 +321,7 @@ function FeedbackSection({ post }: { post: IOpportunity }) {
 				</p>
 			</div>
 			<ul className="list-disc md:ml-14 ml-5 ">
-				{post.applications.map((app, i) => (
+				{applicationsWithFeedback.map((app, i) => (
 					<li key={app._id as string} className="my-4">
 						{app.rejectionFeedback}
 					</li>
