@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import { Loader } from "./Loader/Loader"
+import { classNames, isEmail } from "@/utils"
+import CountdownTimer from "./Misc/CountdownTimer"
 
 export default function JobDescriptionGenerator() {
 	const [formData, setFormData] = useState({
@@ -10,10 +11,9 @@ export default function JobDescriptionGenerator() {
 	const [loading, setLoading] = useState(false)
 	const [message, setMessage] = useState("")
 	const [displayResponse, setDisplayResponse] = useState("")
-	const [completedTyping, setCompletedTyping] = useState(false)
+	const [submitDisabled, setSubmitDisabled] = useState(true)
 
 	useEffect(() => {
-		setCompletedTyping(false)
 		if (!message) return
 
 		let i = 0
@@ -21,16 +21,23 @@ export default function JobDescriptionGenerator() {
 		const intervalId = setInterval(() => {
 			setDisplayResponse(message.slice(0, i))
 
-			i++
+			i += 7
 
 			if (i > message.length) {
 				clearInterval(intervalId)
-				setCompletedTyping(true)
 			}
-		}, 12)
+		}, 40)
 
 		return () => clearInterval(intervalId)
 	}, [message])
+
+	useEffect(() => {
+		if (isEmail(formData.email) && formData.jobTitle) {
+			setSubmitDisabled(false)
+		} else {
+			setSubmitDisabled(true)
+		}
+	}, [formData])
 
 	function handleChange(e: any) {
 		setFormData(() => ({ ...formData, [e.target.name]: e.target.value }))
@@ -38,12 +45,16 @@ export default function JobDescriptionGenerator() {
 
 	async function handleSubmit(e: any) {
 		e.preventDefault()
+		if (submitDisabled || loading) return
+		if (!formData.email || !formData.jobTitle) return
+		setDisplayResponse("")
 
 		setLoading(true)
 		console.log(formData)
 
 		const query = new URLSearchParams(formData).toString()
 		console.log(query)
+
 		const res = await fetch("/api/ai/generate-job-description?" + query)
 
 		const data = await res.json()
@@ -53,25 +64,23 @@ export default function JobDescriptionGenerator() {
 	}
 
 	return (
-		<div className="flex justify-stretch w-full  rounded">
+		<div className="flex flex-col md:flex-row w-full rounded gap-2 h-min">
 			<Form
 				loading={loading}
 				handleChange={handleChange}
 				handleSubmit={handleSubmit}
+				submitDisabled={submitDisabled}
+				formData={formData}
 			/>
-			<div className="bg-white text-black w-full p-5">
-				<span className="whitespace-pre-wrap">
-					{displayResponse}
-					{!completedTyping && (
-						<svg
-							viewBox="8 4 8 16"
-							xmlns="http://www.w3.org/2000/svg"
-							className="cursor"
-						>
-							<rect x="10" y="6" width="4" height="12" fill="#000" />
-						</svg>
-					)}
-				</span>
+			<div className="bg-white text-black w-full p-5 rounded relative ">
+				<textarea
+					className="textarea textarea-ghost resize-none w-full"
+					name="output"
+					cols={40}
+					rows={10}
+					value={displayResponse}
+				></textarea>
+				{loading && <CountdownTimer />}{" "}
 			</div>
 		</div>
 	)
@@ -81,23 +90,36 @@ type FormProps = {
 	handleChange: (e: any) => void
 	handleSubmit: (e: any) => void
 	loading?: boolean
+	submitDisabled?: boolean
+	formData: {
+		email: string
+		jobTitle: string
+		tone: string
+	}
 }
 
-function Form({ handleChange, handleSubmit, loading }: FormProps) {
+function Form({
+	handleChange,
+	handleSubmit,
+	loading,
+	submitDisabled,
+	formData,
+}: FormProps) {
 	return (
-		<div className="flex flex-col gap-5 p-5 bg-gray-500 ">
-			<h1 className="text-xl">Job Description Generator</h1>
+		<div className="flex flex-col gap-5 p-5 bg-white text-black rounded">
 			<label
 				className="form-control
   "
 			>
-				<span>Email</span>
+				<span>
+					Email<span className="text-red-500">*</span>
+				</span>
 				<input
 					name="email"
 					onChange={handleChange}
 					type="text"
 					placeholder="info@site.com"
-					className="input input-bordered"
+					className="input input-bordered text-black"
 				/>
 			</label>
 			<label
@@ -110,15 +132,15 @@ function Form({ handleChange, handleSubmit, loading }: FormProps) {
 					onChange={handleChange}
 					type="text"
 					placeholder="Next.js Developer"
-					className="input input-bordered"
+					className="input input-bordered text-black"
 				/>
 			</label>
-			<div className="form-control w-full max-w-xs">
+			<div className="form-control w-full">
 				<span>Desired tone</span>
 				<select
 					name="tone"
 					onChange={handleChange}
-					className="select select-bordered text-gray-400"
+					className="select select-bordered text-black w-full"
 				>
 					<option selected>Professional</option>
 					<option>Casual</option>
@@ -130,13 +152,17 @@ function Form({ handleChange, handleSubmit, loading }: FormProps) {
 					<option>Peaky Blinders</option>
 				</select>
 			</div>
-			{loading ? (
-				<Loader absolute={false} />
-			) : (
-				<button onClick={(e) => handleSubmit(e)} className="btn relative">
-					Generate
-				</button>
-			)}
+
+			<button
+				onClick={(e) => handleSubmit(e)}
+				className={classNames(
+					"btn relative",
+					submitDisabled ? "btn-disabled" : "",
+					loading ? "loading" : ""
+				)}
+			>
+				{loading ? "Loading" : "Generate"}
+			</button>
 		</div>
 	)
 }
