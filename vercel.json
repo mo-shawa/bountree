@@ -1,0 +1,7 @@
+{
+	"functions": {
+		"api/ai/generate-job-description.ts": {
+			"maxDuration": 60
+		}
+	}
+}
