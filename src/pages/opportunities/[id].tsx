@@ -319,7 +319,9 @@ function FeedbackSection({ post }: { post: IOpportunity }) {
 			</div>
 			<ul className="list-disc md:ml-14 ml-5 ">
 				{post.applications.map((app, i) => (
-					<li className="my-4">{app.rejectionFeedback}</li>
+					<li key={app._id as string} className="my-4">
+						{app.rejectionFeedback}
+					</li>
 				))}
 			</ul>
 		</div>
