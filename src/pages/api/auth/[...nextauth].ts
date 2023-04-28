@@ -4,6 +4,7 @@ import GoogleProvider from "next-auth/providers/google"
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import clientPromise from "../../../../db/connect"
 import { updateUser, getUser } from "../../../../controllers/user"
+import { sendWelcomeEmail } from "@/utils/email"
 
 export default NextAuth({
 	session: {
@@ -49,7 +50,7 @@ export default NextAuth({
 	events: {
 		signIn: async ({ user, isNewUser }) => {
 			if (!isNewUser) return
-
+			await sendWelcomeEmail(user)
 			await updateUser(user.id, {
 				createdAt: new Date(),
 				updatedAt: new Date(),
