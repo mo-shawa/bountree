@@ -16,6 +16,22 @@ export async function sendWelcomeEmail(user: IUser) {
 	return res
 }
 
+export async function sendJobGeneratorEmail(
+	email: string,
+	jobDescription: string
+) {
+	mail.setApiKey(process.env.SENDGRID_API_KEY as string)
+
+	const res = await mail.send({
+		to: email as string,
+		from: "team@bountree.app",
+		templateId: "d-cf97be5320d643ae8795bfca86346758",
+		dynamicTemplateData: {
+			jobDescription,
+		},
+	})
+}
+
 type CandidateUpdateOptions = {
 	userName: string
 	userEmail: string
