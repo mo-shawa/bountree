@@ -6,7 +6,10 @@ export async function sendWelcomeEmail(user: IUser) {
 
 	const res = await mail.send({
 		to: user.email as string,
-		from: "team@bountree.app",
+		from: {
+			email: "team@bountree.app",
+			name: "Bountree Team",
+		},
 		templateId: "d-94b91ccaef1f4c378770b5e0c9dc7b37",
 		dynamicTemplateData: {
 			userName: user.name,
@@ -24,7 +27,10 @@ export async function sendJobGeneratorEmail(
 
 	const res = await mail.send({
 		to: email as string,
-		from: "team@bountree.app",
+		from: {
+			email: "team@bountree.app",
+			name: "Bountree Team",
+		},
 		templateId: "d-cf97be5320d643ae8795bfca86346758",
 		dynamicTemplateData: {
 			jobDescription,
@@ -61,7 +67,10 @@ export async function sendCandidateUpdateEmail({
 
 	const res = await mail.send({
 		to: userEmail,
-		from: "team@bountree.app",
+		from: {
+			email: "team@bountree.app",
+			name: "Bountree Team",
+		},
 		templateId: templateIdFromStatus[status],
 		dynamicTemplateData: {
 			userName,
