@@ -26,7 +26,6 @@ export default NextAuth({
 	debug: process.env.NODE_ENV === "development",
 
 	theme: {
-		// logo: "/favicon/android-chrome-512x512.png",
 		logo: "/static/svg/logo.svg",
 		brandColor: "#1B262C",
 		colorScheme: "dark",
@@ -50,7 +49,6 @@ export default NextAuth({
 	events: {
 		signIn: async ({ user, isNewUser }) => {
 			if (!isNewUser) return
-			await sendWelcomeEmail(user)
 			await updateUser(user.id, {
 				createdAt: new Date(),
 				updatedAt: new Date(),
@@ -59,6 +57,7 @@ export default NextAuth({
 				acceptedTerms: null,
 				acceptedPrivacy: null,
 			})
+			await sendWelcomeEmail(user)
 		},
 	},
 })

@@ -57,14 +57,25 @@ export async function getAdminApplications() {
 	return applications
 }
 
-export async function updateApplicationStatus(id: string, status: string) {
+export async function updateApplicationStatus(
+	id: string,
+	status: string,
+	reason: string
+) {
 	const client = await clientPromise
 	const db = client.db("bountree-dev")
 	const applications = db.collection("applications")
 
 	const updatedApplication = await applications.findOneAndUpdate(
 		{ _id: new ObjectId(id) },
-		{ $set: { status } },
+		{
+			$set: {
+				status,
+				...(status === "rejected" && reason
+					? { rejectionFeedback: reason }
+					: {}),
+			},
+		},
 		{ returnDocument: "after" }
 	)
 
