@@ -7,10 +7,9 @@ import Image from "next/image"
 import Loader from "@/components/Loader/Loader"
 import { signIn } from "next-auth/react"
 import { classNames } from "@/utils"
-import RecruitModal from "@/components/Modals/RecruitModal"
+import RecruitModal from "@/components/Modals/RecruitModal/RecruitModal"
 import { formatCurrency } from "@/utils"
 import Pill from "@/components/Misc/Pill"
-import IApplication from "@/types/Application"
 
 export default function PostDetail() {
 	const router = useRouter()
