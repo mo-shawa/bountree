@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import Pill from "./Misc/Pill"
-import { formatCurrency } from "@/utils"
+import { formatCurrency } from "@/utils/misc"
 
 export default function Opportunity(props: any) {
 	const { fixed, min, max, currency } = props.salary

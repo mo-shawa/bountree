@@ -1,5 +1,5 @@
 import { Disclosure } from "@headlessui/react"
-import { classNames } from "@/utils"
+import { classNames } from "@/utils/misc"
 import Pill from "../Misc/Pill"
 export default function MobileMenu(props: any) {
 	{

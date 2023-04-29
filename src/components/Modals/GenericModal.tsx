@@ -1,10 +1,3 @@
-import { useState, useEffect } from "react"
-import { classNames } from "@/utils"
-import IApplication from "@/types/Application"
-import IOpportunity from "@/types/Opportunity"
-import { Loader } from "../Loader/Loader"
-import { useSession } from "next-auth/react"
-
 type Props = {
 	children: React.ReactNode
 	setModalOpen: (open: boolean) => void

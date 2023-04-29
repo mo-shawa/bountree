@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { classNames } from "@/utils"
+import { classNames } from "@/utils/misc"
 
 type Props = {
 	showModal: boolean | undefined

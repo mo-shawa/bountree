@@ -8,7 +8,7 @@ import Link from "next/link"
 import { Loader } from "@/components/Loader/Loader"
 import ApplicantCard from "@/components/Dashboard/ApplicantCard"
 import GenericModal from "@/components/Modals/GenericModal"
-import { classNames } from "@/utils"
+import { classNames } from "@/utils/misc"
 
 export default function Admin() {
 	const { data: session, status } = useSession()

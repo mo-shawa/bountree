@@ -3,7 +3,7 @@ import Opportunity from "./Opportunity"
 import Filter from "./Filter"
 import IOpportunity from "@/types/Opportunity"
 import { Loader } from "./Loader/Loader"
-import { formatCurrency } from "@/utils"
+import { formatCurrency } from "@/utils/misc"
 
 type OpportunitiesProps = {
 	data: IOpportunity[]

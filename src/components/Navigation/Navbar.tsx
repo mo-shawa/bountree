@@ -6,7 +6,7 @@ import NavRight from "./NavRight"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import Link from "next/link"
-import { classNames } from "@/utils"
+import { classNames } from "@/utils/misc"
 import Pill from "../Misc/Pill"
 
 export default function Navbar() {

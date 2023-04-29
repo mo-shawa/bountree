@@ -1,6 +1,5 @@
 import Link from "next/link"
 import ArrowSVG from "./ArrowSVG"
-import { classNames } from "@/utils"
 
 type Props = {
 	children?: React.ReactNode

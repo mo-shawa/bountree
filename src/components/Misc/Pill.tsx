@@ -1,4 +1,4 @@
-import { classNames } from "@/utils"
+import { classNames } from "@/utils/misc"
 
 type PillProps = {
 	children: React.ReactNode

@@ -1,6 +1,5 @@
 import IApplication from "@/types/Application"
-import { classNames } from "@/utils"
-import { formatCurrency } from "@/utils"
+import { classNames, formatCurrency } from "@/utils/misc"
 import ArrowSVG from "../Misc/ArrowSVG"
 
 const statusColors = {

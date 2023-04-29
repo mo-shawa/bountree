@@ -7,7 +7,7 @@ import { getGCSUploadData } from "@/utils/cloudStorage"
 import RecruitForm from "./RecruitForm"
 import Success from "./Success"
 import Failure from "./Failure"
-import { isURL } from "@/utils"
+import { isURL } from "@/utils/misc"
 
 type Props = {
 	userId: string
