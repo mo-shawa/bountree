@@ -6,7 +6,7 @@ export async function createApplication(
 	application: IApplication
 ): Promise<any> {
 	const client = await clientPromise
-	const db = client.db("bountree-dev")
+	const db = client.db(process.env.DATABASE_NAME)
 	const applications = db.collection("applications")
 
 	const newApplication = await applications.insertOne({
@@ -23,7 +23,7 @@ export async function createApplication(
 
 export async function getAdminApplications() {
 	const client = await clientPromise
-	const db = client.db("bountree-dev")
+	const db = client.db(process.env.DATABASE_NAME)
 	const applications = await db
 		.collection("applications")
 		.aggregate([
@@ -63,7 +63,7 @@ export async function updateApplicationStatus(
 	reason: string
 ) {
 	const client = await clientPromise
-	const db = client.db("bountree-dev")
+	const db = client.db(process.env.DATABASE_NAME)
 	const applications = db.collection("applications")
 
 	const updatedApplication = await applications.findOneAndUpdate(
@@ -84,7 +84,7 @@ export async function updateApplicationStatus(
 
 export async function getApplicationsByUser(id: string) {
 	const client = await clientPromise
-	const db = client.db("bountree-dev")
+	const db = client.db(process.env.DATABASE_NAME)
 
 	const applications = await db
 		.collection("applications")

@@ -14,7 +14,7 @@ export default async function handler(
 	}
 
 	const client = await clientPromise
-	const db = client.db("bountree-dev")
+	const db = client.db(process.env.DATABASE_NAME)
 	const collection = db.collection("opportunities")
 
 	const opportunity: IOpportunity = {

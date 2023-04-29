@@ -30,7 +30,9 @@ export default NextAuth({
 		brandColor: "#1B262C",
 		colorScheme: "dark",
 	},
-	adapter: MongoDBAdapter(clientPromise, { databaseName: "bountree-dev" }),
+	adapter: MongoDBAdapter(clientPromise, {
+		databaseName: process.env.DATABASE_NAME,
+	}),
 	callbacks: {
 		session: async ({ session, token }) => {
 			const id = token.sub!
