@@ -32,8 +32,12 @@ export default async function handler(
 
 			const updatedApplication = await updateApplicationStatus(
 				id as string,
-				status
+				status,
+				reason
 			)
+
+			if (status === "rejected" && reason) {
+			}
 
 			const sendGridResponse = await sendCandidateUpdateEmail({
 				userName,
