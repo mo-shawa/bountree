@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { classNames } from "@/utils"
 import IApplication from "@/types/Application"
 import IOpportunity from "@/types/Opportunity"
 import { Loader } from "../../Loader/Loader"
@@ -8,6 +7,7 @@ import { getGCSUploadData } from "@/utils/cloudStorage"
 import RecruitForm from "./RecruitForm"
 import Success from "./Success"
 import Failure from "./Failure"
+import { isURL } from "@/utils"
 
 type Props = {
 	userId: string
@@ -48,12 +48,14 @@ export default function RecruitModal({
 		file &&
 		formData.name?.length! > 0 &&
 		formData.cv &&
-		formData.linkedin?.length! > 0 &&
+		isURL(formData.linkedin as string) &&
 		formData.description?.length! > 0 &&
 		checkboxChecked
 
 	useEffect(() => {
 		if (conditionsMet) {
+			if (formData.secondary && !isURL(formData.secondary))
+				return setDisabled(true)
 			setDisabled(false)
 		} else {
 			setDisabled(true)
