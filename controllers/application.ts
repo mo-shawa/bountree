@@ -57,13 +57,23 @@ export async function getAdminApplications() {
 	return applications
 }
 
+export async function updateApplicationStatus(id: string, status: string) {
+	const client = await clientPromise
+	const db = client.db("bountree-dev")
+	const applications = db.collection("applications")
+
+	const updatedApplication = await applications.findOneAndUpdate(
+		{ _id: new ObjectId(id) },
+		{ $set: { status } },
+		{ returnDocument: "after" }
+	)
+
+	return updatedApplication
+}
+
 export async function getApplicationsByUser(id: string) {
 	const client = await clientPromise
 	const db = client.db("bountree-dev")
-	// const applications = await db
-	// 	.collection("applications")
-	// 	.find({ userId: new ObjectId(id) })
-	// 	.toArray()
 
 	const applications = await db
 		.collection("applications")

@@ -2,6 +2,7 @@ import { Configuration, OpenAIApi } from "openai"
 import { NextApiRequest, NextApiResponse } from "next"
 import { addEmailAddress } from "../../../../controllers/leads"
 import { checkEmailListForUser } from "../../../../controllers/leads"
+import { sendJobGeneratorEmail } from "@/utils/email"
 
 const configuration = new Configuration({
 	organization: "org-uLiuLoOSQPQRPeb7UPbSIaUV",
@@ -38,11 +39,17 @@ export default async function handler(
 			],
 		})
 
+		const jobDescription: string | undefined =
+			response.data.choices[0].message?.content
+		const formattedJD: string = jobDescription!.replaceAll("\r?\n", "<br/>")
+		console.log({ jobDescription, formattedJD })
+
 		// save email for marketing
 		const foundUser = await checkEmailListForUser(email as string)
 		if (!foundUser) {
 			await addEmailAddress(email as string)
 		}
+		await sendJobGeneratorEmail(email as string, formattedJD)
 		res.status(200).json(response.data)
 	} catch (error: any) {
 		res.status(500).json({ success: false, error: error.message })

@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { getAdminApplications } from "../../../../controllers/application"
 import serverAuthenticate from "@/utils/serverAuthenticate"
+import { updateApplicationStatus } from "../../../../controllers/application"
+import { sendCandidateUpdateEmail } from "@/utils/email"
 
 export default async function handler(
 	req: NextApiRequest,
@@ -18,6 +20,15 @@ export default async function handler(
 
 			const applications = await getAdminApplications()
 			res.status(200).json({ applications })
+		}
+
+		if (method === "PUT") {
+			const parsedBody = JSON.parse(req.body)
+			const { id, status } = parsedBody
+
+			const updatedApplication = await updateApplicationStatus(id, status)
+
+			res.status(200).json({ updatedApplication })
 		}
 	} catch (error) {
 		res.status(500).json({ error })
