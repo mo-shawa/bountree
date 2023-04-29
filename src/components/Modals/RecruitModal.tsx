@@ -45,6 +45,7 @@ export default function RecruitModal({
 	const [success, setSuccess] = useState<boolean>()
 	const [loading, setLoading] = useState(false)
 	const [message, setMessage] = useState("")
+	const [checkboxChecked, setCheckboxChecked] = useState(false)
 
 	useEffect(() => {
 		if (
@@ -52,13 +53,14 @@ export default function RecruitModal({
 			formData.name?.length! > 0 &&
 			formData.cv &&
 			formData.linkedin?.length! > 0 &&
-			formData.description?.length! > 0
+			formData.description?.length! > 0 &&
+			checkboxChecked
 		) {
 			setDisabled(false)
 		} else {
 			setDisabled(true)
 		}
-	}, [formData, userId])
+	}, [formData, userId, checkboxChecked])
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -92,7 +94,8 @@ export default function RecruitModal({
 				formData.name?.length! > 0 &&
 				formData.cv &&
 				formData.linkedin?.length! > 0 &&
-				formData.description?.length! > 0
+				formData.description?.length! > 0 &&
+				checkboxChecked
 			)
 		)
 			return
@@ -265,6 +268,21 @@ export default function RecruitModal({
 										placeholder="What makes this candidate stand out?"
 										className="textarea shadow h-24  bg-gray-100"
 									/>
+								</div>
+
+								<div className="form-control">
+									<label className="label cursor-pointer px-4">
+										<input
+											value={checkboxChecked ? "on" : "off"}
+											type="checkbox"
+											className="checkbox mr-4"
+											onChange={(e) => setCheckboxChecked(e.target.checked)}
+										/>
+										<span className="label-text text-left">
+											I confirm the candidate is aware I am recommending them
+											for this position.
+										</span>
+									</label>
 								</div>
 
 								<button
