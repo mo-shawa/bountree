@@ -85,6 +85,7 @@ export default function Admin() {
 							applications.map((app, idx) => {
 								return (
 									<Row
+										setApplications={setApplications}
 										handleOnSelectApplication={handleOnSelectApplication}
 										key={app.id}
 										application={app}
@@ -109,10 +110,12 @@ function Row({
 	application,
 	num,
 	handleOnSelectApplication,
+	setApplications,
 }: {
 	application: IApplication
 	num: number
 	handleOnSelectApplication: (application: IApplication) => void
+	setApplications: React.Dispatch<React.SetStateAction<IApplication[]>>
 }) {
 	const statusStyle = {
 		pending: "bg-yellow-500",
@@ -140,6 +143,12 @@ function Row({
 		})
 		const data = await res.json()
 		console.log(data)
+
+		setApplications((prev) => {
+			const idx = prev.findIndex((app) => app._id === application._id)
+			prev[idx].status = selectedStatus
+			return [...prev]
+		})
 	}
 
 	return (
