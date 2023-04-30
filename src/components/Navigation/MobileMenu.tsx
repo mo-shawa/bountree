@@ -23,7 +23,7 @@ export default function MobileMenu(props: any) {
 					>
 						{item.name}
 
-						{item.href === "#" && <Pill classes="ml-2">Soon</Pill>}
+						{item.href === "#" && <Pill className="ml-2">Soon</Pill>}
 					</Disclosure.Button>
 				))}
 			</div>

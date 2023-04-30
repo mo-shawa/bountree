@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout"
 import { useSession } from "next-auth/react"
 import { signIn } from "next-auth/react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import IApplication from "@/types/Application"
 import { useRouter } from "next/router"
 import Link from "next/link"
@@ -35,12 +35,12 @@ export default function Admin() {
 		signIn("", { callbackUrl: router.asPath })
 	}
 
-	function handleOnSelectApplication(application: IApplication) {
+	const handleOnSelectApplication = useCallback((application: IApplication) => {
 		setModalOpen(() => {
 			setSelectedApplication(application)
 			return true
 		})
-	}
+	}, [])
 
 	if (session && !isAdmin) {
 		return (
@@ -97,9 +97,11 @@ export default function Admin() {
 				</table>
 			</div>
 			{modalOpen && selectedApplication !== null && (
-				<GenericModal classes="max-w-3xl text-left" setModalOpen={setModalOpen}>
+				<GenericModal
+					className="max-w-3xl text-left"
+					setModalOpen={setModalOpen}
+				>
 					<ApplicantCard open={true} {...selectedApplication} />
-					{/* hello */}
 				</GenericModal>
 			)}
 		</Layout>

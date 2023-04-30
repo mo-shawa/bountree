@@ -1,5 +1,5 @@
-export function classNames(...classes: string[]) {
-	return classes.filter(Boolean).join(" ")
+export function classNames(...className: string[]) {
+	return className.filter(Boolean).join(" ")
 }
 
 export function formatCurrency(amount?: number, currency: string = "USD") {

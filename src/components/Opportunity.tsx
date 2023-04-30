@@ -12,13 +12,13 @@ export default function Opportunity(props: any) {
 
 	const statusPillLeft =
 		props.status === "paused" ? (
-			<Pill classes="hidden sm:block " type="yellow">
+			<Pill className="hidden sm:block " type="yellow">
 				II Paused
 			</Pill>
 		) : null
 	const statusPillRight =
 		props.status === "paused" ? (
-			<Pill classes="sm:hidden whitespace-nowrap" type="yellow">
+			<Pill className="sm:hidden whitespace-nowrap" type="yellow">
 				II Paused
 			</Pill>
 		) : null

@@ -2,7 +2,7 @@ import { classNames } from "@/utils/misc"
 
 type PillProps = {
 	children: React.ReactNode
-	classes?: string
+	className?: string
 	type?: "blue" | "green" | "red" | "yellow"
 }
 
@@ -13,14 +13,18 @@ const pillColors = {
 	yellow: "bg-yellow-300 text-yellow-800 border border-yellow-800 ",
 }
 
-export default function Pill({ children, type = "blue", classes }: PillProps) {
+export default function Pill({
+	children,
+	type = "blue",
+	className,
+}: PillProps) {
 	return (
 		<>
 			<span
 				className={classNames(
 					"rounded-xl px-2 m-auto py-0.5 text-xs",
 					pillColors[type],
-					classes ? classes : ""
+					className ? className : ""
 				)}
 			>
 				{children}

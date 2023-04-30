@@ -1,12 +1,12 @@
 type Props = {
 	children: React.ReactNode
 	setModalOpen: (open: boolean) => void
-	classes?: string
+	className?: string
 }
 export default function GenericModal({
 	children,
 	setModalOpen,
-	classes,
+	className,
 }: Props) {
 	const handleOnClose = (
 		e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
@@ -26,7 +26,7 @@ export default function GenericModal({
 					>
 						<div
 							onClick={(e) => e.stopPropagation()}
-							className={classes || "max-w-7xl"}
+							className={className || "max-w-7xl"}
 						>
 							{children}
 						</div>

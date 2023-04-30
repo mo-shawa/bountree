@@ -54,7 +54,7 @@ export default function ApplicantCard({
 								<a href={cv as string}>
 									<p className="font-medium hover:text-blue-500 flex items-center group">
 										View CV
-										<ArrowSVG classes="fill-blue-500 group-hover:fill-black" />
+										<ArrowSVG className="fill-blue-500 group-hover:fill-black" />
 									</p>
 								</a>
 							</div>

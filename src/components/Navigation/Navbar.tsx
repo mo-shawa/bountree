@@ -86,7 +86,9 @@ export default function Navbar() {
 												aria-current={item.current ? "page" : undefined}
 											>
 												{item.name}
-												{item.href === "#" && <Pill classes="ml-2">Soon</Pill>}
+												{item.href === "#" && (
+													<Pill className="ml-2">Soon</Pill>
+												)}
 											</Link>
 										))}
 									</div>

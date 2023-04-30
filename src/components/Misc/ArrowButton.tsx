@@ -24,7 +24,7 @@ export default function ArrowButton({
 			target={target || "_self"}
 		>
 			<div className="my-auto mr-2 text-lg text-b-blue-dark">{children}</div>
-			<ArrowSVG classes="m-0 p-0" />
+			<ArrowSVG className="m-0 p-0" />
 		</Link>
 	)
 }
