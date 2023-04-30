@@ -1,7 +1,7 @@
 import IApplication from "@/types/Application"
 import { Session } from "next-auth"
 import Image from "next/image"
-import { formatCurrency } from "@/utils"
+import { formatCurrency } from "@/utils/misc"
 import { signOut } from "next-auth/react"
 
 type SidebarProps = {

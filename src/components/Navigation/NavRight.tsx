@@ -1,12 +1,10 @@
 import { Fragment } from "react"
 import { Menu, Transition } from "@headlessui/react"
-import { BellIcon } from "@heroicons/react/24/outline"
 import Link from "next/link"
 import { signIn, signOut } from "next-auth/react"
 import { useSession } from "next-auth/react"
-import { classNames } from "@/utils"
+import { classNames } from "@/utils/misc"
 import Image from "next/image"
-import Pill from "../Misc/Pill"
 
 export default function NavRight(props: any) {
 	const { data: session } = useSession()

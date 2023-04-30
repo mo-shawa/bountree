@@ -1,5 +1,6 @@
 import type IApplication from "@/types/Application"
-import { classNames } from "@/utils"
+import { classNames } from "@/utils/misc"
+import { InformationCircleIcon } from "@heroicons/react/24/outline"
 
 type Props = {
 	formData: Partial<IApplication>
@@ -69,6 +70,12 @@ export default function RecruitForm({
 					<span className="label-text">
 						LinkedIn<span className="text-red-500">*</span>
 					</span>
+					<div
+						className="tooltip tooltip-left"
+						data-tip="https://linkedin.com/in/user "
+					>
+						<InformationCircleIcon className="h-5 w-5 text-gray-600" />
+					</div>
 				</label>
 				<input
 					required
@@ -83,6 +90,12 @@ export default function RecruitForm({
 			<div className="form-control w-full max-w-xs my-4">
 				<label htmlFor="secondary" className="label">
 					<span className="label-text">Secondary link</span>
+					<div
+						className="tooltip tooltip-left"
+						data-tip="https://github.com/user "
+					>
+						<InformationCircleIcon className="h-5 w-5 text-gray-600" />
+					</div>
 				</label>
 				<input
 					value={formData.secondary}
@@ -105,7 +118,7 @@ export default function RecruitForm({
 					name="description"
 					onChange={handleChange}
 					placeholder="What makes this candidate stand out?"
-					className="textarea shadow h-24  bg-gray-100"
+					className="textarea shadow h-24  bg-gray-100 resize-none"
 				/>
 			</div>
 

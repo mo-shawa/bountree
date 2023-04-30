@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { classNames, isEmail } from "@/utils"
+import { classNames, isEmail } from "@/utils/misc"
 import CountdownTimer from "./Misc/CountdownTimer"
 
 export default function JobDescriptionGenerator() {

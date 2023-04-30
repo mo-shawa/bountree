@@ -29,7 +29,7 @@ export default function Content({ applicants }: Props) {
 								className="text-blue-500 inline-flex items-center"
 							>
 								See open opportunities{" "}
-								<ArrowSVG classes=" fill-blue-500 group-hover:fill-blue" />
+								<ArrowSVG className=" fill-blue-500 group-hover:fill-blue" />
 							</Link>
 						</h1>
 					)}

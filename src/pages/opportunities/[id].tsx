@@ -6,9 +6,9 @@ import { useSession } from "next-auth/react"
 import Image from "next/image"
 import Loader from "@/components/Loader/Loader"
 import { signIn } from "next-auth/react"
-import { classNames } from "@/utils"
+import { classNames } from "@/utils/misc"
 import RecruitModal from "@/components/Modals/RecruitModal/RecruitModal"
-import { formatCurrency } from "@/utils"
+import { formatCurrency } from "@/utils/misc"
 import Pill from "@/components/Misc/Pill"
 
 export default function PostDetail() {

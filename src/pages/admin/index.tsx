@@ -1,14 +1,14 @@
 import Layout from "@/components/Layout"
 import { useSession } from "next-auth/react"
 import { signIn } from "next-auth/react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import IApplication from "@/types/Application"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { Loader } from "@/components/Loader/Loader"
 import ApplicantCard from "@/components/Dashboard/ApplicantCard"
 import GenericModal from "@/components/Modals/GenericModal"
-import { classNames } from "@/utils"
+import { classNames } from "@/utils/misc"
 
 export default function Admin() {
 	const { data: session, status } = useSession()
@@ -35,12 +35,12 @@ export default function Admin() {
 		signIn("", { callbackUrl: router.asPath })
 	}
 
-	function handleOnSelectApplication(application: IApplication) {
+	const handleOnSelectApplication = useCallback((application: IApplication) => {
 		setModalOpen(() => {
 			setSelectedApplication(application)
 			return true
 		})
-	}
+	}, [])
 
 	if (session && !isAdmin) {
 		return (
@@ -97,9 +97,11 @@ export default function Admin() {
 				</table>
 			</div>
 			{modalOpen && selectedApplication !== null && (
-				<GenericModal classes="max-w-3xl text-left" setModalOpen={setModalOpen}>
+				<GenericModal
+					className="max-w-3xl text-left"
+					setModalOpen={setModalOpen}
+				>
 					<ApplicantCard open={true} {...selectedApplication} />
-					{/* hello */}
 				</GenericModal>
 			)}
 		</Layout>
