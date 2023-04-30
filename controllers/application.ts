@@ -6,7 +6,7 @@ export async function createApplication(
 	application: IApplication
 ): Promise<any> {
 	const client = await clientPromise
-	const db = client.db("bountree-dev")
+	const db = client.db(process.env.DATABASE_NAME)
 	const applications = db.collection("applications")
 
 	const newApplication = await applications.insertOne({
@@ -23,7 +23,7 @@ export async function createApplication(
 
 export async function getAdminApplications() {
 	const client = await clientPromise
-	const db = client.db("bountree-dev")
+	const db = client.db(process.env.DATABASE_NAME)
 	const applications = await db
 		.collection("applications")
 		.aggregate([
@@ -57,13 +57,34 @@ export async function getAdminApplications() {
 	return applications
 }
 
+export async function updateApplicationStatus(
+	id: string,
+	status: string,
+	reason: string
+) {
+	const client = await clientPromise
+	const db = client.db(process.env.DATABASE_NAME)
+	const applications = db.collection("applications")
+
+	const updatedApplication = await applications.findOneAndUpdate(
+		{ _id: new ObjectId(id) },
+		{
+			$set: {
+				status,
+				...(status === "rejected" && reason
+					? { rejectionFeedback: reason }
+					: {}),
+			},
+		},
+		{ returnDocument: "after" }
+	)
+
+	return updatedApplication
+}
+
 export async function getApplicationsByUser(id: string) {
 	const client = await clientPromise
-	const db = client.db("bountree-dev")
-	// const applications = await db
-	// 	.collection("applications")
-	// 	.find({ userId: new ObjectId(id) })
-	// 	.toArray()
+	const db = client.db(process.env.DATABASE_NAME)
 
 	const applications = await db
 		.collection("applications")

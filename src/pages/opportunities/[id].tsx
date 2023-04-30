@@ -6,11 +6,10 @@ import { useSession } from "next-auth/react"
 import Image from "next/image"
 import Loader from "@/components/Loader/Loader"
 import { signIn } from "next-auth/react"
-import { classNames } from "@/utils"
-import RecruitModal from "@/components/Modals/RecruitModal"
-import { formatCurrency } from "@/utils"
+import { classNames } from "@/utils/misc"
+import RecruitModal from "@/components/Modals/RecruitModal/RecruitModal"
+import { formatCurrency } from "@/utils/misc"
 import Pill from "@/components/Misc/Pill"
-import IApplication from "@/types/Application"
 
 export default function PostDetail() {
 	const router = useRouter()

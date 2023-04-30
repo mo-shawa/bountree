@@ -1,13 +1,14 @@
 import Layout from "@/components/Layout"
 import { useSession } from "next-auth/react"
 import { signIn } from "next-auth/react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import IApplication from "@/types/Application"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { Loader } from "@/components/Loader/Loader"
 import ApplicantCard from "@/components/Dashboard/ApplicantCard"
 import GenericModal from "@/components/Modals/GenericModal"
+import { classNames } from "@/utils/misc"
 
 export default function Admin() {
 	const { data: session, status } = useSession()
@@ -34,12 +35,12 @@ export default function Admin() {
 		signIn("", { callbackUrl: router.asPath })
 	}
 
-	function handleOnSelectApplication(application: IApplication) {
+	const handleOnSelectApplication = useCallback((application: IApplication) => {
 		setModalOpen(() => {
 			setSelectedApplication(application)
 			return true
 		})
-	}
+	}, [])
 
 	if (session && !isAdmin) {
 		return (
@@ -76,6 +77,7 @@ export default function Admin() {
 							<th>Recruiter</th>
 							<th>Position</th>
 							<th>Company</th>
+							<th>Update status</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -83,6 +85,7 @@ export default function Admin() {
 							applications.map((app, idx) => {
 								return (
 									<Row
+										setApplications={setApplications}
 										handleOnSelectApplication={handleOnSelectApplication}
 										key={app.id}
 										application={app}
@@ -94,9 +97,11 @@ export default function Admin() {
 				</table>
 			</div>
 			{modalOpen && selectedApplication !== null && (
-				<GenericModal classes="max-w-3xl text-left" setModalOpen={setModalOpen}>
+				<GenericModal
+					className="max-w-3xl text-left"
+					setModalOpen={setModalOpen}
+				>
 					<ApplicantCard open={true} {...selectedApplication} />
-					{/* hello */}
 				</GenericModal>
 			)}
 		</Layout>
@@ -107,11 +112,47 @@ function Row({
 	application,
 	num,
 	handleOnSelectApplication,
+	setApplications,
 }: {
 	application: IApplication
 	num: number
 	handleOnSelectApplication: (application: IApplication) => void
+	setApplications: React.Dispatch<React.SetStateAction<IApplication[]>>
 }) {
+	const statusStyle = {
+		pending: "bg-yellow-500",
+		interviewing: "bg-blue-500",
+		rejected: "bg-red-500",
+		hired: "bg-green-500",
+	}
+
+	const [selectedStatus, setSelectedStatus] = useState(application.status)
+	const [reason, setReason] = useState("")
+
+	async function handleUpdateStatus(e: React.MouseEvent<HTMLButtonElement>) {
+		e.stopPropagation()
+		const res = await fetch(`/api/admin/applications/${application._id}`, {
+			method: "PUT",
+			body: JSON.stringify({
+				status: selectedStatus,
+				userName: application.user?.name,
+				userEmail: application.user?.email,
+				candidateName: application.name,
+				positionName: application.opportunity?.title,
+				startupName: application.opportunity?.company.name,
+				...(selectedStatus === "rejected" ? { reason } : {}),
+			}),
+		})
+		const data = await res.json()
+		console.log(data)
+
+		setApplications((prev) => {
+			const idx = prev.findIndex((app) => app._id === application._id)
+			prev[idx].status = selectedStatus
+			return [...prev]
+		})
+	}
+
 	return (
 		<tr
 			className="hover cursor-pointer"
@@ -121,8 +162,65 @@ function Row({
 			<td>{new Date(application.createdAt).toDateString()}</td>
 			<td>{application.name}</td>
 			<td>{application.user?.name}</td>
-			<td>{application.opportunity?.title}</td>
-			<td>{application.opportunity?.company.name}</td>
+			<td>
+				{selectedStatus === "rejected" &&
+				selectedStatus !== application.status ? (
+					<input
+						className="input input-error"
+						type="text"
+						placeholder="Reason for rejection"
+						value={reason}
+						onClick={(e) => e.stopPropagation()}
+						onChange={(e) => setReason(e.target.value)}
+					/>
+				) : (
+					application.opportunity?.title
+				)}
+				{}
+			</td>
+			<td>
+				{selectedStatus !== application.status ? (
+					<>
+						<button
+							onClick={handleUpdateStatus}
+							className="btn btn-sm bg-b-yellow text-black mx-auto"
+						>
+							update
+						</button>
+					</>
+				) : (
+					application.opportunity?.company.name
+				)}
+			</td>
+			<td onClick={(e) => e.stopPropagation()}>
+				<select
+					className="select select-bordered"
+					onChange={(e) => setSelectedStatus(e.target.value as any)}
+					name="status"
+				>
+					<option value="pending" selected={application.status === "pending"}>
+						Pending
+					</option>
+					<option
+						value="interviewing"
+						selected={application.status === "interviewing"}
+					>
+						Interviewing
+					</option>
+					<option value="rejected" selected={application.status === "rejected"}>
+						Rejected
+					</option>
+					<option value="hired" selected={application.status === "hired"}>
+						Hired
+					</option>
+				</select>
+				<div
+					className={classNames(
+						"w-2 h-2 rounded-full inline-block ml-2 my-1",
+						statusStyle[application.status]
+					)}
+				></div>
+			</td>
 		</tr>
 	)
 }

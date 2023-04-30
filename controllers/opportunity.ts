@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb"
 
 export async function getOpportunityById(id: string) {
 	const client = await clientPromise
-	const db = client.db("bountree-dev")
+	const db = client.db(process.env.DATABASE_NAME)
 	const foundOpportunity = await db
 		.collection("opportunities")
 		.findOne({ _id: new ObjectId(id) })
@@ -21,7 +21,7 @@ export async function getOpportunityById(id: string) {
 
 export async function createOpportunity(opportunity: IOpportunity) {
 	const client = await clientPromise
-	const db = client.db("bountree-dev")
+	const db = client.db(process.env.DATABASE_NAME)
 	const newOpportunity = await db.collection("opportunities").insertOne({
 		...opportunity,
 		createdAt: new Date(),
@@ -32,7 +32,7 @@ export async function createOpportunity(opportunity: IOpportunity) {
 
 export async function getOpportunities() {
 	const client = await clientPromise
-	const db = client.db("bountree-dev")
+	const db = client.db(process.env.DATABASE_NAME)
 	const opportunities = await db
 		.collection("opportunities")
 		.find({})
@@ -47,7 +47,7 @@ export async function addApplicationToOpportunity(
 ): Promise<any> {
 	try {
 		const client = await clientPromise
-		const db = client.db("bountree-dev")
+		const db = client.db(process.env.DATABASE_NAME)
 
 		const parsedApplication = JSON.parse(application)
 		parsedApplication._id = new ObjectId()

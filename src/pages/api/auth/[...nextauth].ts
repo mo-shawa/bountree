@@ -4,6 +4,7 @@ import GoogleProvider from "next-auth/providers/google"
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import clientPromise from "../../../../db/connect"
 import { updateUser, getUser } from "../../../../controllers/user"
+import { sendWelcomeEmail } from "@/utils/email"
 
 export default NextAuth({
 	session: {
@@ -25,12 +26,13 @@ export default NextAuth({
 	debug: process.env.NODE_ENV === "development",
 
 	theme: {
-		// logo: "/favicon/android-chrome-512x512.png",
 		logo: "/static/svg/logo.svg",
 		brandColor: "#1B262C",
 		colorScheme: "dark",
 	},
-	adapter: MongoDBAdapter(clientPromise, { databaseName: "bountree-dev" }),
+	adapter: MongoDBAdapter(clientPromise, {
+		databaseName: process.env.DATABASE_NAME,
+	}),
 	callbacks: {
 		session: async ({ session, token }) => {
 			const id = token.sub!
@@ -49,7 +51,6 @@ export default NextAuth({
 	events: {
 		signIn: async ({ user, isNewUser }) => {
 			if (!isNewUser) return
-
 			await updateUser(user.id, {
 				createdAt: new Date(),
 				updatedAt: new Date(),
@@ -58,6 +59,7 @@ export default NextAuth({
 				acceptedTerms: null,
 				acceptedPrivacy: null,
 			})
+			await sendWelcomeEmail(user)
 		},
 	},
 })

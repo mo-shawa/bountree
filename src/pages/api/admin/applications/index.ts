@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { getAdminApplications } from "../../../../controllers/application"
+import { getAdminApplications } from "../../../../../controllers/application"
 import serverAuthenticate from "@/utils/serverAuthenticate"
 
 export default async function handler(

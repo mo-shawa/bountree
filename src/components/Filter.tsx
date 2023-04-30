@@ -1,6 +1,6 @@
 import Image from "next/image"
 import type { Dispatch, SetStateAction } from "react"
-import { classNames } from "@/utils"
+import { classNames } from "@/utils/misc"
 
 export default function Filter({ filteredBy, setFilteredBy }: FilterProps) {
 	return (
