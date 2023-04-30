@@ -4,6 +4,7 @@ import Footer from "./Footer"
 import { ReactNode, useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
 import PrivacyandTermsModal from "./Modals/PrivacyandTermsModal"
+import { Loader } from "./Loader/Loader"
 
 type Props = {
 	children?: ReactNode
@@ -40,6 +41,8 @@ export default function Layout({ children, classNames }: Props): JSX.Element {
 		session?.user.acceptedPrivacy,
 		session?.user.acceptedTerms,
 	])
+
+	if (status === "loading") return <Loader />
 
 	return (
 		<>
