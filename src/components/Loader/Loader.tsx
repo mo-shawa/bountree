@@ -5,7 +5,7 @@ type Props = {
 	absolute?: boolean
 }
 
-export function LoaderLayout({ children }: Props) {
+export default function LoaderLayout({ children }: Props) {
 	return (
 		<Layout classNames="bg-b-blue-dark flex justify-center">
 			<div
