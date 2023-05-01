@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import serverAuthenticate from "@/utils/serverAuthenticate"
-import IApplication from "@/types/Application"
+import IApplication from "@/types/application"
 import { createApplication } from "../../../../controllers/application"
 import { getOpportunityById } from "../../../../controllers/opportunity"
 

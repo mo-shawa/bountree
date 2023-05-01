@@ -1,4 +1,4 @@
-import IUser from "@/types/User"
+import IUser from "@/types/user"
 import { ObjectId, Document } from "mongodb"
 import { DefaultSession } from "next-auth"
 

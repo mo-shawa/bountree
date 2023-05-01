@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import IApplication from "@/types/Application"
-import IOpportunity from "@/types/Opportunity"
+import IApplication from "@/types/application"
+import IOpportunity from "@/types/opplortunity"
 import { Loader } from "../../Loader/Loader"
 import { useSession } from "next-auth/react"
 import { getGCSUploadData } from "@/utils/cloudStorage"

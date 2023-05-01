@@ -1,6 +1,6 @@
 import clientPromise from "../../../../db/connect"
 import { NextApiRequest, NextApiResponse } from "next"
-import IOpportunity from "@/types/Opportunity"
+import IOpportunity from "@/types/opplortunity"
 import serverAuthenticate from "@/utils/serverAuthenticate"
 
 export default async function handler(

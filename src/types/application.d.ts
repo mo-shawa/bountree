@@ -1,6 +1,6 @@
 import type { Document, ObjectId } from "mongodb"
-import IOpportunity from "./Opportunity"
-import IUser from "./User"
+import IOpportunity from "./opportunity"
+import IUser from "./user"
 
 export default interface IApplication extends Document {
 	_id?: ObjectId | string

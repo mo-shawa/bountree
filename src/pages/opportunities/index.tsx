@@ -1,7 +1,7 @@
 import { useEffect, useState, Suspense } from "react"
 import Opportunities from "@/components/Opportunities"
 import Layout from "@/components/Layout"
-import IOpportunity from "@/types/Opportunity"
+import IOpportunity from "@/types/opplortunity"
 import { Loader } from "@/components/Loader/Loader"
 import { useSession, signIn } from "next-auth/react"
 import { useRouter } from "next/router"
@@ -30,11 +30,7 @@ export default function Dashboard() {
 
 	return (
 		<Layout classNames="bg-b-blue-dark">
-			{loading ? (
-				<Loader/>
-			) : (
-				<Opportunities data={data || []} />
-			)}
+			{loading ? <Loader /> : <Opportunities data={data || []} />}
 		</Layout>
 	)
 }

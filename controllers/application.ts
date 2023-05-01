@@ -1,4 +1,4 @@
-import IApplication from "@/types/Application"
+import IApplication from "@/types/application"
 import clientPromise from "../db/connect"
 import { ObjectId } from "mongodb"
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import Opportunity from "./Opportunity"
 import Filter from "./Filter"
-import IOpportunity from "@/types/Opportunity"
+import IOpportunity from "@/types/opplortunity"
 import { Loader } from "./Loader/Loader"
 import { formatCurrency } from "@/utils/misc"
 
