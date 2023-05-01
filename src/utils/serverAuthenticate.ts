@@ -10,7 +10,6 @@ export default async function serverAuthenticate(
 	const token = await getToken({ req, secret: process.env.JWT_SECRET })
 
 	if (!session?.user?.email && !token?.email) {
-		res.status(401).json({ 401: "Unauthorized" })
 		return { session: null, token: null }
 	}
 

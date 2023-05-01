@@ -18,9 +18,9 @@ export default async function handler(
 	try {
 		if (method === "GET") {
 			const opportunity = await getOpportunityById(opportunityId)
-			res.status(200).json({ opportunity })
+			return res.status(200).json({ opportunity })
 		}
 	} catch (error) {
-		res.status(500).json({ error })
+		return res.status(500).json({ error })
 	}
 }

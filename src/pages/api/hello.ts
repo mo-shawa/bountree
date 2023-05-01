@@ -18,5 +18,5 @@ export default async function handler(
 		status: "hired",
 	})
 
-	res.status(200).json({ name: "nice", session, response })
+	return res.status(200).json({ name: "nice", session, response })
 }

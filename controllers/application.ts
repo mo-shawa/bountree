@@ -108,7 +108,5 @@ export async function getApplicationsByUser(id: string) {
 		])
 		.toArray()
 
-	console.log(applications)
-
 	return applications
 }

@@ -58,5 +58,5 @@ export default async function handler(
 	}
 	const data = await collection.insertOne(opportunity)
 
-	res.status(200).json({ data })
+	return res.status(200).json({ data })
 }

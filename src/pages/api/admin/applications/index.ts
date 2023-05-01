@@ -12,14 +12,13 @@ export default async function handler(
 	try {
 		if (method === "GET") {
 			if (token?.email?.split("@")[1] !== "bountree.app") {
-				res.status(403).json({ error: "Forbidden" })
-				return
+				return res.status(403).json({ error: "Forbidden" })
 			}
 
 			const applications = await getAdminApplications()
-			res.status(200).json({ applications })
+			return res.status(200).json({ applications })
 		}
 	} catch (error) {
-		res.status(500).json({ error })
+		return res.status(500).json({ error })
 	}
 }

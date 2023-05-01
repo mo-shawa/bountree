@@ -50,8 +50,8 @@ export default async function handler(
 			await addEmailAddress(email as string)
 		}
 		await sendJobGeneratorEmail(email as string, formattedJD)
-		res.status(200).json(response.data)
+		return res.status(200).json(response.data)
 	} catch (error: any) {
-		res.status(500).json({ success: false, error: error.message })
+		return res.status(500).json({ success: false, error: error.message })
 	}
 }

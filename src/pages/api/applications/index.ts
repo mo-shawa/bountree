@@ -25,9 +25,9 @@ export default async function handler(
 			const newApplication = await createApplication(application)
 
 			const opportunity = await getOpportunityById(parsedBody.opportunityId)
-			res.status(200).json({ opportunity })
+			return res.status(200).json({ opportunity })
 		}
 	} catch (error) {
-		res.status(500).json({ error })
+		return res.status(500).json({ error })
 	}
 }

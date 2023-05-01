@@ -13,9 +13,9 @@ export default async function handler(
 
 		if (method === "GET") {
 			const opportunities = await getOpportunities()
-			res.status(200).json({ success: true, data: opportunities })
+			return res.status(200).json({ success: true, data: opportunities })
 		}
 	} catch (error) {
-		res.status(400).json({ success: false, error })
+		return res.status(400).json({ success: false, error })
 	}
 }
