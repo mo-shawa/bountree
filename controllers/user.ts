@@ -1,7 +1,7 @@
 import clientPromise from "../db/connect"
 import { ObjectId } from "mongodb"
-import IUser from "@/types/User"
-import type IApplication from "@/types/Application"
+import IUser from "@/types/user"
+import type IApplication from "@/types/application"
 
 export async function getAdminUsers() {
 	const client = await clientPromise

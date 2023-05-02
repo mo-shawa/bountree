@@ -2,11 +2,11 @@ import Layout from "@/components/Layout"
 import { useSession } from "next-auth/react"
 import { signIn } from "next-auth/react"
 import { useState, useEffect } from "react"
-import IApplication from "@/types/Application"
+import IApplication from "@/types/application"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { Loader } from "@/components/Loader/Loader"
-import IUser from "@/types/User"
+import IUser from "@/types/user"
 
 export default function Admin() {
 	const { data: session, status } = useSession()

@@ -46,6 +46,12 @@ export default NextAuth({
 
 			return Promise.resolve(session)
 		},
+		jwt: async ({ token, user }) => {
+			if (user) {
+				token.id = user.id
+			}
+			return Promise.resolve(token)
+		},
 	},
 
 	events: {

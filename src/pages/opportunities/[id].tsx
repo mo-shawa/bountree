@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import Layout from "@/components/Layout"
 import { useEffect, useState } from "react"
-import IOpportunity from "../../types/Opportunity"
+import IOpportunity from "../../types/opportunity"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 import Loader from "@/components/Loader/Loader"

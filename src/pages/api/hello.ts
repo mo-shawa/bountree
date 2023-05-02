@@ -7,7 +7,9 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const session = await serverAuthenticate(req, res)
+	const { token } = await serverAuthenticate(req)
+
+	if (!token) return res.status(401).json({ error: "Unauthorized" })
 
 	const response = await sendCandidateUpdateEmail({
 		userName: "test name",
@@ -18,5 +20,5 @@ export default async function handler(
 		status: "hired",
 	})
 
-	res.status(200).json({ name: "nice", session, response })
+	return res.status(200).json({ name: "nice", token, response })
 }

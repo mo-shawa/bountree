@@ -1,4 +1,4 @@
-import IApplication from "@/types/Application"
+import IApplication from "@/types/application"
 import { classNames, formatCurrency } from "@/utils/misc"
 import ArrowSVG from "../Misc/ArrowSVG"
 

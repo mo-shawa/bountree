@@ -14,5 +14,5 @@ export default async function handler(
 	const response = await openai.listEngines()
 	console.log(response)
 
-	res.status(200).json(response.data)
+	return res.status(200).json(response.data)
 }
