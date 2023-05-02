@@ -60,7 +60,7 @@ export default function RecruitModal({
 		} else {
 			setDisabled(true)
 		}
-	}, [formData, userId, checkboxChecked])
+	}, [formData, userId, checkboxChecked, conditionsMet])
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
