@@ -6,20 +6,19 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const { token } = await serverAuthenticate(req, res)
+	const { token } = await serverAuthenticate(req)
 	const { method } = req
 
 	try {
 		if (method === "GET") {
 			if (token?.email?.split("@")[1] !== "bountree.app") {
-				res.status(403).json({ error: "Forbidden" })
-				return
+				return res.status(403).json({ error: "Forbidden" })
 			}
 
 			const users = await getAdminUsers()
-			res.status(200).json({ users })
+			return res.status(200).json({ users })
 		}
 	} catch (error) {
-		res.status(500).json({ error })
+		return res.status(500).json({ error })
 	}
 }

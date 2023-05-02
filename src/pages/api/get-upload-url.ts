@@ -30,5 +30,5 @@ export default async function handler(
 
 	const signed = await file.generateSignedPostPolicyV4(options)
 	const [response] = signed
-	res.status(200).json({ ...response, fileName })
+	return res.status(200).json({ ...response, fileName })
 }

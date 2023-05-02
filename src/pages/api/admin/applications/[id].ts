@@ -7,12 +7,11 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const { token } = await serverAuthenticate(req, res)
+	const { token } = await serverAuthenticate(req)
 	const { method } = req
 
 	if (token?.email?.split("@")[1] !== "bountree.app") {
-		res.status(403).json({ error: "Forbidden" })
-		return
+		return res.status(403).json({ error: "Forbidden" })
 	}
 	try {
 		if (method === "PUT") {
@@ -49,9 +48,9 @@ export default async function handler(
 				reason,
 			})
 
-			res.status(200).json({ updatedApplication, sendGridResponse })
+			return res.status(200).json({ updatedApplication, sendGridResponse })
 		}
 	} catch (error) {
-		res.status(500).json({ error })
+		return res.status(500).json({ error })
 	}
 }

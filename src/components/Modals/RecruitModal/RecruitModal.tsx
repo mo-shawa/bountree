@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import IApplication from "@/types/Application"
-import IOpportunity from "@/types/Opportunity"
+import IApplication from "@/types/application"
+import IOpportunity from "@/types/opportunity"
 import { Loader } from "../../Loader/Loader"
 import { useSession } from "next-auth/react"
 import { getGCSUploadData } from "@/utils/cloudStorage"
@@ -60,7 +60,7 @@ export default function RecruitModal({
 		} else {
 			setDisabled(true)
 		}
-	}, [formData, userId, checkboxChecked])
+	}, [formData, userId, checkboxChecked, conditionsMet])
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

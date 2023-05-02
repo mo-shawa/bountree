@@ -1,4 +1,4 @@
-import type IApplication from "@/types/Application"
+import type IApplication from "@/types/application"
 import { classNames } from "@/utils/misc"
 import { InformationCircleIcon } from "@heroicons/react/24/outline"
 

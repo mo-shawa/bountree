@@ -1,13 +1,13 @@
 import clientPromise from "../../../../db/connect"
 import { NextApiRequest, NextApiResponse } from "next"
-import IOpportunity from "@/types/Opportunity"
+import IOpportunity from "@/types/opportunity"
 import serverAuthenticate from "@/utils/serverAuthenticate"
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const { token } = await serverAuthenticate(req, res)
+	const { token } = await serverAuthenticate(req)
 
 	if (token?.email?.split("@")[1] !== "bountree.app") {
 		return res.status(403).json({ success: false, error: "Forbidden" })
@@ -58,5 +58,5 @@ export default async function handler(
 	}
 	const data = await collection.insertOne(opportunity)
 
-	res.status(200).json({ data })
+	return res.status(200).json({ data })
 }

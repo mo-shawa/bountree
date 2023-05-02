@@ -6,8 +6,8 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const { token } = await serverAuthenticate(req, res)
-	if (!token?.sub) return res.status(401).json({ error: "Unauthorized" })
+	const { token } = await serverAuthenticate(req)
+	if (!token) return res.status(401).json({ error: "Unauthorized" })
 
 	const { method, query } = req
 	const { id: opportunityId } = query
@@ -18,9 +18,9 @@ export default async function handler(
 	try {
 		if (method === "GET") {
 			const opportunity = await getOpportunityById(opportunityId)
-			res.status(200).json({ opportunity })
+			return res.status(200).json({ opportunity })
 		}
 	} catch (error) {
-		res.status(500).json({ error })
+		return res.status(500).json({ error })
 	}
 }

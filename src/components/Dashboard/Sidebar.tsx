@@ -1,4 +1,4 @@
-import IApplication from "@/types/Application"
+import IApplication from "@/types/application"
 import { Session } from "next-auth"
 import Image from "next/image"
 import { formatCurrency } from "@/utils/misc"

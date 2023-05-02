@@ -1,4 +1,4 @@
-import IUser from "@/types/User"
+import IUser from "@/types/user"
 import mail from "@sendgrid/mail"
 
 export async function sendWelcomeEmail(user: IUser) {
