@@ -1,7 +1,7 @@
 import { useEffect, useState, Suspense } from "react"
 import Opportunities from "@/components/Opportunities"
 import Layout from "@/components/Layout"
-import IOpportunity from "@/types/opplortunity"
+import IOpportunity from "@/types/opportunity"
 import { Loader } from "@/components/Loader/Loader"
 import { useSession, signIn } from "next-auth/react"
 import { useRouter } from "next/router"

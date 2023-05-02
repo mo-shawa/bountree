@@ -6,10 +6,8 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const { token } = await serverAuthenticate(req, res)
-	if (!token) {
-		return res.status(401).json({ error: "Unauthorized" })
-	}
+	const { token } = await serverAuthenticate(req)
+	if (!token) return res.status(401).json({ error: "Unauthorized" })
 
 	const {
 		query: { id },

@@ -1,17 +1,12 @@
-import { getSession } from "next-auth/react"
 import { getToken } from "next-auth/jwt"
-import type { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest } from "next"
 
-export default async function serverAuthenticate(
-	req: NextApiRequest,
-	res: NextApiResponse
-) {
-	const session = await getSession({ req })
+export default async function serverAuthenticate(req: NextApiRequest) {
 	const token = await getToken({ req, secret: process.env.JWT_SECRET })
 
-	if (!session?.user?.email && !token?.email) {
-		return { session: null, token: null }
+	if (!token?.email) {
+		return { token: null }
 	}
 
-	return { session, token }
+	return { token }
 }

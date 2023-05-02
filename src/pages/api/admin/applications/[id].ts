@@ -7,12 +7,11 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const { token } = await serverAuthenticate(req, res)
+	const { token } = await serverAuthenticate(req)
 	const { method } = req
 
 	if (token?.email?.split("@")[1] !== "bountree.app") {
 		return res.status(403).json({ error: "Forbidden" })
-		return
 	}
 	try {
 		if (method === "PUT") {
