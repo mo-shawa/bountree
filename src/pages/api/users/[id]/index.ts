@@ -7,13 +7,11 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	// ...
-	const { session } = await serverAuthenticate(req)
+	const { token } = await serverAuthenticate(req)
 	const { id } = req.query
 	const { method } = req
 
-	if (session?.user.id !== id) {
-		return res.status(401).json({ 401: "Unauthorized" })
-	}
+	if (!token) return res.status(401).json({ 401: "Unauthorized" })
 
 	if (!id || typeof id !== "string")
 		return res.status(400).json({ error: "Invalid ID" })
