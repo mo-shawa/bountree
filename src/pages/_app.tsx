@@ -4,15 +4,22 @@ import { SessionProvider, useSession } from "next-auth/react"
 import { Analytics } from "@vercel/analytics/react"
 import { IntercomProvider } from "react-use-intercom"
 
-const intercomAppId = process.env.INTERCOM_APP_ID as string
-
+const intercomAppId = "wkv87k2i"
 export default function App({ Component, pageProps }: AppProps) {
 	return (
-		<SessionProvider>
-			<IntercomProvider appId={intercomAppId} autoBoot>
+		<IntercomProvider
+			appId={intercomAppId}
+			autoBoot={true}
+			autoBootProps={{
+				backgroundColor: "#1B262C",
+				actionColor: "#BBE1FA",
+				verticalPadding: 60,
+			}}
+		>
+			<SessionProvider>
 				<Component {...pageProps} />
 				<Analytics />
-			</IntercomProvider>
-		</SessionProvider>
+			</SessionProvider>
+		</IntercomProvider>
 	)
 }
