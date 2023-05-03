@@ -4,16 +4,17 @@ import Layout from "@/components/Layout"
 import { signIn, useSession } from "next-auth/react"
 import ArrowSVG from "@/components/Misc/ArrowSVG"
 import ArrowButton from "@/components/Misc/ArrowButton"
+import { useEffect } from "react"
+import { useIntercom } from "react-use-intercom"
 
 export default function Home() {
-	const { status } = useSession()
+	const { data: session, status } = useSession()
+
+	const intercom = useIntercom()
 
 	return (
 		<Layout classNames="bg-b-blue-dark">
-			<section
-				id="hero"
-				className=" flex flex-col justify-center items-center bg-b-blue-dark text-white"
-			>
+			<section className=" flex flex-col justify-center items-center bg-b-blue-dark text-white">
 				<div className="grid md:grid-cols-2 py-12 w-full max-w-7xl px-4">
 					<div className=" flex flex-col items-center md:items-start justify-start ">
 						<div className="bg-b-lavender text-b-blue-dark  mb-3 flex w-fit rounded-full border border-neutral-500 px-4 py-0.5">
@@ -48,6 +49,7 @@ export default function Home() {
 						alt="hero image"
 					/>
 				</div>
+				<button onClick={intercom.show}>show</button>
 			</section>
 
 			<section id="details" className="mx-4 py-12 text-b-blue-dark">

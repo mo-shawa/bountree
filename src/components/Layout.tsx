@@ -5,6 +5,7 @@ import { ReactNode, useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
 import PrivacyandTermsModal from "./Modals/PrivacyandTermsModal"
 import { Loader } from "./Loader/Loader"
+import { useIntercom } from "react-use-intercom"
 
 type Props = {
 	children?: ReactNode
@@ -13,7 +14,6 @@ type Props = {
 
 export default function Layout({ children, classNames }: Props): JSX.Element {
 	const { data: session, status, update } = useSession()
-
 	const [showModal, setShowModal] = useState<boolean>(false)
 
 	useEffect(() => {
@@ -70,6 +70,7 @@ export default function Layout({ children, classNames }: Props): JSX.Element {
 					href="/favicon/favicon-16x16espng"
 				/>
 			</Head>
+
 			<Navbar />
 			<main className={classNames}>{children}</main>
 			{showModal && (
