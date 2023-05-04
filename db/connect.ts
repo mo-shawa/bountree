@@ -1,4 +1,4 @@
-import { Db, MongoClient } from "mongodb"
+import { Db, MongoClient, MongoClientOptions } from "mongodb"
 
 if (!process.env.DATABASE_URI) {
 	throw new Error('Invalid/Missing environment variable: "DATABASE_URL"')
@@ -6,7 +6,10 @@ if (!process.env.DATABASE_URI) {
 
 const uri: string = process.env.DATABASE_URI
 
-const options = {}
+const options: MongoClientOptions = {
+	maxPoolSize: 2,
+	maxIdleTimeMS: 10000,
+}
 
 let client: MongoClient
 let clientPromise: Promise<MongoClient>
