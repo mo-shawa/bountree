@@ -323,7 +323,7 @@ function FeedbackSection({ post }: { post: IOpportunity }) {
 			<ul className="list-disc md:ml-14 ml-5 ">
 				{applicationsWithFeedback.map((app, i) => (
 					<li key={app._id as string} className="my-4">
-						{app.rejectionFeedback}
+						{`Candidate #${i + 1}: ${app.rejectionFeedback}`}
 					</li>
 				))}
 			</ul>
