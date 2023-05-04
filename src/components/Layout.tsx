@@ -5,6 +5,7 @@ import { ReactNode, useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
 import PrivacyandTermsModal from "./Modals/PrivacyandTermsModal"
 import { Loader } from "./Loader/Loader"
+import { useIntercom } from "react-use-intercom"
 
 type Props = {
 	children?: ReactNode
@@ -12,9 +13,28 @@ type Props = {
 }
 
 export default function Layout({ children, classNames }: Props): JSX.Element {
-	const { data: session, status, update } = useSession()
-
+	const { data: session, status, update: updateSession } = useSession()
 	const [showModal, setShowModal] = useState<boolean>(false)
+
+	const { update: updateIntercom } = useIntercom()
+
+	useEffect(() => {
+		if (status === "authenticated") {
+			console.log("user is authenticated - updating intercom", session)
+			updateIntercom({
+				email: session?.user?.email,
+				name: session?.user?.name,
+				createdAt: session?.user?.created_at,
+				userId: session?.user?.id,
+				avatar: session?.user?.image,
+			})
+		}
+
+		if (status === "unauthenticated") {
+			console.log("user is unauthenticated - updating intercom")
+			updateIntercom()
+		}
+	}, [status])
 
 	useEffect(() => {
 		if (
@@ -70,6 +90,7 @@ export default function Layout({ children, classNames }: Props): JSX.Element {
 					href="/favicon/favicon-16x16espng"
 				/>
 			</Head>
+
 			<Navbar />
 			<main className={classNames}>{children}</main>
 			{showModal && (
@@ -77,7 +98,7 @@ export default function Layout({ children, classNames }: Props): JSX.Element {
 					showModal={showModal}
 					setShowModal={setShowModal}
 					userId={session?.user.id}
-					updateSession={update}
+					updateSession={updateSession}
 				/>
 			)}
 			<Footer />
