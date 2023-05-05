@@ -151,6 +151,7 @@ export default function RecruitModal({
 						)}
 						{success === undefined && !loading && (
 							<RecruitForm
+								setModalOpen={setModalOpen}
 								formData={formData}
 								setFile={setFile}
 								handleChange={handleChange}
