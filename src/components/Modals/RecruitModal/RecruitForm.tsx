@@ -1,6 +1,6 @@
 import type IApplication from "@/types/application"
 import { classNames } from "@/utils/misc"
-import { InformationCircleIcon } from "@heroicons/react/24/outline"
+import { InformationCircleIcon, XCircleIcon } from "@heroicons/react/24/outline"
 
 type Props = {
 	formData: Partial<IApplication>
@@ -12,6 +12,7 @@ type Props = {
 	setCheckboxChecked: (checked: boolean) => void
 	handleSubmit: (e: React.FormEvent) => void
 	disabled: boolean
+	setModalOpen: (open: boolean) => void
 }
 
 export default function RecruitForm({
@@ -22,12 +23,17 @@ export default function RecruitForm({
 	checkboxChecked,
 	setCheckboxChecked,
 	handleSubmit,
+	setModalOpen,
 }: Props) {
 	return (
 		<form
 			onClick={(e) => e.stopPropagation()}
-			className="text-black bg-white px-5 py-10 rounded w-full max-w-sm flex flex-col items-center max-h-screen overflow-auto"
+			className="text-black bg-white px-5 py-10 rounded w-full max-w-sm flex flex-col items-center max-h-screen overflow-auto relative"
 		>
+			<XCircleIcon
+				onClick={() => setModalOpen(false)}
+				className="h-6 w-6 absolute top-2 right-2 cursor-pointer text-gray-700"
+			/>
 			<div className="form-control w-full max-w-xs">
 				<label htmlFor="name" className="label">
 					<span className="label-text">
