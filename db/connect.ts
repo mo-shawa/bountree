@@ -3,7 +3,9 @@ import { MongoClient, MongoClientOptions, ServerApiVersion } from "mongodb"
 const uri = process.env.DATABASE_URI as string // your mongodb connection string
 const options: MongoClientOptions = {
 	maxPoolSize: 1,
-	maxIdleTimeMS: 5000,
+	maxIdleTimeMS: 10000,
+	serverSelectionTimeoutMS: 10000,
+	socketTimeoutMS: 10000,
 	serverApi: {
 		version: ServerApiVersion.v1,
 		strict: true,
