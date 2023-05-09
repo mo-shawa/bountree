@@ -2,7 +2,7 @@ import Layout from "@/components/Layout"
 import { useSession } from "next-auth/react"
 import { signIn } from "next-auth/react"
 import { useState, useEffect, useCallback } from "react"
-import IApplication from "@/types/application"
+import IApplication, { ApplicationStatus } from "@/types/application"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { Loader } from "@/components/Loader/Loader"
@@ -119,10 +119,12 @@ function Row({
 	handleOnSelectApplication: (application: IApplication) => void
 	setApplications: React.Dispatch<React.SetStateAction<IApplication[]>>
 }) {
-	const statusStyle = {
+	const statusStyle: { [key in ApplicationStatus]: string } = {
 		pending: "bg-yellow-500",
+		forwarded: "bg-orange-500",
 		interviewing: "bg-blue-500",
 		rejected: "bg-red-500",
+		offered: "bg-purple-500",
 		hired: "bg-green-500",
 	}
 
@@ -203,7 +205,16 @@ function Row({
 					onChange={(e) => setSelectedStatus(e.target.value as any)}
 					name="status"
 				>
-					<option value="pending" selected={application.status === "pending"}>
+					{Object.keys(statusStyle).map((status) => (
+						<option
+							value={status}
+							selected={application.status === status}
+							key={status}
+						>
+							{status}
+						</option>
+					))}
+					{/* <option value="pending" selected={application.status === "pending"}>
 						Pending
 					</option>
 					<option
@@ -217,7 +228,7 @@ function Row({
 					</option>
 					<option value="hired" selected={application.status === "hired"}>
 						Hired
-					</option>
+					</option> */}
 				</select>
 				<div
 					className={classNames(

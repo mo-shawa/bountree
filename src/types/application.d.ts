@@ -13,8 +13,16 @@ export default interface IApplication extends Document {
 	linkedin: string
 	secondary?: string
 	description: string
-	status: "pending" | "interviewing" | "rejected" | "hired"
+	status: ApplicationStatus
 	createdAt: Date
 	updatedAt: Date
 	rejectionFeedback?: string
 }
+
+type ApplicationStatus =
+	| "pending"
+	| "forwarded"
+	| "interviewing"
+	| "offered"
+	| "hired"
+	| "rejected"
