@@ -1,3 +1,4 @@
+import { ApplicationStatus } from "@/types/application"
 import IUser from "@/types/user"
 import mail from "@sendgrid/mail"
 
@@ -59,9 +60,12 @@ export async function sendCandidateUpdateEmail({
 }: CandidateUpdateOptions) {
 	mail.setApiKey(process.env.SENDGRID_API_KEY as string)
 
-	const templateIdFromStatus = {
+	const templateIdFromStatus: { [key in ApplicationStatus]: string } = {
+		pending: "",
 		interviewing: "d-22acb8af616a444f8a34f048bf7a5b0a",
+		forwarded: "d-ee0c3582a90d41ff9696e62049e28ae6",
 		rejected: "d-2ef64620733f4cc8be9d37cac9ac05ed",
+		offered: "d-ee0c3582a90d41ff9696e62049e28ae6",
 		hired: "d-3aad7ffed48249dd98a661d993d32f91",
 	}
 

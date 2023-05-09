@@ -7,7 +7,7 @@ export default interface IOpportunity extends Document {
 	description: string
 	idealCandidate: string
 	requirements: string[]
-	status: Status
+	status: OpportunityStatus
 	perks: {
 		description?: string
 		items: string[]
@@ -26,12 +26,11 @@ export default interface IOpportunity extends Document {
 	remote: boolean
 	company: Company
 	rejectionFeedback?: Feedback[]
-	applications: IApplication[]
 	createdAt: Date
 	updatedAt: Date
 }
 
-type Status = "open" | "closed" | "paused"
+type OpportunityStatus = "open" | "closed" | "paused"
 
 type company = {
 	name: string

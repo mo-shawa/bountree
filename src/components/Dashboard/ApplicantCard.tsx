@@ -1,13 +1,8 @@
 import IApplication from "@/types/application"
 import { classNames, formatCurrency } from "@/utils/misc"
 import ArrowSVG from "../Misc/ArrowSVG"
+import { statusStyle } from "@/utils/misc"
 
-const statusColors = {
-	pending: "bg-yellow-500",
-	interviewing: "bg-blue-500",
-	rejected: "bg-red-500",
-	hired: "bg-green-500",
-}
 type Props = IApplication & {
 	open: boolean
 }
@@ -75,7 +70,7 @@ export default function ApplicantCard({
 							<div
 								className={classNames(
 									"h-2 w-2 rounded-full",
-									statusColors[status]
+									statusStyle[status]
 								)}
 							></div>
 							{status}

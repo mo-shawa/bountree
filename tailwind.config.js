@@ -1,12 +1,4 @@
-const {
-	black,
-	white,
-	gray,
-	green,
-	blue,
-	red,
-	yellow,
-} = require("tailwindcss/colors")
+const colors = require("tailwindcss/colors")
 const defaultTheme = require("tailwindcss/defaultTheme")
 
 /** @type {import('tailwindcss').Config} */
@@ -21,15 +13,7 @@ module.exports = {
 	],
 	theme: {
 		colors: {
-			transparent: "transparent",
-			black,
-			white,
-			gray,
-			green,
-			blue,
-			red,
-			yellow,
-			current: "currentColor",
+			...colors,
 			"b-blue": "#BBE1FA",
 			"b-blue-dark": "#1B262C",
 			"b-mint": "#E1FFEE",

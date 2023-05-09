@@ -1,3 +1,5 @@
+import { ApplicationStatus } from "@/types/application"
+
 export function classNames(...className: string[]) {
 	return className.filter(Boolean).join(" ")
 }
@@ -19,4 +21,13 @@ export function isURL(url: string) {
 	return /https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}/.test(
 		url
 	)
+}
+
+export const statusStyle: { [key in ApplicationStatus]: string } = {
+	pending: "bg-yellow-500",
+	forwarded: "bg-orange-500",
+	interviewing: "bg-blue-500",
+	rejected: "bg-red-500",
+	offered: "bg-purple-500",
+	hired: "bg-green-500",
 }

@@ -10,6 +10,7 @@ import { classNames } from "@/utils/misc"
 import RecruitModal from "@/components/Modals/RecruitModal/RecruitModal"
 import { formatCurrency } from "@/utils/misc"
 import Pill from "@/components/Misc/Pill"
+import IApplication from "@/types/application"
 
 export default function PostDetail() {
 	const router = useRouter()
@@ -59,7 +60,9 @@ export default function PostDetail() {
 
 	const applicationsRemaining =
 		(session?.user.applicationLimit || 5) -
-		post.applications.filter((a) => a.userId === session?.user._id).length
+		post.applications.filter(
+			(a: IApplication) => a.userId === session?.user._id
+		).length
 
 	return (
 		<Layout classNames="bg-b-blue-dark flex justify-center">
@@ -98,7 +101,7 @@ function PrimarySection({
 	setModalOpen: (open: boolean) => void
 }) {
 	const hasRejectionFeedback = post.applications.some(
-		(a) => a.status === "rejected" && a.rejectionFeedback
+		(a: IApplication) => a.status === "rejected" && a.rejectionFeedback
 	)
 	return (
 		<div className="col-span-6 lg:col-span-4">
@@ -280,6 +283,10 @@ function SecondarySection({ post }: { post: IOpportunity }) {
 	return (
 		<div>
 			<div className="pb-5 md:py-6">
+				<h1 className="text-xl text-left text-b-yellow">Role Description</h1>
+				<p className=" max-w-2xl my-4 text-justify ">{post.description}</p>
+			</div>
+			<div className="pb-5 md:py-6">
 				<h1 className="text-xl text-left text-b-yellow">The Ideal Candidate</h1>
 				<p className=" max-w-2xl my-4 text-justify ">{post.idealCandidate}</p>
 			</div>
@@ -308,7 +315,7 @@ function SecondarySection({ post }: { post: IOpportunity }) {
 
 function FeedbackSection({ post }: { post: IOpportunity }) {
 	const applicationsWithFeedback = post.applications.filter(
-		(app) => app.rejectionFeedback
+		(app: IApplication) => app.rejectionFeedback
 	)
 	return (
 		<div className="pb-10">
@@ -321,7 +328,7 @@ function FeedbackSection({ post }: { post: IOpportunity }) {
 				</p>
 			</div>
 			<ul className="list-disc md:ml-14 ml-5 ">
-				{applicationsWithFeedback.map((app, i) => (
+				{applicationsWithFeedback.map((app: IApplication, i: number) => (
 					<li key={app._id as string} className="my-4">
 						{`Candidate #${i + 1}: ${app.rejectionFeedback}`}
 					</li>
