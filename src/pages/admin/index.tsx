@@ -159,7 +159,12 @@ function Row({
 			onClick={() => handleOnSelectApplication(application)}
 		>
 			<th>{num}</th>
-			<td>{new Date(application.createdAt).toDateString()}</td>
+			<td>
+				{new Date(application.createdAt).toLocaleString("en-US", {
+					dateStyle: "short",
+					timeStyle: "short",
+				})}
+			</td>
 			<td>{application.name}</td>
 			<td>{application.user?.name}</td>
 			<td>
