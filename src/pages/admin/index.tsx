@@ -8,7 +8,7 @@ import Link from "next/link"
 import { Loader } from "@/components/Loader/Loader"
 import ApplicantCard from "@/components/Dashboard/ApplicantCard"
 import GenericModal from "@/components/Modals/GenericModal"
-import { classNames } from "@/utils/misc"
+import { classNames, statusStyle } from "@/utils/misc"
 
 export default function Admin() {
 	const { data: session, status } = useSession()
@@ -119,15 +119,6 @@ function Row({
 	handleOnSelectApplication: (application: IApplication) => void
 	setApplications: React.Dispatch<React.SetStateAction<IApplication[]>>
 }) {
-	const statusStyle: { [key in ApplicationStatus]: string } = {
-		pending: "bg-yellow-500",
-		forwarded: "bg-orange-500",
-		interviewing: "bg-blue-500",
-		rejected: "bg-red-500",
-		offered: "bg-purple-500",
-		hired: "bg-green-500",
-	}
-
 	const [selectedStatus, setSelectedStatus] = useState(application.status)
 	const [reason, setReason] = useState("")
 
@@ -214,21 +205,6 @@ function Row({
 							{status}
 						</option>
 					))}
-					{/* <option value="pending" selected={application.status === "pending"}>
-						Pending
-					</option>
-					<option
-						value="interviewing"
-						selected={application.status === "interviewing"}
-					>
-						Interviewing
-					</option>
-					<option value="rejected" selected={application.status === "rejected"}>
-						Rejected
-					</option>
-					<option value="hired" selected={application.status === "hired"}>
-						Hired
-					</option> */}
 				</select>
 				<div
 					className={classNames(
