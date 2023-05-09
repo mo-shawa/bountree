@@ -5,7 +5,7 @@ const nextConfig = {
 	images: {
 		domains: ["via.placeholder.com", "storage.googleapis.com"],
 		remotePatterns: [{ protocol: "https", hostname: "**" }],
-		transpilePackages: ["react-hotjar"],
+		// transpilePackages: ["react-hotjar"],
 	},
 }
 
