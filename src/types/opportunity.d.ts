@@ -26,7 +26,6 @@ export default interface IOpportunity extends Document {
 	remote: boolean
 	company: Company
 	rejectionFeedback?: Feedback[]
-	applications: IApplication[]
 	createdAt: Date
 	updatedAt: Date
 }

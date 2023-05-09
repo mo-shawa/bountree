@@ -34,21 +34,23 @@ export default async function handler(
 				status,
 				reason
 			)
+			let sendGridResponse
 
-			if (status === "rejected" && reason) {
+			if (["interviewing", "rejected", "hired"].includes(status)) {
+				sendGridResponse = await sendCandidateUpdateEmail({
+					userName,
+					userEmail,
+					candidateName,
+					positionName,
+					startupName,
+					status,
+					reason,
+				})
 			}
 
-			const sendGridResponse = await sendCandidateUpdateEmail({
-				userName,
-				userEmail,
-				candidateName,
-				positionName,
-				startupName,
-				status,
-				reason,
-			})
-
-			return res.status(200).json({ updatedApplication, sendGridResponse })
+			return res
+				.status(200)
+				.json({ updatedApplication, ...(sendGridResponse || {}) })
 		}
 	} catch (error) {
 		return res.status(500).json({ error })
