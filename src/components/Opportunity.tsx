@@ -55,7 +55,7 @@ export default function Opportunity(props: any) {
 							<p className="font-thin text-xs">{props.slogan}</p>
 						</div>
 						<div className="flex flex-wrap items-center gap-2">
-							<p className=" md:font-thin text-gray-500 m-0 xs:max-w-[170px]">
+							<p className=" md:font-thin text-gray-500 m-0 max-w-[170px] xs:max-w-full">
 								{props.role.title}
 							</p>
 							{statusPillLeft}
