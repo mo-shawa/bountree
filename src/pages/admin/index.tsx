@@ -13,6 +13,7 @@ import { classNames, statusStyle } from "@/utils/misc"
 export default function Admin() {
 	const { data: session, status } = useSession()
 	const [applications, setApplications] = useState<IApplication[]>([])
+	const [archived, setArchived] = useState<IApplication[]>([])
 	const [selectedApplication, setSelectedApplication] =
 		useState<IApplication | null>(null)
 	const [modalOpen, setModalOpen] = useState(false)
@@ -25,7 +26,14 @@ export default function Admin() {
 			const res = await fetch(`/api/admin/applications`)
 			const data = await res.json()
 			console.log(data)
-			setApplications(data.applications)
+			const applications = data.applications.filter(
+				(app: IApplication) => app.status !== "rejected"
+			)
+			const archived = data.applications.filter(
+				(app: IApplication) => app.status === "rejected"
+			)
+			setApplications(applications)
+			setArchived(archived)
 		}
 
 		if (session && isAdmin) getDashboardData()
@@ -68,6 +76,9 @@ export default function Admin() {
 		<Layout classNames="bg-b-blue-dark">
 			<div className="overflow-x-auto w-full max-w-7xl mx-auto  p-4">
 				<h1 className="text-2xl font-bold my-5 text-white">Applications</h1>
+				<a href="#archived" className="badge badge-warning badge-outline mb-5">
+					👇 Jump to Archived 👇
+				</a>
 				<table className="table table-zebra w-full">
 					<thead>
 						<tr>
@@ -95,6 +106,48 @@ export default function Admin() {
 							})}
 					</tbody>
 				</table>
+
+				<div
+					tabIndex={0}
+					className="collapse collapse-arrow border mt-12 rounded-lg bg-red-900 "
+				>
+					<h1
+						id="archived"
+						className="text-2xl font-bold my-5 text-white collapse-title"
+					>
+						Archived (rejections)
+					</h1>
+
+					<div className="collapse-content">
+						<table className=" table table-zebra w-full">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Date</th>
+									<th>Candidate</th>
+									<th>Recruiter</th>
+									<th>Position</th>
+									<th>Company</th>
+									<th>Update status</th>
+								</tr>
+							</thead>
+							<tbody>
+								{archived.length &&
+									archived.map((app, idx) => {
+										return (
+											<Row
+												setApplications={setArchived}
+												handleOnSelectApplication={handleOnSelectApplication}
+												key={app.id}
+												application={app}
+												num={idx + 1}
+											/>
+										)
+									})}
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 			{modalOpen && selectedApplication !== null && (
 				<GenericModal
@@ -178,14 +231,12 @@ function Row({
 			</td>
 			<td>
 				{selectedStatus !== application.status ? (
-					<>
-						<button
-							onClick={handleUpdateStatus}
-							className="btn btn-sm bg-b-yellow text-black mx-auto"
-						>
-							update
-						</button>
-					</>
+					<button
+						onClick={handleUpdateStatus}
+						className="btn btn-sm bg-b-yellow text-black mx-auto"
+					>
+						update
+					</button>
 				) : (
 					application.opportunity?.company.name
 				)}
