@@ -60,7 +60,7 @@ export default function Opportunity(props: any) {
 							</p>
 							{statusPillLeft}
 						</div>
-						<div className="flex gap-2 text-xs font-thin text-gray-500">
+						<div className="flex gap-2 text-xs sm:font-thin text-gray-500">
 							<p>{props.role.workFrom}</p>
 							<span>•</span>
 							<p>{props.role.location}</p>
@@ -72,12 +72,12 @@ export default function Opportunity(props: any) {
 				<div id="right" className="absolute right-0 ">
 					<p className="text-xl">
 						<div className="flex items-center">
-							<div className="shadow mr-2 bg-b-yellow rounded-full w-6 h-6 text-sm text-center font-bold">
+							{/* <div className="shadow mr-2 bg-b-yellow rounded-full w-6 h-6 text-sm text-center font-bold">
 								β
-							</div>
+							</div> */}
 							{props.role.reward}
 						</div>
-						<span className="text-xs font-thin text-gray-500 block text-right">
+						<span className="text-xs sm:font-thin text-gray-500 block text-right">
 							reward
 						</span>
 					</p>
