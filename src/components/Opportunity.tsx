@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import Pill from "./Misc/Pill"
-import { formatCurrency } from "@/utils/misc"
+import { classNames, formatCurrency } from "@/utils/misc"
 
 export default function Opportunity(props: any) {
 	const { fixed, min, max, currency } = props.salary
@@ -26,12 +26,15 @@ export default function Opportunity(props: any) {
 	return (
 		<Link
 			href={`/opportunities/${props.id}`}
-			className="w-full bg-white rounded-md flex flex-row justify-between items-center p-4 my-4 hover:-translate-y-1 transition-translate duration-300 ease-in-out"
+			className={classNames(
+				"shadow-md w-full bg-white rounded-md flex flex-row justify-between items-center p-4 my-4 hover:-translate-y-1 transition-translate duration-300 ease-in-out",
+				props.status === "paused" ? "opacity-60" : ""
+			)}
 		>
-			<div className="h-full flex justify-between w-full items-center">
-				<div className="flex gap-4">
+			<div className="h-full flex justify-between w-full items-center relative">
+				<div className="flex flex-col xs:flex-row gap-4">
 					<Image
-						className="rounded-md object-contain"
+						className="rounded-md object-contain h-8 w-8 xs:h-20 xs:w-20"
 						src={props.image}
 						alt="company logo"
 						width={80}
@@ -43,10 +46,12 @@ export default function Opportunity(props: any) {
 							<p className="font-thin text-xs">{props.slogan}</p>
 						</div>
 						<div className="flex flex-wrap items-center gap-2">
-							<p className="font-thin text-gray-500 m-0">{props.role.title}</p>
+							<p className=" md:font-thin text-gray-500 m-0">
+								{props.role.title}
+							</p>
 							{statusPillLeft}
 						</div>
-						<div className="hidden xs:flex gap-2 text-xs font-thin text-gray-500">
+						<div className="flex gap-2 text-xs font-thin text-gray-500">
 							<p>{props.role.workFrom}</p>
 							<span>•</span>
 							<p>{props.role.location}</p>
@@ -55,7 +60,7 @@ export default function Opportunity(props: any) {
 						</div>
 					</div>
 				</div>
-				<div id="right">
+				<div id="right" className="absolute right-0">
 					<p className="text-xl">
 						{props.role.reward}
 						<span className="text-xs font-thin text-gray-500 hidden sm:block">
