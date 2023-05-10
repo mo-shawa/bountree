@@ -54,8 +54,8 @@ export default function Opportunity(props: any) {
 							<h4>{props.company}</h4>
 							<p className="font-thin text-xs">{props.slogan}</p>
 						</div>
-						<div className="flex flex-wrap items-center gap-2">
-							<p className=" md:font-thin text-gray-500 m-0 max-w-[170px] xs:max-w-full">
+						<div className="flex flex-wrap items-center gap-2 w-auto">
+							<p className=" md:font-thin text-gray-500 m-0 max-w-[80%] sm:max-w-full ">
 								{props.role.title}
 							</p>
 							{statusPillLeft}
