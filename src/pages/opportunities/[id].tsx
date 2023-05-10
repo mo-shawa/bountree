@@ -244,7 +244,7 @@ function CompanySection({ post }: { post: IOpportunity }) {
 			<h1 className="text-xl text-left text-b-yellow">
 				About {post.company.name}
 			</h1>
-			<p className="max-w-2xl my-4  ">{post.description}</p>
+			<p className="max-w-2xl my-4  ">{post.company.about}</p>
 			<div className="grid max-w-xl grid-cols-2 gap-4 grid-rows-2 py-10 ">
 				<GridIcon
 					text={post.company.employees + " Employees"}
