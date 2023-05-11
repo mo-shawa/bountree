@@ -1,5 +1,5 @@
 import { useEffect, useState, Suspense } from "react"
-import Opportunities from "@/components/Opportunities"
+import MappedOpportunities from "@/components/Opportunities/MappedOpportunities"
 import Layout from "@/components/Layout"
 import IOpportunity from "@/types/opportunity"
 import { Loader } from "@/components/Loader/Loader"
@@ -30,7 +30,7 @@ export default function Dashboard() {
 
 	return (
 		<Layout classNames="bg-b-blue-dark">
-			{loading ? <Loader /> : <Opportunities data={data || []} />}
+			{loading ? <Loader /> : <MappedOpportunities data={data || []} />}
 		</Layout>
 	)
 }
