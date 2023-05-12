@@ -61,7 +61,7 @@ export default function PrivacyandTermsModal({
 							>
 								<h2 className="text-2xl font-bold mb-5">Privacy and Terms</h2>
 
-								<div className="form-control w-full max-w-sm">
+								<div className="form-control w-full max-w-sm text-left">
 									<label
 										htmlFor="acceptedTerms"
 										className="label cursor-pointer"
@@ -70,6 +70,7 @@ export default function PrivacyandTermsModal({
 											name="acceptedTerms"
 											onChange={handleChange}
 											type="checkbox"
+											className="checkbox mr-4"
 										/>
 										<span className="label-text">
 											I confirm that I agree to the{" "}
@@ -90,6 +91,7 @@ export default function PrivacyandTermsModal({
 											name="acceptedPrivacy"
 											onChange={handleChange}
 											type="checkbox"
+											className="checkbox mr-4"
 										/>
 										<span className="label-text">
 											I confirm that I agree to Bountree&apos;s{" "}
