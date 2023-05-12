@@ -73,6 +73,24 @@ export default function RecruitModal({
 		if (!conditionsMet) return
 
 		setLoading(true)
+		setMessage("Validating Candidate")
+
+		// Check if candidate LinkedIn has been used before
+		const resLinkedIn = await fetch(
+			`/api/opportunities/${opportunityId}/linkedin/${encodeURIComponent(
+				formData.linkedin as string
+			)}`
+		)
+
+		const linkedInUsed = await resLinkedIn.json()
+		console.log({ resLinkedIn, linkedInUsed })
+		// const linkedInUsed = true
+		if (linkedInUsed.application) {
+			setSuccess(false)
+			setLoading(false)
+			setMessage("Candidate has already been submitted. ")
+			return
+		}
 		setMessage("Generating secure URL")
 
 		// Get GCS upload data
@@ -124,7 +142,6 @@ export default function RecruitModal({
 		setLoading(false)
 		setSuccess(true)
 	}
-
 	const handleOnClose = (
 		e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
 	) => {

@@ -110,3 +110,22 @@ export async function getApplicationsByUser(id: string) {
 
 	return applications
 }
+
+export async function checkDuplicateApplicant(
+	opportunityId: string,
+	linkedin: string
+) {
+	const client = await clientPromise
+	const db = client.db(process.env.DATABASE_NAME)
+
+	// Check if candidate has already been submitted to this opportunity
+
+	const foundCandidate = await db.collection("applications").findOne({
+		opportunityId: new ObjectId(opportunityId),
+		linkedin,
+	})
+
+	console.log(foundCandidate)
+
+	return foundCandidate
+}
