@@ -1,10 +1,10 @@
 import Head from "next/head"
-import Navbar from "./Navigation/Navbar"
+import Navbar from "../Navigation/Navbar"
 import Footer from "./Footer"
 import { ReactNode, useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
-import PrivacyandTermsModal from "./Modals/PrivacyandTermsModal"
-import { Loader } from "./Loader/Loader"
+import PrivacyandTermsModal from "../Modals/PrivacyandTermsModal"
+import { Loader } from "../Loader/Loader"
 import { useIntercom } from "react-use-intercom"
 
 type Props = {

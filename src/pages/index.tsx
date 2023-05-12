@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import Layout from "@/components/Layout"
+import Layout from "@/components/Layout/Layout"
 import { useSession } from "next-auth/react"
 import ArrowSVG from "@/components/Misc/ArrowSVG"
 import ArrowButton from "@/components/Misc/ArrowButton"

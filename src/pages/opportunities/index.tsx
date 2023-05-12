@@ -1,6 +1,6 @@
 import { useEffect, useState, Suspense } from "react"
 import MappedOpportunities from "@/components/Opportunities/MappedOpportunities"
-import Layout from "@/components/Layout"
+import Layout from "@/components/Layout/Layout"
 import IOpportunity from "@/types/opportunity"
 import { Loader } from "@/components/Loader/Loader"
 import { useSession, signIn } from "next-auth/react"

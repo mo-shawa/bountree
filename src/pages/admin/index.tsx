@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout"
+import Layout from "@/components/Layout/Layout"
 import { useSession } from "next-auth/react"
 import { signIn } from "next-auth/react"
 import { useState, useEffect, useCallback } from "react"
