@@ -1,6 +1,11 @@
 import IOpportunity from '@/types/opportunity'
 
-export default function SecondarySection({ post }: { post: IOpportunity }) {
+type Props = {
+	post: IOpportunity
+	isSharing?: boolean
+}
+
+export default function SecondarySection({ post, isSharing = false }: Props) {
 	return (
 		<div>
 			<div className="pb-5 md:py-6">
@@ -10,6 +15,24 @@ export default function SecondarySection({ post }: { post: IOpportunity }) {
 			<div className="pb-5 md:py-6">
 				<h1 className="text-xl text-left text-b-yellow">The Ideal Candidate</h1>
 				<p className=" max-w-2xl my-4 text-justify ">{post.idealCandidate}</p>
+			</div>
+			<div className="py-6 ">
+				<h1 className="text-xl text-left text-b-yellow">
+					Position Requirements
+				</h1>
+
+				<ul className="list-disc md:ml-14 ml-5 ">
+					{post.requirements.map((item: string, i: number) => {
+						return (
+							<li
+								key={i}
+								className="my-4"
+							>
+								{item}
+							</li>
+						)
+					})}
+				</ul>
 			</div>
 			<div className="py-6 ">
 				<h1 className="text-xl text-left text-b-yellow">Role Perks</h1>
