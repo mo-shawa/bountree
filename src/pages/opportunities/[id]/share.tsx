@@ -46,8 +46,8 @@ export default function SharedOpportunity() {
 	if (!post) return <Loader />
 
 	return (
-		<BlankLayout classNames=" w-full bg-b-blue-dark">
-			<section className="mx-auto max-w-2xl text-white">
+		<BlankLayout classNames=" w-full  bg-b-blue-dark">
+			<section className="mx-auto p-4 max-w-2xl text-white">
 				<Top post={post} />
 				<SecondarySection post={post} />
 				<CompanySection post={post} />
