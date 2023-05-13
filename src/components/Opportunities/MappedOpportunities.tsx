@@ -8,7 +8,7 @@ type OpportunitiesProps = {
 	data: IOpportunity[]
 }
 
-export default function Opportunities({ data }: OpportunitiesProps) {
+export default function MappedOpportunities({ data }: OpportunitiesProps) {
 	const [filteredData, setFilteredData] = useState<IOpportunity[]>()
 	const [filteredBy, setFilteredBy] = useState<string>("All roles")
 

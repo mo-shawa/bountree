@@ -17,6 +17,8 @@ export default function Navbar() {
 		return router.pathname === href
 	}
 
+	const isAdmin = session?.user.email.split("@")[1] === "bountree.app" || false
+
 	const navigation = session
 		? [
 				{
@@ -29,6 +31,9 @@ export default function Navbar() {
 					href: "/dashboard",
 					current: isCurrent("/dashboard"),
 				},
+				...(isAdmin
+					? [{ name: "Admin", href: "/admin", current: isCurrent("/admin") }]
+					: []),
 		  ]
 		: [
 				{ name: "Product", href: "/product", current: isCurrent("#") },

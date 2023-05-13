@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import Layout from "@/components/Layout"
+import Layout from "@/components/Layout/Layout"
 import { useEffect, useState } from "react"
 import IOpportunity from "../../types/opportunity"
 import { useSession } from "next-auth/react"
@@ -11,6 +11,7 @@ import RecruitModal from "@/components/Modals/RecruitModal/RecruitModal"
 import { formatCurrency } from "@/utils/misc"
 import Pill from "@/components/Misc/Pill"
 import IApplication from "@/types/application"
+import Link from "next/link"
 
 export default function PostDetail() {
 	const router = useRouter()
@@ -21,6 +22,8 @@ export default function PostDetail() {
 	const [post, setPost] = useState<IOpportunity>()
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 	const [error, setError] = useState<string>()
+
+	const isAdmin = session?.user.email.split("@")[1] === "bountree.app" || false
 
 	useEffect(() => {
 		async function fetchPost() {
@@ -71,11 +74,13 @@ export default function PostDetail() {
 					post={post}
 					applicationsRemaining={applicationsRemaining}
 					setModalOpen={setModalOpen}
+					isAdmin={isAdmin}
 				/>
 				<ReferralCard
 					post={post}
 					applicationsRemaining={applicationsRemaining}
 					setModalOpen={setModalOpen}
+					isAdmin={isAdmin}
 				/>
 				{modalOpen && (
 					<RecruitModal
@@ -95,10 +100,12 @@ function PrimarySection({
 	post,
 	applicationsRemaining,
 	setModalOpen,
+	isAdmin,
 }: {
 	post: IOpportunity
 	applicationsRemaining: number
 	setModalOpen: (open: boolean) => void
+	isAdmin: boolean
 }) {
 	const hasRejectionFeedback = post.applications.some(
 		(a: IApplication) => a.status === "rejected" && a.rejectionFeedback
@@ -106,11 +113,13 @@ function PrimarySection({
 	return (
 		<div className="col-span-6 lg:col-span-4">
 			<Top post={post} />
+
 			<ReferralCard
 				mobile={true}
 				post={post}
 				applicationsRemaining={applicationsRemaining}
 				setModalOpen={setModalOpen}
+				isAdmin={isAdmin}
 			/>
 			<SecondarySection post={post} />
 			<CompanySection post={post} />
@@ -159,11 +168,13 @@ function ReferralCard({
 	applicationsRemaining,
 	setModalOpen,
 	mobile = false,
+	isAdmin,
 }: {
 	post: IOpportunity
 	applicationsRemaining: number
 	setModalOpen: (open: boolean) => void
 	mobile?: boolean
+	isAdmin?: boolean
 }) {
 	return (
 		<div
@@ -225,15 +236,24 @@ function ReferralCard({
 				}
 				className={classNames(
 					applicationsRemaining > 0 && post.status === "open"
-						? "bg-b-yellow"
-						: "disabled",
-					"btn text-black hover:text-white"
+						? "bg-b-yellow  hover:text-white"
+						: "disabled cursor-not-allowed",
+					"btn text-black"
 				)}
 			>
 				{applicationsRemaining > 0 && post.status === "open"
 					? `Refer (${applicationsRemaining} remaining)`
 					: `Applications ${post.status === "paused" ? "Paused" : "Closed"}`}
 			</button>
+
+			{isAdmin && (
+				<Link
+					href={`/admin/opportunities/${post._id}`}
+					className="btn  btn-success mt-4"
+				>
+					<button>Edit Opportunity</button>
+				</Link>
+			)}
 		</div>
 	)
 }

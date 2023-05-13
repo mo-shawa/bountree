@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import Pill from "./Misc/Pill"
+import Pill from "../Misc/Pill"
 import { classNames, formatCurrency } from "@/utils/misc"
 import { PauseCircleIcon } from "@heroicons/react/24/solid"
 

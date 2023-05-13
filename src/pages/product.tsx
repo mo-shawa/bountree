@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout"
+import Layout from "@/components/Layout/Layout"
 import ArrowButton from "@/components/Misc/ArrowButton"
 import Image from "next/image"
 import JobDescriptionGenerator from "@/components/JobDescriptionGenerator"

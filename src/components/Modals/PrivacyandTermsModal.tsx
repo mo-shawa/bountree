@@ -57,19 +57,20 @@ export default function PrivacyandTermsModal({
 						{success === undefined && (
 							<form
 								onClick={(e) => e.stopPropagation()}
-								className="mx-4 shadow text-black bg-white px-5 py-10 rounded w-full max-w-sm flex flex-col items-center"
+								className="mx-4 shadow text-black bg-white px-5 py-10 rounded w-full max-w-md flex flex-col items-center"
 							>
 								<h2 className="text-2xl font-bold mb-5">Privacy and Terms</h2>
 
-								<div className="form-control w-full max-w-sm">
+								<div className="form-control w-full max-w-sm text-left">
 									<label
 										htmlFor="acceptedTerms"
-										className="label cursor-pointer"
+										className="label cursor-pointer justify-start"
 									>
 										<input
 											name="acceptedTerms"
 											onChange={handleChange}
 											type="checkbox"
+											className="checkbox mr-4"
 										/>
 										<span className="label-text">
 											I confirm that I agree to the{" "}
@@ -84,12 +85,13 @@ export default function PrivacyandTermsModal({
 									</label>
 									<label
 										htmlFor="acceptedPrivacy"
-										className="label cursor-pointer"
+										className="label cursor-pointer justify-start"
 									>
 										<input
 											name="acceptedPrivacy"
 											onChange={handleChange}
 											type="checkbox"
+											className="checkbox mr-4"
 										/>
 										<span className="label-text">
 											I confirm that I agree to Bountree&apos;s{" "}

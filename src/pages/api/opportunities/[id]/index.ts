@@ -1,5 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { getOpportunityById } from "../../../../../controllers/opportunity"
+import {
+	getOpportunityById,
+	updateOpportunity,
+} from "../../../../../controllers/opportunity"
 import serverAuthenticate from "@/utils/serverAuthenticate"
 
 export default async function handler(
@@ -20,6 +23,16 @@ export default async function handler(
 			const opportunity = await getOpportunityById(opportunityId)
 			return res.status(200).json({ opportunity })
 		}
+
+		if (method === "PUT") {
+			const updatedOpportunity = await updateOpportunity(
+				opportunityId,
+				req.body
+			)
+			return res.status(200).json({ updatedOpportunity })
+		}
+
+		return res.status(405).json({ error: "Method not allowed" })
 	} catch (error) {
 		return res.status(500).json({ error })
 	}

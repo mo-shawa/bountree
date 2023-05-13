@@ -1,12 +1,12 @@
-import Layout from "@/components/Layout"
+import Layout from "@/components/Layout/Layout"
 import { useSession } from "next-auth/react"
 import { signIn } from "next-auth/react"
 import { useState, useEffect } from "react"
-import IApplication from "@/types/application"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { Loader } from "@/components/Loader/Loader"
 import IUser from "@/types/user"
+import Unauthorized from "@/components/Admin/Unauthorized"
 
 export default function Admin() {
 	const { data: session, status } = useSession()
@@ -32,21 +32,7 @@ export default function Admin() {
 	}
 
 	if (session && !isAdmin) {
-		return (
-			<Layout classNames="flex items-center justify-center bg-b-blue-dark p-4">
-				<div className="p-5 rounded text-red-500 text-center ">
-					<h1 className="text-2xl text- font-bold">
-						You ({session?.user.email}) are not authorized to view this page.
-					</h1>
-					<h1 className="text-xl ">
-						Only @bountree.app emails are authorized.
-					</h1>
-					<Link className="underline text-white" href="/">
-						Click here before we have a problem.
-					</Link>
-				</div>
-			</Layout>
-		)
+		return <Unauthorized session={session} />
 	}
 
 	if (!users || users.length === 0) {
