@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			autoBoot={true}
 			autoBootProps={{
 				backgroundColor: "#1B262C",
-				actionColor: "#BBE1FA",
+				actionColor: "#FFD966",
 				verticalPadding: 60,
 			}}
 		>

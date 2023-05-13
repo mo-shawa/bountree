@@ -71,3 +71,24 @@ export async function addApplicationToOpportunity(
 		console.error(error)
 	}
 }
+
+export async function updateOpportunity(
+	opportunityId: string,
+	opportunity: IOpportunity
+) {
+	const client = await clientPromise
+	const db = client.db(process.env.DATABASE_NAME)
+	const updatedOpportunity = await db
+		.collection("opportunities")
+		.findOneAndUpdate(
+			{ _id: new ObjectId(opportunityId) },
+			{
+				$set: {
+					...opportunity,
+					updatedAt: new Date(),
+				},
+			},
+			{ returnDocument: "after" }
+		)
+	return updatedOpportunity
+}

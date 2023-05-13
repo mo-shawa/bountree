@@ -9,6 +9,7 @@ import { Loader } from "@/components/Loader/Loader"
 import ApplicantCard from "@/components/Dashboard/ApplicantCard"
 import GenericModal from "@/components/Modals/GenericModal"
 import { classNames, statusStyle } from "@/utils/misc"
+import Unauthorized from "@/components/Admin/Unauthorized"
 
 export default function Admin() {
 	const { data: session, status } = useSession()
@@ -50,27 +51,9 @@ export default function Admin() {
 		})
 	}, [])
 
-	if (session && !isAdmin) {
-		return (
-			<Layout classNames="flex items-center justify-center bg-b-blue-dark p-4">
-				<div className="p-5 rounded text-red-500 text-center ">
-					<h1 className="text-2xl text- font-bold">
-						You ({session?.user.email}) are not authorized to view this page.
-					</h1>
-					<h1 className="text-xl ">
-						Only @bountree.app emails are authorized.
-					</h1>
-					<Link className="underline text-white" href="/">
-						Click here before we have a problem.
-					</Link>
-				</div>
-			</Layout>
-		)
-	}
+	if (session && !isAdmin) return <Unauthorized session={session} />
 
-	if (!applications || applications.length === 0) {
-		return <Loader />
-	}
+	if (!applications || applications.length === 0) return <Loader />
 
 	return (
 		<Layout classNames="bg-b-blue-dark">
