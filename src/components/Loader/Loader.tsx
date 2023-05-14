@@ -1,4 +1,4 @@
-import Layout from "../Layout"
+import Layout from "../Layout/Layout"
 
 type Props = {
 	children?: React.ReactNode

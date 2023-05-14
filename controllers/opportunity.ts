@@ -1,17 +1,17 @@
-import clientPromise from "../db/connect"
-import IOpportunity from "../src/types/opportunity"
-import { ObjectId } from "mongodb"
+import clientPromise from '../db/connect'
+import IOpportunity from '../src/types/opportunity'
+import { ObjectId } from 'mongodb'
 
-export async function getOpportunityById(id: string) {
+export async function getOpportunityByIdWithApplications(id: string) {
 	const client = await clientPromise
 	const db = client.db(process.env.DATABASE_NAME)
 	const foundOpportunity = await db
-		.collection("opportunities")
+		.collection('opportunities')
 		.findOne({ _id: new ObjectId(id) })
 	if (!foundOpportunity) return null
 
 	const applications = await db
-		.collection("applications")
+		.collection('applications')
 		.find({ opportunityId: new ObjectId(id) })
 		.toArray()
 
@@ -19,10 +19,21 @@ export async function getOpportunityById(id: string) {
 	return foundOpportunity
 }
 
+export async function getOpportunityById(id: string) {
+	const client = await clientPromise
+	const db = client.db(process.env.DATABASE_NAME)
+	const foundOpportunity = await db
+		.collection('opportunities')
+		.findOne({ _id: new ObjectId(id) })
+	if (!foundOpportunity) return null
+
+	return foundOpportunity
+}
+
 export async function createOpportunity(opportunity: IOpportunity) {
 	const client = await clientPromise
 	const db = client.db(process.env.DATABASE_NAME)
-	const newOpportunity = await db.collection("opportunities").insertOne({
+	const newOpportunity = await db.collection('opportunities').insertOne({
 		...opportunity,
 		createdAt: new Date(),
 		updatedAt: new Date(),
@@ -34,9 +45,9 @@ export async function getOpportunities() {
 	const client = await clientPromise
 	const db = client.db(process.env.DATABASE_NAME)
 	const opportunities = await db
-		.collection("opportunities")
+		.collection('opportunities')
 		.find({})
-		.sort("status") // this sort won't work if we're serving closed opportunities
+		.sort('status') // this sort won't work if we're serving closed opportunities
 		.toArray()
 	return opportunities
 }
@@ -56,7 +67,7 @@ export async function addApplicationToOpportunity(
 		parsedApplication.updatedAt = new Date()
 
 		const updatedOpportunity = await db
-			.collection("opportunities")
+			.collection('opportunities')
 			.findOneAndUpdate(
 				{ _id: new ObjectId(opportunityId) },
 				{
@@ -64,10 +75,31 @@ export async function addApplicationToOpportunity(
 						applications: parsedApplication,
 					},
 				},
-				{ returnDocument: "after" }
+				{ returnDocument: 'after' }
 			)
 		return { updatedOpportunity, applicationId: parsedApplication._id }
 	} catch (error) {
 		console.error(error)
 	}
+}
+
+export async function updateOpportunity(
+	opportunityId: string,
+	opportunity: IOpportunity
+) {
+	const client = await clientPromise
+	const db = client.db(process.env.DATABASE_NAME)
+	const updatedOpportunity = await db
+		.collection('opportunities')
+		.findOneAndUpdate(
+			{ _id: new ObjectId(opportunityId) },
+			{
+				$set: {
+					...opportunity,
+					updatedAt: new Date(),
+				},
+			},
+			{ returnDocument: 'after' }
+		)
+	return updatedOpportunity
 }

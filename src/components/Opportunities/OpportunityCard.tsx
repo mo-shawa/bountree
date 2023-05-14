@@ -1,10 +1,10 @@
-import Image from "next/image"
-import Link from "next/link"
-import Pill from "./Misc/Pill"
-import { classNames, formatCurrency } from "@/utils/misc"
-import { PauseCircleIcon } from "@heroicons/react/24/solid"
+import Image from 'next/image'
+import Link from 'next/link'
+import Pill from '../Misc/Pill'
+import { classNames, formatCurrency } from '@/utils/misc'
+import { PauseCircleIcon } from '@heroicons/react/24/solid'
 
-export default function Opportunity(props: any) {
+export default function OpportunityCard(props: any) {
 	const { fixed, min, max, currency } = props.salary
 
 	const salary = fixed
@@ -12,13 +12,16 @@ export default function Opportunity(props: any) {
 		: `${formatCurrency(min, currency)} - ${formatCurrency(max, currency)}`
 
 	const statusPillLeft =
-		props.status === "paused" ? (
-			<Pill className="hidden sm:block " type="yellow">
+		props.status === 'paused' ? (
+			<Pill
+				className="hidden sm:block "
+				type="yellow"
+			>
 				II Paused
 			</Pill>
 		) : null
 	const statusPillRight =
-		props.status === "paused" ? (
+		props.status === 'paused' ? (
 			<PauseCircleIcon className="block sm:hidden text-yellow-500 h-8 w-8 absolute bottom-1 right-1" />
 		) : // <Pill className="sm:hidden whitespace-nowrap rounded-full" type="yellow">
 		// 	II
@@ -29,8 +32,8 @@ export default function Opportunity(props: any) {
 		<Link
 			href={`/opportunities/${props.id}`}
 			className={classNames(
-				"shadow-md w-full bg-white rounded-md flex flex-row justify-between items-center p-4 my-4 hover:-translate-y-1 transition-translate duration-300 ease-in-out relative",
-				props.status === "paused" ? "opacity-60" : ""
+				'shadow-md w-full bg-white rounded-md flex flex-row justify-between items-center p-4 my-4 hover:-translate-y-1 transition-translate duration-300 ease-in-out relative',
+				props.status === 'paused' ? 'opacity-60' : ''
 			)}
 		>
 			<div className="h-full flex justify-between w-full items-center relative">
@@ -69,7 +72,10 @@ export default function Opportunity(props: any) {
 						</div>
 					</div>
 				</div>
-				<div id="right" className="absolute right-0 ">
+				<div
+					id="right"
+					className="absolute right-0 "
+				>
 					<p className="text-xl">
 						<div className="flex items-center">
 							{/* <div className="shadow mr-2 bg-b-yellow rounded-full w-6 h-6 text-sm text-center font-bold">

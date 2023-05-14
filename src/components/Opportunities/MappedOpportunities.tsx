@@ -1,25 +1,25 @@
-import { useState, useEffect } from "react"
-import Opportunity from "./Opportunity"
-import Filter from "./Filter"
-import IOpportunity from "@/types/opportunity"
-import { formatCurrency } from "@/utils/misc"
+import { useState, useEffect } from 'react'
+import OpportunityCard from './OpportunityCard'
+import Filter from './Filter'
+import IOpportunity from '@/types/opportunity'
+import { formatCurrency } from '@/utils/misc'
 
 type OpportunitiesProps = {
 	data: IOpportunity[]
 }
 
-export default function Opportunities({ data }: OpportunitiesProps) {
+export default function MappedOpportunities({ data }: OpportunitiesProps) {
 	const [filteredData, setFilteredData] = useState<IOpportunity[]>()
-	const [filteredBy, setFilteredBy] = useState<string>("All roles")
+	const [filteredBy, setFilteredBy] = useState<string>('All roles')
 
 	useEffect(() => {
 		setFilteredData(data)
 	}, [data])
 
 	useEffect(() => {
-		if (filteredBy === "All roles") setFilteredData(data)
+		if (filteredBy === 'All roles') setFilteredData(data)
 
-		if (filteredBy !== "All roles") {
+		if (filteredBy !== 'All roles') {
 			const dataCopy = structuredClone(data)
 
 			const filteredData = dataCopy.filter(
@@ -35,10 +35,13 @@ export default function Opportunities({ data }: OpportunitiesProps) {
 		<>
 			<section className="bg-b-blue-dark">
 				<div className="mx-auto px-4 w-full max-w-7xl">
-					<Filter filteredBy={filteredBy} setFilteredBy={setFilteredBy} />
+					<Filter
+						filteredBy={filteredBy}
+						setFilteredBy={setFilteredBy}
+					/>
 					{filteredData && filteredData.length ? (
 						filteredData.map((item) => (
-							<Opportunity
+							<OpportunityCard
 								id={item._id}
 								key={item._id}
 								company={item.company.name}
@@ -47,7 +50,7 @@ export default function Opportunities({ data }: OpportunitiesProps) {
 								role={{
 									title: item.title,
 									category: item.category,
-									workFrom: item.remote ? "Remote" : "In person",
+									workFrom: item.remote ? 'Remote' : 'In person',
 									location: item.location,
 									reward: formatCurrency(
 										item.reward.amount,
