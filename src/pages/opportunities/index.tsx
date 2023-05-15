@@ -16,7 +16,16 @@ export default function Dashboard() {
 			const res = await fetch("/api/opportunities")
 			const data = await res.json()
 
-			setData(data.data)
+			const openOpportunities = data.data.filter(
+				(opportunity: IOpportunity) => opportunity.status === "open"
+			)
+
+			const closedOrPausedOpportunities = data.data.filter(
+				(opportunity: IOpportunity) =>
+					opportunity.status === "closed" || opportunity.status === "paused"
+			)
+
+			setData(openOpportunities.concat(closedOrPausedOpportunities))
 			setLoading(false)
 		}
 		if (router.isReady) fetchData()
