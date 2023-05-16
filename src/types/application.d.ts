@@ -5,10 +5,9 @@ import IUser from "./user"
 export default interface IApplication extends Document {
 	_id?: ObjectId | string
 	userId: ObjectId | string
-	user?: IUser
+	candidateEmail?: string
 	opportunityId: ObjectId | string
-	opportunity?: IOpportunity // This is a virtual field
-	name: string
+	opportunity?: IOpportunity
 	cv: File | string
 	linkedin: string
 	secondary?: string

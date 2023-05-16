@@ -1,14 +1,14 @@
-import { useRouter } from 'next/router'
-import Layout from '@/components/Layout/Layout'
-import { useEffect, useState } from 'react'
-import IOpportunity from '../../../types/opportunity'
-import { useSession } from 'next-auth/react'
-import Loader from '@/components/Loader/Loader'
-import { signIn } from 'next-auth/react'
-import RecruitModal from '@/components/Modals/RecruitModal/RecruitModal'
-import IApplication from '@/types/application'
-import PrimarySection from '@/components/Opportunity/PrimarySection'
-import ReferralCard from '@/components/Opportunity/ReferralCard'
+import { useRouter } from "next/router"
+import Layout from "@/components/Layout/Layout"
+import { useEffect, useState } from "react"
+import IOpportunity from "../../../types/opportunity"
+import { useSession } from "next-auth/react"
+import Loader from "@/components/Loader/Loader"
+import { signIn } from "next-auth/react"
+import RecruitModal from "@/components/Modals/RecruitModal/RecruitModal"
+import IApplication from "@/types/application"
+import PrimarySection from "@/components/Opportunity/PrimarySection"
+import ReferralCard from "@/components/Opportunity/ReferralCard"
 
 export default function PostDetail() {
 	const router = useRouter()
@@ -19,8 +19,9 @@ export default function PostDetail() {
 	const [post, setPost] = useState<IOpportunity>()
 	const [modalOpen, setModalOpen] = useState<boolean>(false)
 	const [error, setError] = useState<string>()
+	const [applicationsRemaining, setApplicationsRemaining] = useState<number>(5)
 
-	const isAdmin = session?.user.email.split('@')[1] === 'bountree.app' || false
+	const isAdmin = session?.user.email.split("@")[1] === "bountree.app" || false
 
 	useEffect(() => {
 		async function fetchPost() {
@@ -29,7 +30,7 @@ export default function PostDetail() {
 
 			if (!res.ok || data.success === false) {
 				setError(
-					'An error occurred while loading the post. Please try again in a few minutes.'
+					"An error occurred while loading the post. Please try again in a few minutes."
 				)
 				return
 			}
@@ -40,10 +41,21 @@ export default function PostDetail() {
 		if (router.isReady) fetchPost()
 	}, [id, router.isReady])
 
-	if (status === 'loading') return <Loader />
+	useEffect(() => {
+		if (!post) return
 
-	if (status === 'unauthenticated' || session === null) {
-		signIn('', { callbackUrl: window.location.href })
+		setApplicationsRemaining(
+			(session?.user.applicationLimit || 5) -
+				post.applications.filter(
+					(a: IApplication) => a.userId === session?.user._id
+				).length
+		)
+	}, [post])
+
+	if (status === "loading") return <Loader />
+
+	if (status === "unauthenticated" || session === null) {
+		signIn("", { callbackUrl: window.location.href })
 	}
 
 	if (error) {
@@ -57,12 +69,6 @@ export default function PostDetail() {
 	}
 
 	if (!post) return <Loader />
-
-	const applicationsRemaining =
-		(session?.user.applicationLimit || 5) -
-		post.applications.filter(
-			(a: IApplication) => a.userId === session?.user._id
-		).length
 
 	return (
 		<Layout classNames="bg-b-blue-dark flex justify-center">
@@ -86,6 +92,7 @@ export default function PostDetail() {
 						setModalOpen={setModalOpen}
 						setPost={setPost}
 						applicationsRemaining={applicationsRemaining}
+						setApplicationsRemaining={setApplicationsRemaining}
 					/>
 				)}
 			</section>
