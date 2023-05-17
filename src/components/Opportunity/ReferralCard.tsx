@@ -31,7 +31,7 @@ export default function ReferralCard({
 				mobile ? "flex lg:hidden mb-10" : "hidden lg:flex"
 			)}
 		>
-			<div>
+			<div className="mb-4">
 				<div className="flex justify-between items-center pb-3  border-b">
 					<div className="flex items-center py-3 ">
 						<h1 className="text-2xl font-bold mr-3 ">
