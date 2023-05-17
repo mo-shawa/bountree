@@ -39,42 +39,49 @@ export default function ProductPage() {
 				</div>
 
 				<small className="mb-5">Trusted by</small>
-				<div className="grid grid-cols-5 max-w-5xl gap-4 mb-20 mx-4">
+				<div className="grid grid-cols-3 md:grid-cols-6 max-w-5xl gap-4 mb-20 mx-4">
 					<Image
 						src="/static/product/coinmena.png"
 						alt="company logo"
 						width={200}
 						height={200}
 						className="bg-white rounded-full p-3 h-full w-full mx-auto object-contain max-h-16"
-					></Image>
+					/>
 					<Image
 						src="/static/product/clara.png"
 						alt="company logo"
 						width={200}
 						height={200}
 						className="bg-white rounded-full p-3 h-full w-full mx-auto object-contain max-h-16"
-					></Image>
+					/>
 					<Image
 						src="/static/product/syarah.png"
 						alt="company logo"
 						width={200}
 						height={200}
 						className="bg-white rounded-full p-3 h-full w-full mx-auto object-contain max-h-16"
-					></Image>
+					/>
 					<Image
 						src="/static/product/zest.png"
 						alt="company logo"
 						width={200}
 						height={200}
 						className="bg-white rounded-full p-3 h-full w-full mx-auto object-contain max-h-16"
-					></Image>
+					/>
 					<Image
 						src="/static/product/pluto.png"
 						alt="company logo"
 						width={200}
 						height={200}
 						className="bg-white rounded-full p-3 h-full w-full mx-auto object-contain max-h-16"
-					></Image>
+					/>
+					<Image
+						src="/static/product/stake.png"
+						alt="company logo"
+						width={200}
+						height={200}
+						className="bg-white rounded-full p-3 h-full w-full mx-auto object-contain max-h-16"
+					/>
 				</div>
 			</section>
 		</Layout>
