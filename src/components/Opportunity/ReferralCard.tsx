@@ -1,9 +1,9 @@
-import IOpportunity from '@/types/opportunity'
-import { classNames } from '@/utils/misc'
-import Pill from '../Misc/Pill'
-import Link from 'next/link'
-import { ShareIcon, ClipboardDocumentIcon } from '@heroicons/react/20/solid'
-import { useState } from 'react'
+import IOpportunity from "@/types/opportunity"
+import { classNames } from "@/utils/misc"
+import Pill from "../Misc/Pill"
+import Link from "next/link"
+import { ShareIcon, ClipboardDocumentIcon } from "@heroicons/react/20/solid"
+import { useState } from "react"
 export default function ReferralCard({
 	post,
 	applicationsRemaining,
@@ -22,21 +22,21 @@ export default function ReferralCard({
 	)
 
 	const [clipboardTooltipText, setClipboardTooltipText] =
-		useState<string>('Copy to Clipboard')
+		useState<string>("Copy to Clipboard")
 
 	return (
 		<div
 			className={classNames(
-				'h-min col-span-6 lg:col-span-2 border rounded-xl lg:mt-12 mx-auto lg:mx-0 lg:w-auto w-full max-w-sm  flex flex-col justify-between p-5 bg-white text-b-blue-dark',
-				mobile ? 'flex lg:hidden mb-10' : 'hidden lg:flex'
+				"h-min col-span-6 lg:col-span-2 border rounded-xl lg:mt-12 mx-auto lg:mx-0 lg:w-auto w-full max-w-sm  flex flex-col justify-between p-5 bg-white text-b-blue-dark",
+				mobile ? "flex lg:hidden mb-10" : "hidden lg:flex"
 			)}
 		>
 			<div>
 				<div className="flex justify-between items-center pb-3  border-b">
 					<div className="flex items-center py-3 ">
 						<h1 className="text-2xl font-bold mr-3 ">
-							{post.reward.amount.toLocaleString('en-US', {
-								style: 'currency',
+							{post.reward.amount.toLocaleString("en-US", {
+								style: "currency",
 								currency: post.reward.currency,
 							})}
 						</h1>
@@ -44,10 +44,7 @@ export default function ReferralCard({
 					</div>
 
 					<div className="dropdown dropdown-bottom dropdown-end">
-						<div
-							data-tip="Share Externally"
-							className="tooltip tooltip-left"
-						>
+						<div data-tip="Share Externally" className="tooltip tooltip-left">
 							<label
 								tabIndex={0}
 								className="btn btn-circle btn-sm bg-transparent hover:bg-gray-200 text-gray-500 hover:text-gray-700 "
@@ -71,7 +68,7 @@ export default function ReferralCard({
 											<button
 												onClick={() => {
 													navigator.clipboard.writeText(shareLink)
-													setClipboardTooltipText('Copied!')
+													setClipboardTooltipText("Copied!")
 												}}
 												data-tip={clipboardTooltipText}
 												className="btn input-group-btn tooltip tooltip-left normal-case"
@@ -87,15 +84,9 @@ export default function ReferralCard({
 											target="_blank"
 											className=" btn btn-block border btn-success gap-2 p-2 normal-case"
 											href={`https://wa.me/?text=${encodeURIComponent(
-												`Check out this recruiting opportunity on Bountree - the reward is ${post.reward.amount.toLocaleString(
-													'en-US',
-													{
-														style: 'currency',
-														currency: post.reward.currency,
-														minimumFractionDigits: 0,
-														maximumFractionDigits: 0,
-													}
-												)}!\n ${shareLink}`
+												`${encodeURIComponent(post.company.name)} is hiring a ${
+													post.title
+												}. Check it out!\n ${shareLink}`
 											)}`}
 										>
 											<svg
@@ -108,10 +99,7 @@ export default function ReferralCard({
 												viewBox="0 0 308 308"
 												stroke="#ffffff"
 											>
-												<g
-													id="SVGRepo_bgCarrier"
-													stroke-width="0"
-												></g>
+												<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 												<g
 													id="SVGRepo_tracerCarrier"
 													stroke-linecap="round"
@@ -142,10 +130,7 @@ export default function ReferralCard({
 				<ul className=" list-disc mx-4 xl:mx-8">
 					{post.requirements.map((item: string, i: number) => {
 						return (
-							<li
-								key={i}
-								className="my-4"
-							>
+							<li key={i} className="my-4">
 								{item}
 							</li>
 						)
@@ -155,20 +140,20 @@ export default function ReferralCard({
 
 			<button
 				onClick={
-					applicationsRemaining && post.status === 'open'
+					applicationsRemaining && post.status === "open"
 						? () => setModalOpen(true)
 						: () => null
 				}
 				className={classNames(
-					applicationsRemaining > 0 && post.status === 'open'
-						? 'bg-b-yellow  hover:text-white'
-						: 'disabled cursor-not-allowed',
-					'btn text-black'
+					applicationsRemaining > 0 && post.status === "open"
+						? "bg-b-yellow  hover:text-white"
+						: "disabled cursor-not-allowed",
+					"btn text-black"
 				)}
 			>
-				{applicationsRemaining > 0 && post.status === 'open'
+				{applicationsRemaining > 0 && post.status === "open"
 					? `Refer (${applicationsRemaining} remaining)`
-					: `Applications ${post.status === 'paused' ? 'Paused' : 'Closed'}`}
+					: `Applications ${post.status === "paused" ? "Paused" : "Closed"}`}
 			</button>
 
 			{isAdmin && (
