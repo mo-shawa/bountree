@@ -49,7 +49,7 @@ export async function getOpportunities() {
 	const opportunities = await db
 		.collection("opportunities")
 		.find({})
-		.sort("status", -1) // this sort won't work if we're serving closed opportunities
+		.sort("createdAt", -1) // this sort won't work if we're serving closed opportunities
 		.toArray()
 	return opportunities
 }
