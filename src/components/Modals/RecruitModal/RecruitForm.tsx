@@ -51,6 +51,22 @@ export default function RecruitForm({
 				/>
 			</div>
 			<div className="form-control w-full max-w-xs">
+				<label htmlFor="candidateEmail" className="label">
+					<span className="label-text">
+						Candidate Email<span className="text-red-500">*</span>
+					</span>
+				</label>
+				<input
+					required
+					value={formData.candidateEmail}
+					name="candidateEmail"
+					onChange={handleChange}
+					type="text"
+					placeholder="candidate@email.com"
+					className="input  bg-gray-100 shadow"
+				/>
+			</div>
+			<div className="form-control w-full max-w-xs">
 				<label htmlFor="cv" className="label">
 					<span className="label-text">
 						CV<span className="text-red-500">*</span>

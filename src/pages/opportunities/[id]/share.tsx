@@ -1,11 +1,11 @@
-import Top from '@/components/Opportunity/Top'
-import SecondarySection from '@/components/Opportunity/SecondarySection'
-import CompanySection from '@/components/Opportunity/CompanySection'
-import IOpportunity from '@/types/opportunity'
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { Loader } from '@/components/Loader/Loader'
-import BlankLayout from '@/components/Layout/BlankLayout'
+import Top from "@/components/Opportunity/Top"
+import SecondarySection from "@/components/Opportunity/SecondarySection"
+import CompanySection from "@/components/Opportunity/CompanySection"
+import IOpportunity from "@/types/opportunity"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/router"
+import { Loader } from "@/components/Loader/Loader"
+import BlankLayout from "@/components/Layout/BlankLayout"
 
 export default function SharedOpportunity() {
 	const router = useRouter()
@@ -23,7 +23,7 @@ export default function SharedOpportunity() {
 
 			if (data.error) {
 				setError(
-					'An error occurred while loading the post. Please try again in a few minutes.'
+					"An error occurred while loading the post. Please try again in a few minutes."
 				)
 				return
 			}
@@ -49,7 +49,7 @@ export default function SharedOpportunity() {
 		<BlankLayout classNames=" w-full  bg-b-blue-dark">
 			<section className="mx-auto p-4 max-w-2xl text-white">
 				<Top post={post} />
-				<SecondarySection post={post} />
+				<SecondarySection post={post} isSharing />
 				<CompanySection post={post} />
 			</section>
 		</BlankLayout>

@@ -7,7 +7,7 @@ import { getGCSUploadData } from "@/utils/cloudStorage"
 import RecruitForm from "./RecruitForm"
 import Success from "./Success"
 import Failure from "./Failure"
-import { isURL } from "@/utils/misc"
+import { isURL, isEmail } from "@/utils/misc"
 
 type Props = {
 	userId: string
@@ -15,6 +15,7 @@ type Props = {
 	setModalOpen: (open: boolean) => void
 	setPost: (post: IOpportunity) => void
 	applicationsRemaining: number
+	setApplicationsRemaining: (prev: number) => void
 }
 
 export default function RecruitModal({
@@ -23,6 +24,7 @@ export default function RecruitModal({
 	setModalOpen,
 	setPost,
 	applicationsRemaining,
+	setApplicationsRemaining,
 }: Props) {
 	const { data: session } = useSession()
 
@@ -30,6 +32,7 @@ export default function RecruitModal({
 		userId: session?.user?.id,
 		opportunityId,
 		name: "",
+		candidateEmail: "",
 		cv: "",
 		linkedin: "",
 		secondary: "",
@@ -47,6 +50,7 @@ export default function RecruitModal({
 		userId &&
 		file &&
 		formData.name?.length! > 0 &&
+		isEmail(formData.candidateEmail as string) &&
 		formData.cv &&
 		isURL(formData.linkedin as string) &&
 		formData.description?.length! > 0 &&
@@ -77,9 +81,9 @@ export default function RecruitModal({
 
 		// Check if candidate LinkedIn has been used before
 		const resLinkedIn = await fetch(
-			`/api/opportunities/${opportunityId}/linkedin/${encodeURIComponent(
+			`/api/opportunities/${opportunityId}/validate-candidate/${encodeURIComponent(
 				formData.linkedin as string
-			)}`
+			)}/${encodeURIComponent(formData.candidateEmail as string)}`
 		)
 
 		const linkedInUsed = await resLinkedIn.json()
@@ -138,9 +142,9 @@ export default function RecruitModal({
 			setMessage("Error uploading to database")
 			return
 		}
-		setPost(json.opportunity)
 		setLoading(false)
 		setSuccess(true)
+		setApplicationsRemaining(applicationsRemaining - 1)
 	}
 	const handleOnClose = (
 		e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>

@@ -16,7 +16,7 @@ export default function Success({
 				{applicationsRemaining
 					? `Your candidate has been submitted. You can submit
     ${applicationsRemaining} more candidate(s) to this position.`
-					: `Your candidate has been submitted. You can not submit any more candidates to this position.`}
+					: `Your candidate has been submitted. You cannot submit any more candidates to this position.`}
 			</p>
 			<button
 				onClick={handleOnClose}
