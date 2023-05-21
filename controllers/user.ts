@@ -1,7 +1,7 @@
-import clientPromise from "../db/connect"
-import { ObjectId } from "mongodb"
-import IUser from "@/types/user"
-import type IApplication from "@/types/application"
+import clientPromise from '../firebase/connect'
+import { ObjectId } from 'mongodb'
+import IUser from '@/types/user'
+import type IApplication from '@/types/application'
 
 export async function getAdminUsers() {
 	const client = await clientPromise
@@ -9,7 +9,7 @@ export async function getAdminUsers() {
 
 	try {
 		return db
-			.collection("users")
+			.collection('users')
 			.find({})
 			.project({ name: 1, email: 1, createdAt: 1 })
 			.sort({ createdAt: -1 })
@@ -25,7 +25,7 @@ export async function updateUser(id: string, data: Partial<IUser>) {
 
 	try {
 		return db
-			.collection("users")
+			.collection('users')
 			.updateOne({ _id: new ObjectId(id) }, { $set: data })
 	} catch (error) {
 		return { error }
@@ -40,7 +40,7 @@ export async function addApplicationToUser(
 	const db = client.db(process.env.DATABASE_NAME)
 
 	try {
-		return db.collection("users").updateOne(
+		return db.collection('users').updateOne(
 			{ _id: new ObjectId(id) },
 			{
 				$push: {
@@ -58,7 +58,7 @@ export async function getUser(id: string) {
 	const db = client.db(process.env.DATABASE_NAME)
 
 	try {
-		return db.collection("users").findOne({ _id: new ObjectId(id) })
+		return db.collection('users').findOne({ _id: new ObjectId(id) })
 	} catch (error) {
 		return { error }
 	}
@@ -70,7 +70,7 @@ export async function acceptTOS(id: string) {
 
 	try {
 		return db
-			.collection("users")
+			.collection('users')
 			.updateOne(
 				{ _id: new ObjectId(id) },
 				{ $set: { acceptedTerms: new Date(), acceptedPrivacy: new Date() } }
@@ -86,11 +86,11 @@ export async function getRecruiterOpportunities(id: string) {
 
 	try {
 		return db
-			.collection("users")
+			.collection('users')
 			.aggregate([
 				{ $match: { _id: new ObjectId(id) } },
-				{ $unwind: "$opportunitiesPursued" },
-				{ $replaceRoot: { newRoot: "$opportunitiesPursued" } },
+				{ $unwind: '$opportunitiesPursued' },
+				{ $replaceRoot: { newRoot: '$opportunitiesPursued' } },
 			])
 			.toArray()
 	} catch (error) {

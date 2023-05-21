@@ -1,17 +1,17 @@
-import clientPromise from "../db/connect"
-import IOpportunity from "../src/types/opportunity"
-import { ObjectId } from "mongodb"
+import clientPromise from '../firebase/connect'
+import IOpportunity from '../src/types/opportunity'
+import { ObjectId } from 'mongodb'
 
 export async function getOpportunityByIdWithApplications(id: string) {
 	const client = await clientPromise
 	const db = client.db(process.env.DATABASE_NAME)
 	const foundOpportunity = await db
-		.collection("opportunities")
+		.collection('opportunities')
 		.findOne({ _id: new ObjectId(id) })
 	if (!foundOpportunity) return null
 
 	const applications = await db
-		.collection("applications")
+		.collection('applications')
 		.find({ opportunityId: new ObjectId(id) })
 		.toArray()
 
@@ -25,7 +25,7 @@ export async function getOpportunityById(id: string) {
 	const client = await clientPromise
 	const db = client.db(process.env.DATABASE_NAME)
 	const foundOpportunity = await db
-		.collection("opportunities")
+		.collection('opportunities')
 		.findOne({ _id: new ObjectId(id) })
 	if (!foundOpportunity) return null
 
@@ -35,7 +35,7 @@ export async function getOpportunityById(id: string) {
 export async function createOpportunity(opportunity: IOpportunity) {
 	const client = await clientPromise
 	const db = client.db(process.env.DATABASE_NAME)
-	const newOpportunity = await db.collection("opportunities").insertOne({
+	const newOpportunity = await db.collection('opportunities').insertOne({
 		...opportunity,
 		createdAt: new Date(),
 		updatedAt: new Date(),
@@ -47,9 +47,9 @@ export async function getOpportunities() {
 	const client = await clientPromise
 	const db = client.db(process.env.DATABASE_NAME)
 	const opportunities = await db
-		.collection("opportunities")
+		.collection('opportunities')
 		.find({})
-		.sort("createdAt", -1) // this sort won't work if we're serving closed opportunities
+		.sort('createdAt', -1) // this sort won't work if we're serving closed opportunities
 		.toArray()
 	return opportunities
 }
@@ -69,7 +69,7 @@ export async function addApplicationToOpportunity(
 		parsedApplication.updatedAt = new Date()
 
 		const updatedOpportunity = await db
-			.collection("opportunities")
+			.collection('opportunities')
 			.findOneAndUpdate(
 				{ _id: new ObjectId(opportunityId) },
 				{
@@ -77,7 +77,7 @@ export async function addApplicationToOpportunity(
 						applications: parsedApplication,
 					},
 				},
-				{ returnDocument: "after" }
+				{ returnDocument: 'after' }
 			)
 		return { updatedOpportunity, applicationId: parsedApplication._id }
 	} catch (error) {
@@ -92,7 +92,7 @@ export async function updateOpportunity(
 	const client = await clientPromise
 	const db = client.db(process.env.DATABASE_NAME)
 	const updatedOpportunity = await db
-		.collection("opportunities")
+		.collection('opportunities')
 		.findOneAndUpdate(
 			{ _id: new ObjectId(opportunityId) },
 			{
@@ -101,7 +101,7 @@ export async function updateOpportunity(
 					updatedAt: new Date(),
 				},
 			},
-			{ returnDocument: "after" }
+			{ returnDocument: 'after' }
 		)
 	return updatedOpportunity
 }
