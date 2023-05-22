@@ -29,18 +29,18 @@ export default NextAuth({
 	},
 	adapter: FirestoreAdapter(firestore),
 	callbacks: {
-		// session: async ({ session, token }) => {
-		// 	const id = token.sub!
-		// 	session.user.id = id
+		session: async ({ session, token }) => {
+			const id = token.sub!
+			session.user.id = id
 
-		// 	const foundUser = await getUser(id)
+			const foundUser = await getUser(id)
 
-		// 	if (foundUser) {
-		// 		session.user = { ...session.user, ...foundUser }
-		// 	}
+			if (foundUser) {
+				session.user = { ...session.user, ...foundUser }
+			}
 
-		// 	return Promise.resolve(session)
-		// },
+			return Promise.resolve(session)
+		},
 		jwt: async ({ token, user }) => {
 			if (user) {
 				token.id = user.id

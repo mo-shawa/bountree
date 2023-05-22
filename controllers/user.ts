@@ -50,11 +50,9 @@ export async function addApplicationToUser(
 }
 
 export async function getUser(id: string) {
-	const client = await clientPromise
-	const db = client.db(process.env.DATABASE_NAME)
-
 	try {
-		return db.collection('users').findOne({ _id: new ObjectId(id) })
+		const user = await firestore.doc(`users/${id}`).get()
+		return user.data()
 	} catch (error) {
 		return { error }
 	}
