@@ -58,16 +58,14 @@ export async function getUser(id: string) {
 }
 
 export async function acceptTOS(id: string) {
-	const client = await clientPromise
-	const db = client.db(process.env.DATABASE_NAME)
-
 	try {
-		return db
-			.collection('users')
-			.updateOne(
-				{ _id: new ObjectId(id) },
-				{ $set: { acceptedTerms: new Date(), acceptedPrivacy: new Date() } }
-			)
+		return await firestore.doc(`users/${id}`).set(
+			{
+				acceptedTerms: Timestamp.now(),
+				acceptedPrivacy: Timestamp.now(),
+			},
+			{ merge: true }
+		)
 	} catch (error) {
 		return { error }
 	}
