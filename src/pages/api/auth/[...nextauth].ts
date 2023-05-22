@@ -2,7 +2,9 @@ import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { FirestoreAdapter } from '@next-auth/firebase-adapter'
 import { firestore } from '../../../../firebase/firestore'
+import { Timestamp } from 'firebase-admin/firestore'
 import { updateUser, getUser } from '../../../../controllers/user'
+
 import { sendWelcomeEmail } from '@/utils/email'
 
 export default NextAuth({
@@ -51,14 +53,14 @@ export default NextAuth({
 		signIn: async ({ user, isNewUser }) => {
 			console.log({ user, isNewUser })
 			if (!isNewUser) return
-			// await updateUser(user.id, {
-			// 	createdAt: new Date(),
-			// 	updatedAt: new Date(),
-			// 	totalEarnings: 0,
-			// 	potentialEarnings: 0,
-			// 	acceptedTerms: null,
-			// 	acceptedPrivacy: null,
-			// })
+			await updateUser(user.id, {
+				createdAt: Timestamp.now(),
+				updatedAt: Timestamp.now(),
+				totalEarnings: 0,
+				potentialEarnings: 0,
+				acceptedTerms: null,
+				acceptedPrivacy: null,
+			})
 			await sendWelcomeEmail(user)
 		},
 	},

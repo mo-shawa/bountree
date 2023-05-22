@@ -2,6 +2,7 @@ import clientPromise from '../firebase/connect'
 import { ObjectId } from 'mongodb'
 import IUser from '@/types/user'
 import type IApplication from '@/types/application'
+import { firestore } from '../firebase/firestore'
 
 export async function getAdminUsers() {
 	const client = await clientPromise
@@ -20,13 +21,8 @@ export async function getAdminUsers() {
 }
 
 export async function updateUser(id: string, data: Partial<IUser>) {
-	const client = await clientPromise
-	const db = client.db(process.env.DATABASE_NAME)
-
 	try {
-		return db
-			.collection('users')
-			.updateOne({ _id: new ObjectId(id) }, { $set: data })
+		return await firestore.doc(`users/${id}`).set({ ...data }, { merge: true })
 	} catch (error) {
 		return { error }
 	}

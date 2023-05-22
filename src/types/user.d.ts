@@ -1,11 +1,11 @@
-import { ObjectId } from "mongodb"
-import { DefaultUser } from "next-auth"
+import { DefaultUser } from 'next-auth'
+import { Timestamp } from 'firebase-admin/firestore'
 
 export default interface IUser extends DefaultUser {
-	acceptedTerms: Date | null
-	acceptedPrivacy: Date | null
-	createdAt: Date
-	updatedAt: Date
+	acceptedTerms: Timestamp | null
+	acceptedPrivacy: Timestamp | null
+	createdAt: Timestamp
+	updatedAt: Timestamp
 	totalEarnings: number
 	potentialEarnings: number
 }
