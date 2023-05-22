@@ -24,7 +24,6 @@
 		"eslint": "8.37.0",
 		"eslint-config-next": "13.2.4",
 		"firebase-admin": "^11.8.0",
-		"mongodb": "^4.15.0",
 		"nanoid": "^4.0.2",
 		"next": "13.2.4",
 		"next-auth": "^4.21.1",

@@ -3,18 +3,17 @@ import { ObjectId } from 'mongodb'
 import IUser from '@/types/user'
 import type IApplication from '@/types/application'
 import { firestore } from '../firebase/firestore'
+import { Timestamp } from 'firebase-admin/firestore'
 
 export async function getAdminUsers() {
-	const client = await clientPromise
-	const db = client.db(process.env.DATABASE_NAME)
-
 	try {
-		return db
-			.collection('users')
-			.find({})
-			.project({ name: 1, email: 1, createdAt: 1 })
-			.sort({ createdAt: -1 })
-			.toArray()
+		const users = await firestore.collection('users').get()
+		console.log({ users })
+
+		return users.docs.map((doc) => ({
+			...doc.data(),
+			createdAt: doc.data().createdAt.toMillis(),
+		}))
 	} catch (error) {
 		return { error }
 	}
