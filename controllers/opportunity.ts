@@ -1,6 +1,8 @@
 import clientPromise from '../firebase/connect'
 import IOpportunity from '../src/types/opportunity'
 import { ObjectId } from 'mongodb'
+import { firestore } from '../firebase/firestore'
+import { Timestamp } from 'firebase-admin/firestore'
 
 export async function getOpportunityByIdWithApplications(id: string) {
 	const client = await clientPromise
@@ -33,25 +35,31 @@ export async function getOpportunityById(id: string) {
 }
 
 export async function createOpportunity(opportunity: IOpportunity) {
-	const client = await clientPromise
-	const db = client.db(process.env.DATABASE_NAME)
-	const newOpportunity = await db.collection('opportunities').insertOne({
+	const opportunityData = {
 		...opportunity,
-		createdAt: new Date(),
-		updatedAt: new Date(),
-	})
+		createdAt: Timestamp.now(),
+		updatedAt: Timestamp.now(),
+	}
+
+	const newOpportunity = await firestore
+		.collection('opportunities')
+		.add(opportunityData)
+
 	return newOpportunity
 }
 
 export async function getOpportunities() {
-	const client = await clientPromise
-	const db = client.db(process.env.DATABASE_NAME)
-	const opportunities = await db
+	const opportunities = await firestore
 		.collection('opportunities')
-		.find({})
-		.sort('createdAt', -1) // this sort won't work if we're serving closed opportunities
-		.toArray()
-	return opportunities
+		.orderBy('createdAt', 'desc')
+		.get()
+
+	return opportunities.docs.map((doc) => ({
+		...doc.data(),
+		id: doc.id,
+		createdAt: doc.data().createdAt.toMillis(),
+		updatedAt: doc.data().updatedAt.toMillis(),
+	}))
 }
 
 export async function addApplicationToOpportunity(

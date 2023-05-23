@@ -43,7 +43,7 @@ export default function MappedOpportunities({ data }: OpportunitiesProps) {
 						filteredData.map((opportunity) => (
 							<OpportunityCard
 								opportunity={opportunity}
-								key={opportunity._id}
+								key={opportunity.id}
 							/>
 						))
 					) : (

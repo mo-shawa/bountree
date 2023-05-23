@@ -8,10 +8,10 @@ import { Timestamp } from 'firebase-admin/firestore'
 export async function getAdminUsers() {
 	try {
 		const users = await firestore.collection('users').get()
-		console.log({ users })
 
 		return users.docs.map((doc) => ({
 			...doc.data(),
+			id: doc.id,
 			createdAt: doc.data().createdAt.toMillis(),
 		}))
 	} catch (error) {
@@ -22,27 +22,6 @@ export async function getAdminUsers() {
 export async function updateUser(id: string, data: Partial<IUser>) {
 	try {
 		return await firestore.doc(`users/${id}`).set({ ...data }, { merge: true })
-	} catch (error) {
-		return { error }
-	}
-}
-
-export async function addApplicationToUser(
-	id: string,
-	application: IApplication
-) {
-	const client = await clientPromise
-	const db = client.db(process.env.DATABASE_NAME)
-
-	try {
-		return db.collection('users').updateOne(
-			{ _id: new ObjectId(id) },
-			{
-				$push: {
-					opportunitiesPursued: application,
-				},
-			}
-		)
 	} catch (error) {
 		return { error }
 	}

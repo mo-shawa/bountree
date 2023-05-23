@@ -1,6 +1,6 @@
-import type { Document, ObjectId } from "mongodb"
-import IOpportunity from "./opportunity"
-import IUser from "./user"
+import type { Document, ObjectId } from 'mongodb'
+import IOpportunity from './opportunity'
+import IUser from './user'
 
 export default interface IApplication extends Document {
 	_id?: ObjectId | string
@@ -19,9 +19,9 @@ export default interface IApplication extends Document {
 }
 
 type ApplicationStatus =
-	| "pending"
-	| "forwarded"
-	| "interviewing"
-	| "offered"
-	| "hired"
-	| "rejected"
+	| 'pending'
+	| 'forwarded'
+	| 'interviewing'
+	| 'offered'
+	| 'hired'
+	| 'rejected'

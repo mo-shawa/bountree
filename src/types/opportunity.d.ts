@@ -1,9 +1,11 @@
-import type { ObjectId, Document } from "mongodb"
-import IApplication from "./application"
+import IApplication from './application'
+import { Timestamp } from 'firebase-admin/firestore'
+import ICompany from './company'
 
-export default interface IOpportunity extends Document {
+export default interface IOpportunity {
+	id?: string
 	title: string
-	category: "Engineering" | "Product" | "Marketing" | "Operations" | "Legal"
+	category: 'Engineering' | 'Product' | 'Marketing' | 'Operations' | 'Legal'
 	description: string
 	idealCandidate: string
 	requirements: string[]
@@ -24,50 +26,28 @@ export default interface IOpportunity extends Document {
 	}
 	location: string
 	remote: boolean
-	company: Company
+	company: ICompany
 	rejectionFeedback?: Feedback[]
 	badge?: {
 		type:
-			| "red"
-			| "orange"
-			| "yellow"
-			| "green"
-			| "blue"
-			| "indigo"
-			| "purple"
-			| "pink"
+			| 'red'
+			| 'orange'
+			| 'yellow'
+			| 'green'
+			| 'blue'
+			| 'indigo'
+			| 'purple'
+			| 'pink'
 		text: string
 	}
-	createdAt: Date
-	updatedAt: Date
+	createdAt: Timestamp
+	updatedAt: Timestamp
 }
 
-type OpportunityStatus = "open" | "closed" | "paused"
-
-type company = {
-	name: string
-	about: string
-	url: string
-	image: string
-	founded: Date
-	industry?: string
-	employees?: string
-	stage:
-		| "preseed"
-		| "seed"
-		| "A"
-		| "B"
-		| "C"
-		| "D"
-		| "E"
-		| "F"
-		| "IPO"
-		| "acquired"
-		| "growth"
-}
+type OpportunityStatus = 'open' | 'closed' | 'paused'
 
 type Feedback = {
-	application: ObjectId | string
+	application: string
 	date: Date
 	content: string
 }
