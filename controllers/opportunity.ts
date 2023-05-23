@@ -5,32 +5,41 @@ import { firestore } from '../firebase/firestore'
 import { Timestamp } from 'firebase-admin/firestore'
 
 export async function getOpportunityByIdWithApplications(id: string) {
-	const client = await clientPromise
-	const db = client.db(process.env.DATABASE_NAME)
-	const foundOpportunity = await db
+	const foundOpportunity = await firestore
 		.collection('opportunities')
-		.findOne({ _id: new ObjectId(id) })
-	if (!foundOpportunity) return null
+		.doc(id)
+		.get()
 
-	const applications = await db
+	if (!foundOpportunity || !foundOpportunity.exists) return null
+
+	const applications = await firestore
 		.collection('applications')
-		.find({ opportunityId: new ObjectId(id) })
-		.toArray()
+		.where('opportunityId', '==', id)
+		.get()
 
 	console.log({ foundOpportunity, applications })
 
-	foundOpportunity.applications = applications
-	return foundOpportunity
+	return {
+		...foundOpportunity.data(),
+		id: foundOpportunity.id,
+		createdAt: foundOpportunity.data()?.createdAt.toMillis(),
+		updatedAt: foundOpportunity.data()?.updatedAt.toMillis(),
+		applications: applications.docs.map((doc) => ({
+			...doc.data(),
+			id: doc.id,
+			createdAt: doc.data().createdAt.toMillis(),
+			updatedAt: doc.data().updatedAt.toMillis(),
+		})),
+	}
 }
 
 export async function getOpportunityById(id: string) {
-	const client = await clientPromise
-	const db = client.db(process.env.DATABASE_NAME)
-	const foundOpportunity = await db
+	const foundOpportunity = await firestore
 		.collection('opportunities')
-		.findOne({ _id: new ObjectId(id) })
-	if (!foundOpportunity) return null
+		.doc(id)
+		.get()
 
+	if (!foundOpportunity.exists) return null
 	return foundOpportunity
 }
 
