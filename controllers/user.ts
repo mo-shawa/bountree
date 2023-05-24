@@ -1,8 +1,7 @@
-import clientPromise from '../firebase/connect'
+import clientPromise from '../lib/connect'
 import { ObjectId } from 'mongodb'
 import IUser from '@/types/user'
-import type IApplication from '@/types/application'
-import { firestore } from '../firebase/firestore'
+import { firestore } from '../lib/firestore'
 import { Timestamp } from 'firebase-admin/firestore'
 
 export async function getAdminUsers() {

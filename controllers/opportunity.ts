@@ -1,7 +1,7 @@
-import clientPromise from '../firebase/connect'
+import clientPromise from '../lib/connect'
 import IOpportunity from '../src/types/opportunity'
 import { ObjectId } from 'mongodb'
-import { firestore } from '../firebase/firestore'
+import { firestore } from '../lib/firestore'
 import { Timestamp } from 'firebase-admin/firestore'
 
 export async function getOpportunityByIdWithApplications(id: string) {

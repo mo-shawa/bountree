@@ -1,4 +1,4 @@
-import clientPromise from '../firebase/connect'
+import clientPromise from '../lib/connect'
 
 export async function addEmailAddress(email: string) {
 	const client = await clientPromise

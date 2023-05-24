@@ -40,6 +40,7 @@ export default interface IOpportunity {
 			| 'pink'
 		text: string
 	}
+	applications?: IApplication[]
 	createdAt: Timestamp
 	updatedAt: Timestamp
 }

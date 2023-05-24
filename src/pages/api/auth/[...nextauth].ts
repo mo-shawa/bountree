@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { FirestoreAdapter } from '@next-auth/firebase-adapter'
-import { firestore } from '../../../../firebase/firestore'
+import { firestore } from '../../../../lib/firestore'
 import { Timestamp } from 'firebase-admin/firestore'
 import { updateUser, getUser } from '../../../../controllers/user'
 

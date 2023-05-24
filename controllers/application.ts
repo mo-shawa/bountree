@@ -1,8 +1,8 @@
 import IApplication from '@/types/application'
-import clientPromise from '../firebase/connect'
+import clientPromise from '../lib/connect'
 import { ObjectId } from 'mongodb'
-import { Timestamp } from 'firebase-admin/firestore'
-import { firestore } from '../firebase/firestore'
+import { Timestamp, FieldPath } from 'firebase-admin/firestore'
+import { firestore } from '../lib/firestore'
 
 export async function createApplication(application: IApplication) {
 	try {
@@ -86,30 +86,48 @@ export async function updateApplicationStatus(
 }
 
 export async function getApplicationsByUser(id: string) {
-	const client = await clientPromise
-	const db = client.db(process.env.DATABASE_NAME)
-
-	const applications = await db
+	const userApplications = await firestore
 		.collection('applications')
-		.aggregate([
-			{
-				$match: {
-					userId: new ObjectId(id),
-				},
-			},
-			{
-				$lookup: {
-					from: 'opportunities',
-					localField: 'opportunityId',
-					foreignField: '_id',
-					as: 'opportunity',
-				},
-			},
-			{
-				$unwind: '$opportunity',
-			},
-		])
-		.toArray()
+		.where('userId', '==', id)
+		.get()
+
+	const applicationData = userApplications.docs.map((doc) => ({
+		...doc.data(),
+		id: doc.id,
+		opportunityId: doc.data().opportunityId,
+		createdAt: doc.data().createdAt.toMillis(),
+		updatedAt: doc.data().updatedAt.toMillis(),
+	}))
+	const opportunityIds = Array.from(
+		new Set(applicationData.map((application) => application.opportunityId))
+	)
+
+	const opportunities = await firestore
+		.collection('opportunities')
+		.where(FieldPath.documentId(), 'in', opportunityIds)
+		.get()
+
+	const opportunityData = opportunities.docs.map((doc) => ({
+		...doc.data(),
+		id: doc.id,
+		createdAt: doc.data().createdAt.toMillis(),
+		updatedAt: doc.data().updatedAt.toMillis(),
+	}))
+
+	const applications = applicationData.map((application) => ({
+		...application,
+		opportunity: opportunityData.find(
+			(opportunity) => opportunity.id === application.opportunityId
+		),
+	}))
+
+	console.log({
+		applicationData,
+		opportunityIds,
+		opportunities,
+		opportunityData,
+		applications,
+	})
 
 	return applications
 }

@@ -46,12 +46,15 @@ export default function PostDetail() {
 	useEffect(() => {
 		if (!post) return
 
-		setApplicationsRemaining(
-			(session?.user.applicationLimit || 5) -
+		setApplicationsRemaining(() => {
+			if (!post.applications) return 5
+			return (
+				(session?.user.applicationLimit || 5) -
 				post.applications.filter(
-					(a: IApplication) => a.userId === session?.user._id
+					(a: IApplication) => a.userId === session?.user.id
 				).length
-		)
+			)
+		})
 	}, [post])
 
 	if (status === 'loading') return <Loader />
