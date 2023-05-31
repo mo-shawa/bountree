@@ -87,9 +87,7 @@ export default function ReferralCard({
 											target="_blank"
 											className=" btn btn-block border btn-success gap-2 p-2 normal-case"
 											href={`https://wa.me/?text=${encodeURIComponent(
-												`${encodeURIComponent(post.company.name)} is hiring a ${
-													post.title
-												}. Check it out!\n ${shareLink}`
+												`${post.company.name} is hiring a ${post.title}. Check it out!\n ${shareLink}`
 											)}`}
 										>
 											<svg
