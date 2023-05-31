@@ -1,7 +1,7 @@
-import clientPromise from "../../../../db/connect"
-import { NextApiRequest, NextApiResponse } from "next"
-import IOpportunity from "@/types/opportunity"
-import serverAuthenticate from "@/utils/serverAuthenticate"
+import clientPromise from '../../../../db/connect'
+import { NextApiRequest, NextApiResponse } from 'next'
+import IOpportunity from '@/types/opportunity'
+import serverAuthenticate from '@/utils/serverAuthenticate'
 
 export default async function handler(
 	req: NextApiRequest,
@@ -9,52 +9,54 @@ export default async function handler(
 ) {
 	const { token } = await serverAuthenticate(req)
 
-	if (token?.email?.split("@")[1] !== "bountree.app") {
-		return res.status(403).json({ success: false, error: "Forbidden" })
+	if (token?.email?.split('@')[1] !== 'bountree.app') {
+		return res.status(403).json({ success: false, error: 'Forbidden' })
 	}
 
 	const client = await clientPromise
 	const db = client.db(process.env.DATABASE_NAME)
-	const collection = db.collection("opportunities")
+	const collection = db.collection('opportunities')
 
 	const opportunity: IOpportunity = {
-		title: "Client Experience Manager",
-		category: "Operations",
-		description: `Our Client Experience Manager will be an integral part of our Product team, playing a key role in not only attracting, acquiring, converting and retaining investors but also in leveraging generative AI technologies to streamline our customer support services. This critical role will collect and champion the 'Voice of our Customer' internally and ensure our Clients are always engaged when needed, and that we're leveraging our internal customer communications tool (Intercom) and CRM system (Salesforce) to its maximum potential.`,
-		idealCandidate: `The ideal candidate will act as the product owner for our customer communications tools. They'll speaks English and Arabic fluently. They'd have experience with Salesforce and Intercom. Knowing how to use AI tools to automate CRMs is a major plus.`,
+		title: 'Investor Relations Associate',
+		category: 'Operations',
+		description: `You'll help drive our mission to support early-stage tech entrepreneurs across the MENA region and beyond. As an Investor Relations Associate, you will be responsible for maintaining and building relationships with our current and potential investors, providing them with key insights into our portfolio companies and the broader venture capital landscape. You will work closely with our senior team members to support fundraising and business development efforts, and help shape the future of our ecosystem in the region. An ideal candidate should be prepared to commence as soon as possible from our Dubai office.`,
+		idealCandidate: `The ideal candidate would have been one of the earliest employees in a VC (as an investor relations associate) or a B2B SaaS startup (involved in enterprise sales or growth hacking). Knowledge of data analytics tools (like Tableau) is a major plus.`,
 		requirements: [
-			"4+ years in a Client Experience, or Relationship Management",
-			"2+ years experience in a funded start-up",
-			"Familiarity automated customer support systems, and their integration with CRMs and communication tools",
-			"English and Arabic speaking",
+			"Bachelor's degree in a relevant field (e.g. Finance, Business, Economics).",
+			'3-4 years of experience in investor relations or in a sales operations role at a fast-paced scale-up',
+			'Advanced google sheet or excel skills',
+			'Able to communicate business performance updates to investors verbally and in written/presentation form',
 		],
-		status: "open",
+		status: 'open',
 		perks: {
 			items: [
-				"A competitive salary and package with employee stock options.",
-				"Health insurance, paid time off and a hybrid work environment.",
+				'Competitive compensation package, top-tier medical insurance coverage and relocation package if relocating to the UAE.',
+				'Professional training & development budget.',
+				'Flexible working location during the summer period.',
+				'Birthday and work anniversary days off.',
 			],
 		},
 		reward: {
-			amount: 2500,
-			currency: "USD",
+			amount: 4000,
+			currency: 'USD',
 		},
 		salary: {
-			min: 204000,
-			max: 216000,
-			currency: "AED",
+			min: 300000,
+			max: 348000,
+			currency: 'AED',
 		},
-		location: "Dubai",
+		location: 'Dubai',
 		remote: false,
 		company: {
-			name: "Stake",
-			about: `Stake is the MENA region's leading real estate fintech company, combining real estate expertise and innovative financial technology to deliver products that empower everyone to own and build wealth through Real Estate. Launched in 2021 we have grown rapidly, to a team of over 50 people leveraging decades of experience in technology, financial services and global real estate, to support over 150,000 users with over AED 150 million in AUM already.`,
-			url: "https://getstake.com/",
-			image: "/static/opportunities/stake.jpg",
-			founded: "2021",
-			industry: "Real Estate",
-			employees: "50+",
-			stage: "A",
+			name: 'Beco Capital',
+			about: `BECO Capital is a top decile TVPI UAE based early-stage fund with $450M AUM across 3 vintages that is growing exponentially to build a global platform that invests in cutting edge tech globally. We're a team of entrepreneurial digital natives and have invested in 45+ startups across a wide range of sectors, including the region's biggest success stories.`,
+			url: 'https://becocapital.com/',
+			image: '/static/opportunities/beco.png',
+			founded: '2012',
+			industry: 'Venture Capital',
+			employees: '30+',
+			stage: 'growth',
 		},
 		createdAt: new Date(),
 		updatedAt: new Date(),
