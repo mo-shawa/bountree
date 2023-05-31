@@ -90,21 +90,25 @@ export default function RecruitModal({
 	const { currentStep, currentStepIndex, next, back, isFirstStep, isLastStep } =
 		useMultiStepForm([
 			<Step1
+				key={0}
 				formData={formData}
 				file={file}
 				handleChange={handleChange}
 				setFile={setFile}
 			/>,
 			<Step2
+				key={1}
 				formData={formData}
 				handleChange={handleChange}
 			/>,
 			<Step3
+				key={2}
 				checkedState={checkedState}
 				name={formData.name.split(' ')[0]}
 				handleCheckboxChange={handleCheckboxChange}
 			/>,
 			<Step4
+				key={3}
 				checkedState={checkedState}
 				requirements={requirements}
 				name={formData.name.split(' ')[0]}
