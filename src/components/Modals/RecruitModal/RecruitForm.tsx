@@ -27,7 +27,7 @@ export default function RecruitForm({
 		<form
 			onClick={(e) => e.stopPropagation()}
 			onSubmit={handleSubmit}
-			className="text-black bg-white border border-neutral px-5 py-10 rounded w-screen max-w-sm  flex flex-col items-center max-h-screen overflow-auto relative min-h-[500px]"
+			className="text-black bg-white border border-neutral px-5 py-10 rounded w-screen max-w-sm  flex flex-col items-center max-h-screen overflow-auto relative "
 		>
 			<XCircleIcon
 				onClick={() => setModalOpen(false)}
