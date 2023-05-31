@@ -1,22 +1,37 @@
-import Image from "next/image"
-import Link from "next/link"
-import Layout from "@/components/Layout/Layout"
-import { useSession } from "next-auth/react"
-import ArrowSVG from "@/components/Misc/ArrowSVG"
-import ArrowButton from "@/components/Misc/ArrowButton"
-import { useIntercom } from "react-use-intercom"
-import { useEffect } from "react"
+import Image from 'next/image'
+import Link from 'next/link'
+import Layout from '@/components/Layout/Layout'
+import { useSession } from 'next-auth/react'
+import ArrowSVG from '@/components/Misc/ArrowSVG'
+import ArrowButton from '@/components/Misc/ArrowButton'
+import { useEffect, useState } from 'react'
+import OpportunityCard from '@/components/Opportunities/OpportunityCard'
+import { Loader } from '@/components/Loader/Loader'
+import IOpportunity from '@/types/opportunity'
+import { wait } from '@/utils/misc'
+import Floaters from '@/components/Misc/Floaters'
 
 export default function Home() {
-	const { data: session, status } = useSession()
+	const { status } = useSession()
+	const [latestOpportunities, setLatestOpportunities] = useState([])
+
+	useEffect(() => {
+		const fetchLatestOpportunities = async () => {
+			await wait()
+			const res = await fetch('/api/opportunities/latest')
+			const { data } = await res.json()
+			setLatestOpportunities(data)
+		}
+		fetchLatestOpportunities()
+	}, [])
 
 	return (
-		<Layout classNames="bg-b-blue-dark">
-			<section className=" flex flex-col justify-center items-center bg-b-blue-dark text-white">
+		<Layout classNames="bg-slate-50 text-b-blue-dark">
+			<section className=" flex flex-col justify-center items-center ">
 				<div className="grid md:grid-cols-2 py-12 w-full max-w-7xl px-4">
 					<div className=" flex flex-col items-center md:items-start justify-start ">
-						<div className="bg-b-lavender text-b-blue-dark  mb-3 flex w-fit rounded-full border border-neutral-500 px-4 py-0.5">
-							<div className="text-base">Looking for talent?</div>
+						<div className="bg-white  mb-3 flex w-fit rounded-full border border-neutral-500 px-4 py-0.5">
+							<div>Looking for talent?</div>
 							<Link href="/product">
 								<div className="group ml-2 flex items-center cursor-pointer">
 									<div className="text-base font-semibold group-hover:text-blue group-hover:underline flex  items-center h-full">
@@ -34,22 +49,32 @@ export default function Home() {
 							bounty-based rewards.
 						</div>
 						<ArrowButton href="/opportunities">
-							{status === "authenticated"
-								? "Current Opportunities"
-								: "Start Recruiting Now"}
+							{status === 'authenticated'
+								? 'Current Opportunities'
+								: 'Start Recruiting Now'}
 						</ArrowButton>
 					</div>
-					<Image
-						src="/static/hero.png"
-						height={416}
-						width={946}
-						className="max-w-50 my-auto h-auto hidden md:inline "
-						alt="hero image"
-					/>
+					<div className="h-full relative">
+						<Floaters />
+						{latestOpportunities.length ? (
+							latestOpportunities.map((opportunity: IOpportunity, index) => (
+								<OpportunityCard
+									key={opportunity.id}
+									opportunity={opportunity}
+									className={index !== 1 ? 'scale-75' : 'scale-[0.85]'}
+								/>
+							))
+						) : (
+							<Loader />
+						)}
+					</div>
 				</div>
 			</section>
 
-			<section id="details" className="mx-4 py-12 text-b-blue-dark">
+			<section
+				id="details"
+				className="mx-4 py-12 text-b-blue-dark"
+			>
 				<div className="mx-auto my-12 py-8 bg-b-lavender w-full max-w-7xl  rounded-lg shadow">
 					<div className="p-5 mx-auto max-w-4xl text-center">
 						<h1 className="md:text-5xl  text-4xl  text-center font-bold mb-8">
@@ -105,7 +130,7 @@ export default function Home() {
 						<div className="col-span-2 md:col-span-1 shadow bg-gray-200  py-6 px-6 rounded-lg">
 							<h3 className="text-3xl font-bold mb-5">No secrets here.</h3>
 							<p className="text-lg">
-								It&apos;s time to empower recruiters.{" "}
+								It&apos;s time to empower recruiters.{' '}
 								<span className="font-bold">βountree</span> let&apos;s you
 								unlock your full potential with clarity at every step. Startups
 								share their needs transparently with recruiters, who can
@@ -126,9 +151,9 @@ export default function Home() {
 				</p>
 
 				<ArrowButton href="/opportunities">
-					{status === "authenticated"
-						? "Current Opportunities"
-						: "Start Recruiting Now"}
+					{status === 'authenticated'
+						? 'Current Opportunities'
+						: 'Start Recruiting Now'}
 				</ArrowButton>
 			</section>
 		</Layout>
