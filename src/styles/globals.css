@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.badge {
+	@apply py-2.5 text-xs font-normal;
+}
+
+.badge-neutral {
+	@apply bg-white border-neutral-300 shadow-sm text-black;
+}
+
 #__next {
 	min-height: 100vh;
 	display: flex;

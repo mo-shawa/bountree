@@ -26,6 +26,18 @@ export default interface IOpportunity extends Document {
 	remote: boolean
 	company: Company
 	rejectionFeedback?: Feedback[]
+	badge?: {
+		type:
+			| "red"
+			| "orange"
+			| "yellow"
+			| "green"
+			| "blue"
+			| "indigo"
+			| "purple"
+			| "pink"
+		text: string
+	}
 	createdAt: Date
 	updatedAt: Date
 }

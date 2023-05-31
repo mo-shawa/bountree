@@ -40,25 +40,10 @@ export default function MappedOpportunities({ data }: OpportunitiesProps) {
 						setFilteredBy={setFilteredBy}
 					/>
 					{filteredData && filteredData.length ? (
-						filteredData.map((item) => (
+						filteredData.map((opportunity) => (
 							<OpportunityCard
-								id={item._id}
-								key={item._id}
-								company={item.company.name}
-								image={item.company.image}
-								slogan={item.company.slogan}
-								role={{
-									title: item.title,
-									category: item.category,
-									workFrom: item.remote ? 'Remote' : 'In person',
-									location: item.location,
-									reward: formatCurrency(
-										item.reward.amount,
-										item.reward.currency
-									),
-								}}
-								salary={item.salary}
-								status={item.status}
+								opportunity={opportunity}
+								key={opportunity._id}
 							/>
 						))
 					) : (

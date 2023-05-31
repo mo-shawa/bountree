@@ -1,13 +1,18 @@
-import { useState, useEffect } from "react"
-import IApplication from "@/types/application"
-import IOpportunity from "@/types/opportunity"
-import { Loader } from "../../Loader/Loader"
-import { useSession } from "next-auth/react"
-import { getGCSUploadData } from "@/utils/cloudStorage"
-import RecruitForm from "./RecruitForm"
-import Success from "./Success"
-import Failure from "./Failure"
-import { isURL, isEmail } from "@/utils/misc"
+import { useState, useEffect } from 'react'
+import IApplication from '@/types/application'
+import IOpportunity from '@/types/opportunity'
+import { Loader } from '../../Loader/Loader'
+import { useSession } from 'next-auth/react'
+import { getGCSUploadData } from '@/utils/cloudStorage'
+import RecruitForm from './RecruitForm'
+import Success from './Success'
+import Failure from './Failure'
+import { isURL, isEmail } from '@/utils/misc'
+import { useMultiStepForm } from '@/hooks/useMultiStepForm'
+import Step1 from './steps/Step1'
+import Step2 from './steps/Step2'
+import Step3 from './steps/Step3'
+import Step4 from './steps/Step4'
 
 type Props = {
 	userId: string
@@ -16,35 +21,38 @@ type Props = {
 	setPost: (post: IOpportunity) => void
 	applicationsRemaining: number
 	setApplicationsRemaining: (prev: number) => void
+	requirements: string[]
 }
 
 export default function RecruitModal({
 	userId,
 	opportunityId,
 	setModalOpen,
-	setPost,
 	applicationsRemaining,
 	setApplicationsRemaining,
+	requirements,
 }: Props) {
 	const { data: session } = useSession()
 
 	const [formData, setFormData] = useState<Partial<IApplication>>({
 		userId: session?.user?.id,
 		opportunityId,
-		name: "",
-		candidateEmail: "",
-		cv: "",
-		linkedin: "",
-		secondary: "",
-		description: "",
+		name: '',
+		candidateEmail: '',
+		cv: '',
+		linkedin: '',
+		secondary: '',
+		description: '',
 	})
 
 	const [file, setFile] = useState<File>()
 	const [disabled, setDisabled] = useState(true)
 	const [success, setSuccess] = useState<boolean>()
 	const [loading, setLoading] = useState(false)
-	const [message, setMessage] = useState("")
-	const [checkboxChecked, setCheckboxChecked] = useState(false)
+	const [message, setMessage] = useState('')
+	const [checkedState, setCheckedState] = useState(
+		new Array(requirements.length + 1).fill(false)
+	)
 
 	const conditionsMet =
 		userId &&
@@ -54,7 +62,7 @@ export default function RecruitModal({
 		formData.cv &&
 		isURL(formData.linkedin as string) &&
 		formData.description?.length! > 0 &&
-		checkboxChecked
+		checkedState.every((checked) => checked === true)
 
 	useEffect(() => {
 		if (conditionsMet) {
@@ -64,7 +72,7 @@ export default function RecruitModal({
 		} else {
 			setDisabled(true)
 		}
-	}, [formData, userId, checkboxChecked, conditionsMet])
+	}, [formData, userId, checkedState, conditionsMet])
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -72,12 +80,50 @@ export default function RecruitModal({
 		setFormData({ ...formData, [e.target.name]: e.target.value })
 	}
 
+	const handleCheckboxChange = (index: number) => {
+		const updatedCheckedState = checkedState.map((item, i) =>
+			i === index ? !item : item
+		)
+		setCheckedState(updatedCheckedState)
+	}
+
+	const { currentStep, currentStepIndex, next, back, isFirstStep, isLastStep } =
+		useMultiStepForm([
+			<Step1
+				key={0}
+				formData={formData}
+				file={file}
+				handleChange={handleChange}
+				setFile={setFile}
+			/>,
+			<Step2
+				key={1}
+				formData={formData}
+				handleChange={handleChange}
+			/>,
+			<Step3
+				key={2}
+				checkedState={checkedState}
+				name={formData.name.split(' ')[0]}
+				handleCheckboxChange={handleCheckboxChange}
+			/>,
+			<Step4
+				key={3}
+				checkedState={checkedState}
+				requirements={requirements}
+				name={formData.name.split(' ')[0]}
+				handleCheckboxChange={handleCheckboxChange}
+			/>,
+		])
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
+
+		if (!isLastStep) return next()
+
 		if (!conditionsMet) return
 
 		setLoading(true)
-		setMessage("Validating Candidate")
+		setMessage('Validating Candidate')
 
 		// Check if candidate LinkedIn has been used before
 		const resLinkedIn = await fetch(
@@ -92,10 +138,10 @@ export default function RecruitModal({
 		if (linkedInUsed.application) {
 			setSuccess(false)
 			setLoading(false)
-			setMessage("Candidate has already been submitted. ")
+			setMessage('Candidate has already been submitted. ')
 			return
 		}
-		setMessage("Generating secure URL")
+		setMessage('Generating secure URL')
 
 		// Get GCS upload data
 		const gcsUploadData = await getGCSUploadData(file)
@@ -103,30 +149,30 @@ export default function RecruitModal({
 		if (!gcsUploadData) {
 			setSuccess(false)
 			setLoading(false)
-			setMessage("Error uploading CV")
+			setMessage('Error uploading CV')
 			return
 		}
 
 		// Upload to GCS
-		setMessage("Uploading CV")
+		setMessage('Uploading CV')
 		const { url, gcsFormData, fileName } = gcsUploadData
 		const resGCS = await fetch(url, {
-			method: "POST",
+			method: 'POST',
 			body: gcsFormData,
 		})
 
 		if (!resGCS.ok) {
 			setSuccess(false)
 			setLoading(false)
-			setMessage("Error uploading CV")
+			setMessage('Error uploading CV')
 			return
 		}
 
 		// Upload to DB
-		setMessage("Uploading to database")
+		setMessage('Uploading to database')
 		const encodedFileName = encodeURIComponent(fileName)
 		const res = await fetch(`/api/applications/`, {
-			method: "POST",
+			method: 'POST',
 			body: JSON.stringify({
 				...formData,
 				cv: `https://storage.googleapis.com/bountree-pdf-bucket/${encodedFileName}`,
@@ -139,7 +185,7 @@ export default function RecruitModal({
 		if (!res.ok) {
 			setSuccess(false)
 			setLoading(false)
-			setMessage("Error uploading to database")
+			setMessage('Error uploading to database')
 			return
 		}
 		setLoading(false)
@@ -158,10 +204,13 @@ export default function RecruitModal({
 	return (
 		<div className="fixed z-10 inset-0 overflow-y-auto">
 			<div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-				<div className="fixed inset-0 transition-opacity" aria-hidden="true">
+				<div
+					className="fixed inset-0 transition-opacity"
+					aria-hidden="true"
+				>
 					<div
 						onClick={handleOnClose}
-						className="absolute inset-0 backdrop-blur-md  flex items-center justify-center"
+						className="absolute inset-0 backdrop-blur-md flex items-center justify-center"
 					>
 						{loading && (
 							<>
@@ -172,14 +221,14 @@ export default function RecruitModal({
 						)}
 						{success === undefined && !loading && (
 							<RecruitForm
+								currentStepIndex={currentStepIndex}
+								currentStep={currentStep}
 								setModalOpen={setModalOpen}
-								formData={formData}
-								setFile={setFile}
-								handleChange={handleChange}
 								handleSubmit={handleSubmit}
 								disabled={disabled}
-								checkboxChecked={checkboxChecked}
-								setCheckboxChecked={setCheckboxChecked}
+								isFirstStep={isFirstStep}
+								isLastStep={isLastStep}
+								back={back}
 							/>
 						)}
 
@@ -191,7 +240,10 @@ export default function RecruitModal({
 						)}
 
 						{success === false && (
-							<Failure handleOnClose={handleOnClose} message={message} />
+							<Failure
+								handleOnClose={handleOnClose}
+								message={message}
+							/>
 						)}
 					</div>
 				</div>

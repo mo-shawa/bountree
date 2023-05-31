@@ -3,36 +3,66 @@ import Link from "next/link"
 import Pill from "../Misc/Pill"
 import { classNames, formatCurrency } from "@/utils/misc"
 import { PauseCircleIcon, XCircleIcon } from "@heroicons/react/24/solid"
+import IOpportunity from "@/types/opportunity"
 
-export default function OpportunityCard(props: any) {
-	const { fixed, min, max, currency } = props.salary
+export default function OpportunityCard({
+	opportunity,
+}: {
+	opportunity: IOpportunity
+}) {
+	const { fixed, min, max, currency } = opportunity.salary
 
 	const salary = fixed
 		? formatCurrency(fixed, currency)
 		: `${formatCurrency(min, currency)} - ${formatCurrency(max, currency)}`
 
-	const statusPillLeft = ["paused", "closed"].includes(props.status) ? (
-		<Pill
-			className="hidden sm:block "
-			type={props.status === "paused" ? "yellow" : "red"}
-		>
-			{props.status}
-		</Pill>
-	) : null
-	const statusPillRight = ["paused", "closed"].includes(props.status) ? (
-		props.status === "paused" ? (
-			<PauseCircleIcon className="block sm:hidden text-yellow-500 h-8 w-8 absolute bottom-1 right-1" />
-		) : (
-			<XCircleIcon className="block sm:hidden text-red-500 h-8 w-8 absolute bottom-1 right-1" />
-		)
-	) : null
+	const statusPillLeft = (() => {
+		if (["paused", "closed"].includes(opportunity.status)) {
+			return (
+				<Pill
+					className="hidden sm:block "
+					type={opportunity.status === "paused" ? "yellow" : "red"}
+				>
+					{opportunity.status}
+				</Pill>
+			)
+		}
+		if (opportunity.badge) {
+			return (
+				<Pill className="hidden sm:block " type={opportunity.badge.type}>
+					{opportunity.badge.text}
+				</Pill>
+			)
+		}
+	})()
+	const statusPillRight = (() => {
+		if (opportunity.status === "paused")
+			return (
+				<PauseCircleIcon className="block sm:hidden text-yellow-500 h-8 w-8 absolute bottom-1 right-1" />
+			)
+
+		if (opportunity.status === "closed")
+			return (
+				<XCircleIcon className="block sm:hidden text-red-500 h-8 w-8 absolute bottom-1 right-1" />
+			)
+
+		// if (opportunity.badge)
+		// 	return (
+		// 		<Pill
+		// 			className="block sm:hidden   text-red-500 absolute top-1 right-1"
+		// 			type={opportunity.badge.type}
+		// 		>
+		// 			{opportunity.badge.text}
+		// 		</Pill>
+		// 	)
+	})()
 
 	return (
 		<Link
-			href={`/opportunities/${props.id}`}
+			href={`/opportunities/${opportunity._id}`}
 			className={classNames(
 				"shadow-md w-full bg-white rounded-md flex flex-row justify-between items-center p-4 my-4 hover:-translate-y-1 transition-translate duration-300 ease-in-out relative",
-				props.status === "paused" || props.status === "closed"
+				opportunity.status === "paused" || opportunity.status === "closed"
 					? "opacity-60"
 					: ""
 			)}
@@ -41,7 +71,7 @@ export default function OpportunityCard(props: any) {
 				<div className="flex flex-col xs:flex-row gap-4">
 					<Image
 						className="rounded-md object-contain hidden xs:block"
-						src={props.image}
+						src={opportunity.company.image}
 						alt="company logo"
 						width={80}
 						height={80}
@@ -50,26 +80,22 @@ export default function OpportunityCard(props: any) {
 						<div className="flex items-center gap-2 whitespace-nowrap text-ellipsis">
 							<Image
 								className="xs:hidden rounded-md object-contain h-8 w-8"
-								src={props.image}
+								src={opportunity.company.image}
 								alt="company logo"
 								width={80}
 								height={80}
 							/>
-							<h4>{props.company}</h4>
-							<p className="font-thin text-xs">{props.slogan}</p>
+							<h4>{opportunity.company.name}</h4>
 						</div>
 						<div className="flex flex-wrap items-center gap-2 w-auto">
 							<p className=" md:font-thin text-gray-500 m-0 max-w-[80%] sm:max-w-full ">
-								{props.role.title}
+								{opportunity.title}
 							</p>
 							{statusPillLeft}
 						</div>
-						<div className="flex gap-2 text-xs sm:font-thin text-gray-500">
-							<p>{props.role.workFrom}</p>
-							<span>•</span>
-							<p>{props.role.location}</p>
-							<span>•</span>
-							<p>{salary}</p>
+						<div className="flex text-xs gap-2 text-gray-500">
+							<p>{opportunity.remote ? "Remote" : "On-Site"}</p>•
+							<p>{opportunity.location}</p>•<p>{salary}</p>
 						</div>
 					</div>
 				</div>
@@ -79,7 +105,10 @@ export default function OpportunityCard(props: any) {
 							{/* <div className="shadow mr-2 bg-b-yellow rounded-full w-6 h-6 text-sm text-center font-bold">
 								β
 							</div> */}
-							{props.role.reward}
+							{formatCurrency(
+								opportunity.reward.amount,
+								opportunity.reward.currency
+							)}
 						</div>
 						<span className="text-xs sm:font-thin text-gray-500 block text-right">
 							reward
