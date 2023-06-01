@@ -29,7 +29,7 @@ export default function Home() {
 		<Layout classNames="bg-slate-50 text-b-blue-dark">
 			<section className=" flex flex-col justify-center items-center ">
 				<div className="grid md:grid-cols-2 py-12 w-full max-w-7xl px-4">
-					<div className=" flex flex-col items-center md:items-start justify-start ">
+					<div className=" flex flex-col items-center md:items-start justify-center ">
 						<div className="bg-white  mb-3 flex w-fit rounded-full border border-neutral-500 px-4 py-0.5">
 							<div>Looking for talent?</div>
 							<Link href="/product">

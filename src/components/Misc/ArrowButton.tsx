@@ -1,5 +1,5 @@
-import Link from "next/link"
-import ArrowSVG from "./ArrowSVG"
+import Link from 'next/link'
+import ArrowSVG from './ArrowSVG'
 
 type Props = {
 	children?: React.ReactNode
@@ -18,10 +18,10 @@ export default function ArrowButton({
 }: Props) {
 	return (
 		<Link
-			className={`mt-6 flex items-center w-fit cursor-pointer rounded-lg bg-b-yellow px-4 py-1.5 text-base hover:bg-b-yellow ${className}`}
+			className={`mt-6 flex items-center w-fit cursor-pointer rounded-lg bg-slate-500 px-4 py-1.5 text-base hover:bg-lime-300 ${className}`}
 			onClick={onClick}
-			href={href || "#"}
-			target={target || "_self"}
+			href={href || '#'}
+			target={target || '_self'}
 		>
 			<div className="my-auto mr-2 text-lg text-b-blue-dark">{children}</div>
 			<ArrowSVG className="m-0 p-0" />

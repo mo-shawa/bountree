@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react'
 import PrivacyandTermsModal from '../Modals/PrivacyandTermsModal'
 import { Loader } from '../Loader/Loader'
 import { useIntercom } from 'react-use-intercom'
+import Navigation from './Navigation'
 
 type Props = {
 	children?: ReactNode
@@ -100,7 +101,7 @@ export default function Layout({ children, classNames }: Props): JSX.Element {
 				/>
 			</Head>
 
-			<Navbar />
+			<Navigation />
 			<main className={classNames}>{children}</main>
 			{showModal && (
 				<PrivacyandTermsModal
