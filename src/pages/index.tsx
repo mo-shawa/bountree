@@ -26,8 +26,8 @@ export default function Home() {
 	}, [])
 
 	return (
-		<Layout classNames="bg-slate-50 text-b-blue-dark">
-			<section className=" flex flex-col justify-center items-center ">
+		<Layout classNames="bg-white text-b-blue-dark">
+			<section className="min-h-screen flex flex-col justify-center items-center ">
 				<div className="grid md:grid-cols-2 py-12 w-full max-w-7xl px-4">
 					<div className=" flex flex-col items-center md:items-start justify-center ">
 						<div className="bg-white  mb-3 flex w-fit rounded-full border border-neutral-500 px-4 py-0.5">
@@ -61,7 +61,11 @@ export default function Home() {
 								<OpportunityCard
 									key={opportunity.id}
 									opportunity={opportunity}
-									className={index !== 1 ? 'scale-75' : 'scale-[0.85]'}
+									className={
+										index !== 1
+											? 'scale-75 shadow-none'
+											: 'scale-[0.85] shadow-none'
+									}
 								/>
 							))
 						) : (
