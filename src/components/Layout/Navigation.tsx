@@ -1,20 +1,16 @@
-import Image from 'next/image'
+import Image from "next/image"
 
 export default function Navigation() {
 	return (
 		<>
 			<div
-				className="navbar max-w-7xl mx-auto fixed top-0 left-1/2 
-      transform -translate-x-1/2 w-full z-50 rounded-2xl shadow-lg
-      filter backdrop-blur-xl
-      "
+				className="navbar fixed top-2 left-1/2 
+      transform -translate-x-1/2 z-50 rounded-2xl shadow-lg
+      filter backdrop-blur-xl w-[80rem] max-w-[calc(100vw-3rem)]"
 			>
 				<div className="navbar-start">
 					<div className="dropdown">
-						<label
-							tabIndex={0}
-							className="btn btn-ghost lg:hidden"
-						>
+						<label tabIndex={0} className="btn btn-ghost lg:hidden">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								className="h-5 w-5"
@@ -38,22 +34,11 @@ export default function Navigation() {
 								<a>Item 1</a>
 							</li>
 							<li>
-								<a>Parent</a>
-								<ul className="p-2">
-									<li>
-										<a>Submenu 1</a>
-									</li>
-									<li>
-										<a>Submenu 2</a>
-									</li>
-								</ul>
-							</li>
-							<li>
 								<a>Item 3</a>
 							</li>
 						</ul>
 					</div>
-					<a className="btn btn-ghost normal-case text-xl">
+					<a className="cursor-pointer mx-4 text-xl">
 						<Image
 							src="/static/svg/logo-dark.svg"
 							alt="Logo"

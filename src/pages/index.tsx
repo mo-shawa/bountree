@@ -1,15 +1,16 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import Layout from '@/components/Layout/Layout'
-import { useSession } from 'next-auth/react'
-import ArrowSVG from '@/components/Misc/ArrowSVG'
-import ArrowButton from '@/components/Misc/ArrowButton'
-import { useEffect, useState } from 'react'
-import OpportunityCard from '@/components/Opportunities/OpportunityCard'
-import { Loader } from '@/components/Loader/Loader'
-import IOpportunity from '@/types/opportunity'
-import { wait } from '@/utils/misc'
-import Floaters from '@/components/Misc/Floaters'
+import Image from "next/image"
+import Link from "next/link"
+import Layout from "@/components/Layout/Layout"
+import { useSession } from "next-auth/react"
+import ArrowSVG from "@/components/Misc/ArrowSVG"
+import ArrowButton from "@/components/Misc/ArrowButton"
+import { useEffect, useState } from "react"
+import OpportunityCard from "@/components/Opportunities/OpportunityCard"
+import { Loader } from "@/components/Loader/Loader"
+import IOpportunity from "@/types/opportunity"
+import { wait } from "@/utils/misc"
+import Floaters from "@/components/Misc/Floaters"
+import HoverButton from "@/components/Misc/HoverButton"
 
 export default function Home() {
 	const { status } = useSession()
@@ -18,7 +19,7 @@ export default function Home() {
 	useEffect(() => {
 		const fetchLatestOpportunities = async () => {
 			await wait()
-			const res = await fetch('/api/opportunities/latest')
+			const res = await fetch("/api/opportunities/latest")
 			const { data } = await res.json()
 			setLatestOpportunities(data)
 		}
@@ -26,33 +27,41 @@ export default function Home() {
 	}, [])
 
 	return (
-		<Layout classNames="bg-white text-b-blue-dark">
-			<section className="min-h-screen flex flex-col justify-center items-center ">
-				<div className="grid md:grid-cols-2 py-12 w-full max-w-7xl px-4">
-					<div className=" flex flex-col items-center md:items-start justify-center ">
-						<div className="bg-white  mb-3 flex w-fit rounded-full border border-neutral-500 px-4 py-0.5">
-							<div>Looking for talent?</div>
-							<Link href="/product">
-								<div className="group ml-2 flex items-center cursor-pointer">
-									<div className="text-base font-semibold group-hover:text-blue group-hover:underline flex  items-center h-full">
-										Explore
-										<ArrowSVG />
-									</div>
+		<Layout classNames="bg-white text-b-blue-dark overflow-visible sm:overflow-x-hidden">
+			<section className="min-h-screen bg-neutral-50 flex flex-col justify-center items-center ">
+				<div className="grid lg:grid-cols-2 py-12 w-full max-w-7xl px-4 mt-20 sm:mt-0">
+					<div className=" flex flex-col items-center lg:items-start justify-center z-10">
+						<Link href="/product">
+							<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full bg-gray-100 px-4 py-0.5 hover:bg-purple-200 transition-colors duration-500">
+								<div>
+									Are you a startup? Hire with{" "}
+									<span className="font-bold">bountree!</span>
 								</div>
-							</Link>
-						</div>
-						<h1 className="md:text-left text-center text-5xl md:text-5xl font-bold">
-							Get rewarded for <br /> recruiting top talent.
+								<ArrowSVG className="fill-purple-500" />
+							</div>
+						</Link>
+						<h1 className="lg:text-left text-center text-5xl md:text-5xl font-bold">
+							Get paid to refer <br /> top talent.
 						</h1>
-						<div className=" mt-6 w-full text-center md:text-left text-lg leading-snug md:w-2/3 md:text-2xl">
-							Say goodbye to traditional recruiting and hello to flexible,
-							bounty-based rewards.
+						<div className=" mt-6 w-full text-center lg:text-left text-lg leading-snug md:w-2/3 ">
+							Why refer candidates to startups for free when you can earn
+							rewards with <span className="font-bold">bountree?</span>
 						</div>
-						<ArrowButton href="/opportunities">
-							{status === 'authenticated'
-								? 'Current Opportunities'
-								: 'Start Recruiting Now'}
-						</ArrowButton>
+						<div className="flex gap-4 flex-wrap items-center justify-center">
+							<HoverButton href="/opportunities" className="mt-6">
+								{status === "authenticated"
+									? "Current opportunities"
+									: "Start referring now"}
+							</HoverButton>
+
+							<HoverButton
+								href="/opportunities"
+								className="mt-6"
+								type="outline"
+							>
+								Learn more
+							</HoverButton>
+						</div>
 					</div>
 					<div className="h-full relative">
 						<Floaters />
@@ -63,8 +72,8 @@ export default function Home() {
 									opportunity={opportunity}
 									className={
 										index !== 1
-											? 'scale-75 shadow-none'
-											: 'scale-[0.85] shadow-none'
+											? "scale-75 shadow-none"
+											: "scale-[0.85] shadow-none"
 									}
 								/>
 							))
@@ -73,12 +82,72 @@ export default function Home() {
 						)}
 					</div>
 				</div>
+				<div className="w-full max-w-7xl p-4">
+					<p className="text-center md:text-left">
+						Help the most disruptive startups find talent
+					</p>
+					<div className="grid grid-cols-2 md:grid-cols-8 max-w-5xl gap-4 mt-4 gap-y-8">
+						<Image
+							src="/static/product/coinmena.png"
+							alt="company logo"
+							width={150}
+							height={150}
+							className="h-full w-full object-contain max-h-6"
+						/>
+						<Image
+							src="/static/product/pluto.png"
+							alt="company logo"
+							width={150}
+							height={150}
+							className="h-full w-full object-contain max-h-6"
+						/>
+						<Image
+							src="/static/product/krews.png"
+							alt="company logo"
+							width={150}
+							height={150}
+							className="h-full w-full object-contain max-h-6"
+						/>
+						<Image
+							src="/static/product/clara.png"
+							alt="company logo"
+							width={150}
+							height={150}
+							className="h-full w-full object-contain max-h-6"
+						/>
+						<Image
+							src="/static/product/stake-logo 1.png"
+							alt="company logo"
+							width={150}
+							height={150}
+							className="h-full w-full object-contain max-h-6"
+						/>
+						<Image
+							src="/static/product/zest.png"
+							alt="company logo"
+							width={150}
+							height={150}
+							className="h-full w-full object-contain max-h-6"
+						/>
+						<Image
+							src="/static/product/khwarizmi.png"
+							alt="company logo"
+							width={150}
+							height={150}
+							className="h-full w-full object-contain max-h-6"
+						/>
+						<Image
+							src="/static/product/syarah.png"
+							alt="company logo"
+							width={150}
+							height={150}
+							className="h-full w-full object-contain max-h-6"
+						/>
+					</div>
+				</div>
 			</section>
 
-			<section
-				id="details"
-				className="mx-4 py-12 text-b-blue-dark"
-			>
+			<section id="details" className="mx-4 py-12 text-b-blue-dark">
 				<div className="mx-auto my-12 py-8 bg-b-lavender w-full max-w-7xl  rounded-lg shadow">
 					<div className="p-5 mx-auto max-w-4xl text-center">
 						<h1 className="md:text-5xl  text-4xl  text-center font-bold mb-8">
@@ -134,7 +203,7 @@ export default function Home() {
 						<div className="col-span-2 md:col-span-1 shadow bg-gray-200  py-6 px-6 rounded-lg">
 							<h3 className="text-3xl font-bold mb-5">No secrets here.</h3>
 							<p className="text-lg">
-								It&apos;s time to empower recruiters.{' '}
+								It&apos;s time to empower recruiters.{" "}
 								<span className="font-bold">βountree</span> let&apos;s you
 								unlock your full potential with clarity at every step. Startups
 								share their needs transparently with recruiters, who can
@@ -155,9 +224,9 @@ export default function Home() {
 				</p>
 
 				<ArrowButton href="/opportunities">
-					{status === 'authenticated'
-						? 'Current Opportunities'
-						: 'Start Recruiting Now'}
+					{status === "authenticated"
+						? "Current Opportunities"
+						: "Start Recruiting Now"}
 				</ArrowButton>
 			</section>
 		</Layout>
