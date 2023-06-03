@@ -1,14 +1,14 @@
-import { useRouter } from 'next/router'
-import Layout from '@/components/Layout/Layout'
-import { useEffect, useState } from 'react'
-import IOpportunity from '../../../types/opportunity'
-import { useSession } from 'next-auth/react'
-import Loader from '@/components/Loader/Loader'
-import { signIn } from 'next-auth/react'
-import RecruitModal from '@/components/Modals/RecruitModal/RecruitModal'
-import IApplication from '@/types/application'
-import PrimarySection from '@/components/Opportunity/PrimarySection'
-import ReferralCard from '@/components/Opportunity/ReferralCard'
+import { useRouter } from "next/router"
+import Layout from "@/components/Layout/Layout"
+import { useEffect, useState } from "react"
+import IOpportunity from "../../../types/opportunity"
+import { useSession } from "next-auth/react"
+import Loader from "@/components/Loader/Loader"
+import { signIn } from "next-auth/react"
+import RecruitModal from "@/components/Modals/RecruitModal/RecruitModal"
+import IApplication from "@/types/application"
+import PrimarySection from "@/components/Opportunity/PrimarySection"
+import ReferralCard from "@/components/Opportunity/ReferralCard"
 
 export default function PostDetail() {
 	const router = useRouter()
@@ -21,7 +21,7 @@ export default function PostDetail() {
 	const [error, setError] = useState<string>()
 	const [applicationsRemaining, setApplicationsRemaining] = useState<number>(5)
 
-	const isAdmin = session?.user.email.split('@')[1] === 'bountree.app' || false
+	const isAdmin = session?.user.email.split("@")[1] === "bountree.app" || false
 
 	useEffect(() => {
 		async function fetchPost() {
@@ -30,7 +30,7 @@ export default function PostDetail() {
 
 			if (!res.ok || data.success === false) {
 				setError(
-					'An error occurred while loading the post. Please try again in a few minutes.'
+					"An error occurred while loading the post. Please try again in a few minutes."
 				)
 				return
 			}
@@ -52,10 +52,10 @@ export default function PostDetail() {
 		)
 	}, [post])
 
-	if (status === 'loading') return <Loader />
+	if (status === "loading") return <Loader />
 
-	if (status === 'unauthenticated' || session === null) {
-		signIn('', { callbackUrl: window.location.href })
+	if (status === "unauthenticated" || session === null) {
+		signIn("", { callbackUrl: window.location.href })
 	}
 
 	if (error) {
@@ -71,8 +71,8 @@ export default function PostDetail() {
 	if (!post) return <Loader />
 
 	return (
-		<Layout classNames="bg-b-blue-dark flex justify-center">
-			<section className="px-4 text-white max-w-7xl w-full grid grid-cols-6 ">
+		<Layout classNames="flex justify-center pt-24 bg-neutral-50">
+			<section className="px-4 max-w-7xl w-full grid grid-cols-6 ">
 				<PrimarySection
 					post={post}
 					applicationsRemaining={applicationsRemaining}

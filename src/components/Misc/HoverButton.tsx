@@ -23,7 +23,7 @@ const buttonType = {
 	},
 	outline: {
 		outer: "bg-gray-50 text-black hover:shadow-gray-300",
-		inner: "bg-gradient-to-r from-white to-gray-200",
+		inner: "bg-gradient-to-r from-transparent to-neutral-200",
 	},
 } as const
 

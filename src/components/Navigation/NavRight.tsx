@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react"
 import { classNames } from "@/utils/misc"
 import Image from "next/image"
 
-export default function NavRight(props: any) {
+export default function NavRight() {
 	const { data: session } = useSession()
 
 	return (

@@ -21,8 +21,6 @@ export default function Dashboard() {
 				["pending", "interviewing"].includes(app.status)
 		)
 
-		console.log({ uniqueApplicants })
-
 		const potentialEarnings = uniqueApplicants.reduce((acc, curr) => {
 			return acc + curr.opportunity?.reward.amount!
 		}, 0)
@@ -56,7 +54,7 @@ export default function Dashboard() {
 	}
 
 	return (
-		<Layout classNames="bg-gray-50">
+		<Layout classNames="bg-gray-50 pt-28">
 			<div className="mx-auto w-full max-w-7xl h-100 py-10 md:grid md:grid-cols-3 grid-cols-1 xl:gap-20 lg:gap-12 ">
 				<Sidebar
 					totalEarnings={totalEarnings}

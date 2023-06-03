@@ -5,7 +5,7 @@ import JobDescriptionGenerator from "@/components/JobDescriptionGenerator"
 
 export default function ProductPage() {
 	return (
-		<Layout classNames="bg-b-blue-dark text-b-blue-dark">
+		<Layout classNames="bg-b-blue-dark text-b-blue-dark pt-28">
 			<section className="flex flex-col justify-center items-center bg-b-blue-dark text-white">
 				<div className="py-28 flex flex-col gap-2 p-4 lg:flex-row w-full max-w-7xl">
 					<div className="w-full text-center lg:text-left max-w-7xl flex flex-col items-center lg:items-start gap-8">

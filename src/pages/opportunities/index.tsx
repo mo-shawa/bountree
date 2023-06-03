@@ -38,7 +38,7 @@ export default function Dashboard() {
 	}
 
 	return (
-		<Layout classNames="bg-b-blue-dark">
+		<Layout classNames="bg-b-blue-dark pt-28">
 			{loading ? <Loader /> : <MappedOpportunities data={data || []} />}
 		</Layout>
 	)
