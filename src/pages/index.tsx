@@ -147,9 +147,55 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section id="details" className="mx-4 py-12 text-b-blue-dark">
-				<div className="mx-auto my-12 py-8 bg-b-lavender w-full max-w-7xl  rounded-lg shadow">
+			<section id="details" className="mx-4 py-12 bg-white">
+				<div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto items-center">
+					<div className="flex flex-col justify-center items-center lg:items-start py-28">
+						<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5 bg-gradient-to-r from-purple-300 to-pink-300 text-purple-90 font-semibold">
+							<div>The deets</div>
+						</div>
+						<h1 className="text-5xl font-bold mb-4">How it works</h1>
+						<p className="text-lg text-center lg:text-left">
+							<span className="font-bold">βountree</span> connects top talent
+							with innovative startups looking to hire. As a recruiter on our
+							platform, you can earn rewards by referring candidates to
+							opportunities.
+						</p>
+					</div>
+					<Image
+						src="/static/opportunity-detail.jpg"
+						height={460}
+						width={937}
+						alt="Opportunity Detail"
+						className="rounded-lg shadow-md shadow-gray-500"
+					/>
+				</div>
+				<div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto items-center">
+					<Image
+						src="/static/opportunity-detail.jpg"
+						height={460}
+						width={937}
+						alt="Opportunity Detail"
+						className="rounded-lg shadow-md shadow-gray-500"
+					/>
+					<div className="flex flex-col justify-center items-center lg:items-start py-28">
+						<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5 bg-gradient-to-r from-orange-300 to-yellow-300 text-yellow-900 font-semibold ">
+							<div>More stuff</div>
+						</div>
+						<h1 className="text-5xl font-bold mb-4">Part two</h1>
+						<p className="text-lg text-center lg:text-left">
+							<span className="font-bold">βountree</span> connects top talent
+							with innovative startups looking to hire. As a recruiter on our
+							platform, you can earn rewards by referring candidates to
+							opportunities.
+						</p>
+					</div>
+				</div>
+
+				{/* <div className="mx-auto my-12 py-8 bg-white w-full max-w-7xl">
 					<div className="p-5 mx-auto max-w-4xl text-center">
+						<div className="text-xs mx-auto sm:text-base mb-3 flex w-fit rounded-full bg-purple-100 text-purple-500 px-4 py-0.5 font-semibold">
+							Refer a friend and earn
+						</div>
 						<h1 className="md:text-5xl  text-4xl  text-center font-bold mb-8">
 							Your network is your net worth... <br /> earn bounties by tapping
 							into it.
@@ -211,24 +257,24 @@ export default function Home() {
 							</p>
 						</div>
 					</div>
-				</div>
+				</div> */}
 			</section>
 
-			<section className="mx-4 pt-12 pb-28 mb- flex flex-col items-center justify-center text-center">
-				<h1 className="text-5xl font-bold text-white">
+			{/* <section className="mx-4 pt-12 pb-28 mb- flex flex-col items-center justify-center text-center">
+				<h1 className="text-5xl font-bold ">
 					Get paid for knowing the right people
 				</h1>
-				<p className="text-white my-6 text-xl max-w-xl">
+				<p className=" my-6 text-xl max-w-xl">
 					Find great talent and get paid for it - it&apos;s a win-win with our
 					bounty recruitment program.
 				</p>
 
-				<ArrowButton href="/opportunities">
+				<HoverButton href="/opportunities">
 					{status === "authenticated"
 						? "Current Opportunities"
 						: "Start Recruiting Now"}
-				</ArrowButton>
-			</section>
+				</HoverButton>
+			</section> */}
 		</Layout>
 	)
 }
