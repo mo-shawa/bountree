@@ -3,7 +3,6 @@ import Link from "next/link"
 import Layout from "@/components/Layout/Layout"
 import { useSession } from "next-auth/react"
 import ArrowSVG from "@/components/Misc/ArrowSVG"
-import ArrowButton from "@/components/Misc/ArrowButton"
 import { useEffect, useState } from "react"
 import OpportunityCard from "@/components/Opportunities/OpportunityCard"
 import { Loader } from "@/components/Loader/Loader"
@@ -11,6 +10,7 @@ import IOpportunity from "@/types/opportunity"
 import { wait } from "@/utils/misc"
 import Floaters from "@/components/Misc/Floaters"
 import HoverButton from "@/components/Misc/HoverButton"
+import HowItWorksCard from "@/components/Misc/HowItWorksCard"
 
 export default function Home() {
 	const { status } = useSession()
@@ -27,9 +27,9 @@ export default function Home() {
 	}, [])
 
 	return (
-		<Layout classNames="bg-white text-b-blue-dark ">
-			<section className=" flex flex-col justify-center items-center overflow-hidden md:overflow-visible mt-28">
-				<div className="grid lg:grid-cols-2 py-12 w-full max-w-7xl px-4 mt-20 sm:mt-0">
+		<Layout classNames="bg-white">
+			<section className=" flex flex-col justify-center items-center overflow-hidden md:overflow-visible mt-20 ">
+				<div className="grid lg:grid-cols-2 py-12 w-full max-w-7xl px-4 mt-20 ">
 					<div className=" flex flex-col items-center lg:items-start justify-center z-10">
 						<Link href="/product">
 							<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full bg-gray-100 px-4 py-0.5 hover:bg-purple-200 transition-colors duration-500">
@@ -156,6 +156,42 @@ export default function Home() {
 							className="h-full w-full object-contain max-h-6"
 						/>
 					</div>
+				</div>
+			</section>
+
+			<section id="latest-jobs" className="mx-4 py-12 "></section>
+
+			<section className="bg-neutral-50 py-16 px-4" id="how-it-works">
+				<h1 className="text-5xl text-center font-thin">
+					Turn connections into
+					<br />
+					<span
+						className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500
+						to-pink-500 underline underline-offset-8 decoration-transparent
+					"
+					>
+						collections
+					</span>
+				</h1>
+
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto mt-8">
+					<HowItWorksCard
+						step={1}
+						pill="Connect"
+						description="Join the hunt for the perfect match and turn connections into valuable opportunities.
+						"
+					/>
+					<HowItWorksCard
+						step={2}
+						pill="Interview"
+						description="Stay organized and in control with real-time tracking of candidate interviews, ensuring efficient and effective hiring.
+						"
+					/>
+					<HowItWorksCard
+						step={3}
+						pill="Collect"
+						description="Skyrocket your earning potential with Bountree's unlimited possibilities for referrer rewards and bounties."
+					/>
 				</div>
 			</section>
 
@@ -300,21 +336,23 @@ export default function Home() {
 				</div> */}
 			</section>
 
-			{/* <section className="mx-4 pt-12 pb-28 mb- flex flex-col items-center justify-center text-center">
-				<h1 className="text-5xl font-bold ">
-					Get paid for knowing the right people
-				</h1>
-				<p className=" my-6 text-xl max-w-xl">
-					Find great talent and get paid for it - it&apos;s a win-win with our
-					bounty recruitment program.
-				</p>
-
-				<HoverButton href="/opportunities">
-					{status === "authenticated"
-						? "Current Opportunities"
-						: "Start Recruiting Now"}
-				</HoverButton>
-			</section> */}
+			<section className="mx-4 pt-12 pb-28 mb-16">
+				<div className="mx-auto p-20 flex flex-col items-center justify-center text-center bg-green-100 rounded max-w-7xl">
+					<h1 className="text-5xl font-bold ">
+						Get <span className="underline decoration-green-400">paid</span> for
+						knowing the <span className="text-green-800 ">right</span> people
+					</h1>
+					<p className=" my-6 text-xl max-w-xl">
+						Find great talent and get paid for it - it&apos;s a win-win with our
+						bounty recruitment program.
+					</p>
+					<HoverButton href="/opportunities" type="green">
+						{status === "authenticated"
+							? "Current Opportunities"
+							: "Start Recruiting Now"}
+					</HoverButton>
+				</div>
+			</section>
 		</Layout>
 	)
 }

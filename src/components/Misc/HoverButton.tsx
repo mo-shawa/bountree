@@ -9,7 +9,7 @@ type Props = {
 	type?: ButtonType
 }
 
-type ButtonType = "primary" | "secondary" | "outline"
+type ButtonType = "primary" | "secondary" | "green" | "outline"
 
 const buttonType = {
 	primary: {
@@ -20,9 +20,14 @@ const buttonType = {
 		outer: "bg-yellow-500 text-white hover:shadow-yellow-300",
 		inner: "bg-gradient-to-r from-yellow-500 to-orange-500",
 	},
+	green: {
+		outer: "bg-green-500 text-white hover:shadow-green-300",
+		inner: "bg-gradient-to-r from-green-500 to-lime-500",
+	},
+
 	outline: {
 		outer: "bg-neutral-50 text-black hover:shadow-gray-300",
-		inner: "bg-gradient-to-r from-transparent to-neutral-200",
+		inner: "bg-neutral-100",
 	},
 } as const
 
