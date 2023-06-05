@@ -74,7 +74,7 @@ export default function Home() {
 							alt="hero image"
 							width={500}
 							height={500}
-							className="object-contain z-50"
+							className="mx-auto relative"
 						/>
 
 						{/* {latestOpportunities.length ? (
@@ -94,7 +94,7 @@ export default function Home() {
 						)} */}
 					</div>
 				</div>
-				<div className="w-full max-w-7xl p-4">
+				<div className="w-full max-w-7xl p-4 z-10">
 					<p className="text-center md:text-left">
 						Help the most disruptive startups find talent
 					</p>
