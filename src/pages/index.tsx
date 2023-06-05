@@ -27,8 +27,8 @@ export default function Home() {
 	}, [])
 
 	return (
-		<Layout classNames="bg-white text-b-blue-dark overflow-visible sm:overflow-x-hidden">
-			<section className="min-h-screen bg-neutral-50 flex flex-col justify-center items-center ">
+		<Layout classNames="bg-white text-b-blue-dark ">
+			<section className="min-h-screen bg-neutral-50 flex flex-col justify-center items-center overflow-hidden md:overflow-visible ">
 				<div className="grid lg:grid-cols-2 py-12 w-full max-w-7xl px-4 mt-20 sm:mt-0">
 					<div className=" flex flex-col items-center lg:items-start justify-center z-10">
 						<Link href="/product">
@@ -63,7 +63,7 @@ export default function Home() {
 							</HoverButton>
 						</div>
 					</div>
-					<div className="h-full relative">
+					<div className="h-full relative  mt-10">
 						<Floaters />
 						{latestOpportunities.length ? (
 							latestOpportunities.map((opportunity: IOpportunity, index) => (
@@ -148,26 +148,42 @@ export default function Home() {
 			</section>
 
 			<section id="details" className="mx-4 py-12 bg-white">
-				<div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto items-center">
-					<div className="flex flex-col justify-center items-center lg:items-start py-28">
-						<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5 bg-gradient-to-r from-purple-300 to-pink-300 text-purple-90 font-semibold">
-							<div>The deets</div>
+				<div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto relative">
+					<div>
+						<div className="h-screen flex flex-col justify-center items-center lg:items-start py-28">
+							<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5 bg-gradient-to-r from-purple-300 to-pink-300 text-purple-90 font-semibold">
+								<div>The deets</div>
+							</div>
+							<h1 className="text-5xl font-bold mb-4">How it works</h1>
+							<p className="text-lg text-center lg:text-left">
+								<span className="font-bold">βountree</span> connects top talent
+								with innovative startups looking to hire. As a recruiter on our
+								platform, you can earn rewards by referring candidates to
+								opportunities.
+							</p>
 						</div>
-						<h1 className="text-5xl font-bold mb-4">How it works</h1>
-						<p className="text-lg text-center lg:text-left">
-							<span className="font-bold">βountree</span> connects top talent
-							with innovative startups looking to hire. As a recruiter on our
-							platform, you can earn rewards by referring candidates to
-							opportunities.
-						</p>
+						<div className="h-screen flex flex-col justify-center items-center lg:items-start py-28">
+							<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5 bg-gradient-to-r from-purple-300 to-pink-300 text-purple-90 font-semibold">
+								<div>The deets</div>
+							</div>
+							<h1 className="text-5xl font-bold mb-4">How it works</h1>
+							<p className="text-lg text-center lg:text-left">
+								<span className="font-bold">βountree</span> connects top talent
+								with innovative startups looking to hire. As a recruiter on our
+								platform, you can earn rewards by referring candidates to
+								opportunities.
+							</p>
+						</div>
 					</div>
-					<Image
-						src="/static/opportunity-detail.jpg"
-						height={460}
-						width={937}
-						alt="Opportunity Detail"
-						className="rounded-lg shadow-md shadow-gray-500"
-					/>
+					<div className="h-screen flex items-center sticky top-0 border">
+						<Image
+							src="/static/opportunity-detail.jpg"
+							height={460}
+							width={937}
+							alt="Opportunity Detail"
+							className="rounded-lg shadow-md shadow-gray-500 sticky top-0"
+						/>
+					</div>
 				</div>
 				<div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto items-center">
 					<Image
