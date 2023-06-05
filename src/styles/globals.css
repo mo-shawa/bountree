@@ -25,7 +25,6 @@
 	display: flex;
 	flex-direction: column;
 	justify-items: space-between;
-	/* overflow-x: hidden; */
 }
 
 main {

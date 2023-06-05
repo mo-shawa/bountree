@@ -1,11 +1,8 @@
-import { Disclosure } from "@headlessui/react"
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
 import Image from "next/image"
 import { signIn, signOut, useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { classNames } from "@/utils/misc"
-import Pill from "../Misc/Pill"
 import HoverButton from "../Misc/HoverButton"
 
 export default function Navigation() {
@@ -84,7 +81,7 @@ export default function Navigation() {
 					</div>
 					<Link href="/" className="cursor-pointer mx-4 text-xl">
 						<Image
-							src="/static/svg/logo-dark.svg"
+							src="/static/svg/bountree.svg"
 							alt="Logo"
 							width={120}
 							height={30}

@@ -28,7 +28,7 @@ export default function Home() {
 
 	return (
 		<Layout classNames="bg-white text-b-blue-dark ">
-			<section className="min-h-screen bg-neutral-50 flex flex-col justify-center items-center overflow-hidden md:overflow-visible ">
+			<section className=" flex flex-col justify-center items-center overflow-hidden md:overflow-visible mt-28">
 				<div className="grid lg:grid-cols-2 py-12 w-full max-w-7xl px-4 mt-20 sm:mt-0">
 					<div className=" flex flex-col items-center lg:items-start justify-center z-10">
 						<Link href="/product">
@@ -48,7 +48,11 @@ export default function Home() {
 							rewards with <span className="font-bold">bountree?</span>
 						</div>
 						<div className="flex gap-4 flex-wrap items-center justify-center">
-							<HoverButton href="/opportunities" className="mt-6">
+							<HoverButton
+								type="secondary"
+								href="/opportunities"
+								className="mt-6"
+							>
 								{status === "authenticated"
 									? "Current opportunities"
 									: "Start referring now"}
@@ -65,7 +69,15 @@ export default function Home() {
 					</div>
 					<div className="h-full relative  mt-10">
 						<Floaters />
-						{latestOpportunities.length ? (
+						<Image
+							src="/static/hero.png"
+							alt="hero image"
+							width={500}
+							height={500}
+							className="object-contain z-50"
+						/>
+
+						{/* {latestOpportunities.length ? (
 							latestOpportunities.map((opportunity: IOpportunity, index) => (
 								<OpportunityCard
 									key={opportunity.id}
@@ -79,7 +91,7 @@ export default function Home() {
 							))
 						) : (
 							<Loader />
-						)}
+						)} */}
 					</div>
 				</div>
 				<div className="w-full max-w-7xl p-4">
@@ -147,14 +159,26 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section id="details" className="mx-4 py-12 bg-white">
+			<section id="details" className="mx-4 py-12 ">
 				<div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto relative">
 					<div>
-						<div className="h-screen flex flex-col justify-center items-center lg:items-start py-28">
-							<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5 bg-gradient-to-r from-purple-300 to-pink-300 text-purple-90 font-semibold">
+						<div className="min-h-[50vh] flex flex-col justify-center items-center lg:items-start">
+							<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5 bg-gradient-to-r from-orange-300 to-pink-300 text-orange-900 font-semibold">
 								<div>The deets</div>
 							</div>
 							<h1 className="text-5xl font-bold mb-4">How it works</h1>
+							<p className="text-lg text-center lg:text-left">
+								<span className="font-bold">βountree</span> connects top talent
+								with innovative startups looking to hire. As a recruiter on our
+								platform, you have the freedom to work when you want and earn as
+								much as you want. The sky&apos;s the limit.
+							</p>
+						</div>
+						<div className="min-h-[50vh] flex flex-col justify-center items-center lg:items-start py-28">
+							<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5 bg-gradient-to-r from-orange-300 to-yellow-300 text-yellow-900 font-semibold">
+								<div>The Tech</div>
+							</div>
+							<h1 className="text-5xl font-bold mb-4">Recruit like a pro</h1>
 							<p className="text-lg text-center lg:text-left">
 								<span className="font-bold">βountree</span> connects top talent
 								with innovative startups looking to hire. As a recruiter on our
@@ -162,11 +186,11 @@ export default function Home() {
 								opportunities.
 							</p>
 						</div>
-						<div className="h-screen flex flex-col justify-center items-center lg:items-start py-28">
-							<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5 bg-gradient-to-r from-purple-300 to-pink-300 text-purple-90 font-semibold">
-								<div>The deets</div>
+						<div className="min-h-[50vh] flex flex-col justify-center items-center lg:items-start py-28">
+							<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5 bg-gradient-to-r from-orange-300 to-yellow-300 text-yellow-900 font-semibold">
+								<div>The Tech</div>
 							</div>
-							<h1 className="text-5xl font-bold mb-4">How it works</h1>
+							<h1 className="text-5xl font-bold mb-4">Recruit like a pro</h1>
 							<p className="text-lg text-center lg:text-left">
 								<span className="font-bold">βountree</span> connects top talent
 								with innovative startups looking to hire. As a recruiter on our
@@ -175,13 +199,13 @@ export default function Home() {
 							</p>
 						</div>
 					</div>
-					<div className="h-screen flex items-center sticky top-0 border">
+					<div className="h-screen flex items-center sticky top-0">
 						<Image
 							src="/static/opportunity-detail.jpg"
 							height={460}
 							width={937}
 							alt="Opportunity Detail"
-							className="rounded-lg shadow-md shadow-gray-500 sticky top-0"
+							className="rounded-lg shadow-md shadow-gray-500 "
 						/>
 					</div>
 				</div>

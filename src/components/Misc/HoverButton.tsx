@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { type } from "os"
 
 type Props = {
 	children?: React.ReactNode
@@ -14,15 +13,15 @@ type ButtonType = "primary" | "secondary" | "outline"
 
 const buttonType = {
 	primary: {
-		outer: "bg-purple-300 text-white hover:shadow-purple-300",
+		outer: "bg-purple-500 text-white hover:shadow-purple-300",
 		inner: "bg-gradient-to-r from-purple-500 to-pink-500",
 	},
 	secondary: {
-		outer: "bg-yellow-300 text-white hover:shadow-yellow-300",
-		inner: "bg-gradient-to-r from-orange-200 to-yellow-400",
+		outer: "bg-yellow-500 text-white hover:shadow-yellow-300",
+		inner: "bg-gradient-to-r from-yellow-500 to-orange-500",
 	},
 	outline: {
-		outer: "bg-gray-50 text-black hover:shadow-gray-300",
+		outer: "bg-neutral-50 text-black hover:shadow-gray-300",
 		inner: "bg-gradient-to-r from-transparent to-neutral-200",
 	},
 } as const

@@ -11,7 +11,6 @@
 	},
 	"dependencies": {
 		"@google-cloud/storage": "^6.9.5",
-		"@headlessui/react": "^1.7.13",
 		"@heroicons/react": "^2.0.17",
 		"@next-auth/mongodb-adapter": "^1.1.1",
 		"@sendgrid/mail": "^7.7.0",
@@ -22,6 +21,7 @@
 		"daisyui": "^2.51.5",
 		"eslint": "8.37.0",
 		"eslint-config-next": "13.2.4",
+		"framer-motion": "^10.12.16",
 		"mongodb": "^4.15.0",
 		"nanoid": "^4.0.2",
 		"next": "13.2.4",
