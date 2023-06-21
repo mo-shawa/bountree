@@ -3,7 +3,7 @@ import Link from "next/link"
 import Layout from "@/components/Layout/Layout"
 import { useSession } from "next-auth/react"
 import ArrowSVG from "@/components/Misc/ArrowSVG"
-import { useEffect, useState } from "react"
+import { useEffect, useLayoutEffect, useState } from "react"
 import OpportunityCard from "@/components/Opportunities/OpportunityCard"
 import { Loader } from "@/components/Loader/Loader"
 import IOpportunity from "@/types/opportunity"
@@ -11,10 +11,17 @@ import { wait } from "@/utils/misc"
 import Floaters from "@/components/Misc/Floaters"
 import HoverButton from "@/components/Misc/HoverButton"
 import HowItWorksCard from "@/components/Misc/HowItWorksCard"
+import { motion, useAnimate, usePresence, stagger } from "framer-motion"
+
+const staggerChildren = stagger(0.1, {
+	startDelay: 0.2,
+})
 
 export default function Home() {
 	const { status } = useSession()
 	const [latestOpportunities, setLatestOpportunities] = useState([])
+	const [scope, animate] = useAnimate()
+	const [isPresent, safeToRemove] = usePresence()
 
 	useEffect(() => {
 		const fetchLatestOpportunities = async () => {
@@ -26,12 +33,33 @@ export default function Home() {
 		fetchLatestOpportunities()
 	}, [])
 
+	useEffect(() => {
+		const enterAnimation = async () => {
+			if (!isPresent) return
+			await animate(
+				".animate",
+				{
+					opacity: [0, 1],
+					x: [-10, 0],
+				},
+				{ duration: 0.5, delay: stagger(0.5), ease: [0.32, 0.23, 0.4, 0.9] }
+			)
+
+			// await animate()
+		}
+
+		enterAnimation()
+	}, [])
+
 	return (
 		<Layout classNames="bg-white">
 			<section className=" flex flex-col justify-center items-center overflow-hidden md:overflow-visible mt-20 ">
 				<div className="grid lg:grid-cols-2 py-12 w-full max-w-7xl px-4 mt-20 ">
-					<div className=" flex flex-col items-center lg:items-start justify-center z-10">
-						<Link href="/product">
+					<div
+						ref={scope}
+						className=" flex flex-col items-center lg:items-start justify-center z-10"
+					>
+						<Link className="animate" href="/product">
 							<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full bg-gray-100 px-4 py-0.5 hover:bg-purple-200 transition-colors duration-500">
 								<div>
 									Are you a startup? Hire with{" "}
@@ -40,10 +68,10 @@ export default function Home() {
 								<ArrowSVG className="fill-purple-500" />
 							</div>
 						</Link>
-						<h1 className="lg:text-left text-center text-5xl md:text-5xl font-bold">
+						<h1 className="lg:text-left text-center text-5xl md:text-5xl font-bold animate">
 							Get paid to refer <br /> top talent.
 						</h1>
-						<div className=" mt-6 w-full text-center lg:text-left text-lg leading-snug md:w-2/3 ">
+						<div className=" mt-6 w-full text-center lg:text-left text-lg leading-snug md:w-2/3 animate">
 							Why refer candidates to startups for free when you can earn
 							rewards with <span className="font-bold">bountree?</span>
 						</div>
@@ -51,7 +79,7 @@ export default function Home() {
 							<HoverButton
 								type="secondary"
 								href="/opportunities"
-								className="mt-6"
+								className="mt-6 animate"
 							>
 								{status === "authenticated"
 									? "Current opportunities"
@@ -60,7 +88,7 @@ export default function Home() {
 
 							<HoverButton
 								href="/opportunities"
-								className="mt-6"
+								className="mt-6 animate"
 								type="outline"
 							>
 								Learn more
@@ -162,7 +190,7 @@ export default function Home() {
 			<section id="latest-jobs" className="mx-4 py-12 "></section>
 
 			<section className="bg-neutral-50 py-16 px-4" id="how-it-works">
-				<h1 className="text-5xl text-center font-thin">
+				<h1 className="text-3xl md:text-5xl text-center font-thin">
 					Turn connections into
 					<br />
 					<span
@@ -257,7 +285,7 @@ export default function Home() {
 						<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5 bg-gradient-to-r from-orange-300 to-yellow-300 text-yellow-900 font-semibold ">
 							<div>More stuff</div>
 						</div>
-						<h1 className="text-5xl font-bold mb-4">Part two</h1>
+						<h1 className="text-3xl md:text-5xl font-bold mb-4">Part two</h1>
 						<p className="text-lg text-center lg:text-left">
 							<span className="font-bold">βountree</span> connects top talent
 							with innovative startups looking to hire. As a recruiter on our
@@ -266,8 +294,32 @@ export default function Home() {
 						</p>
 					</div>
 				</div>
+			</section>
 
-				{/* <div className="mx-auto my-12 py-8 bg-white w-full max-w-7xl">
+			<section className="mx-4 pt-12 pb-28 mb-16">
+				<div className="mx-auto p-20 flex flex-col items-center justify-center text-center bg-green-100 rounded max-w-7xl">
+					<h1 className="text-3xl md:text-5xl font-bold ">
+						Get <span className="">paid</span> for knowing the{" "}
+						<span className="underline decoration-green-400 ">right</span>{" "}
+						people
+					</h1>
+					<p className=" my-6 text-xl max-w-xl">
+						Find great talent and get paid for it - it&apos;s a win-win with our
+						bounty recruitment program.
+					</p>
+					<HoverButton href="/opportunities" type="green">
+						{status === "authenticated"
+							? "Current Opportunities"
+							: "Start Recruiting Now"}
+					</HoverButton>
+				</div>
+			</section>
+		</Layout>
+	)
+}
+
+{
+	/* <div className="mx-auto my-12 py-8 bg-white w-full max-w-7xl">
 					<div className="p-5 mx-auto max-w-4xl text-center">
 						<div className="text-xs mx-auto sm:text-base mb-3 flex w-fit rounded-full bg-purple-100 text-purple-500 px-4 py-0.5 font-semibold">
 							Refer a friend and earn
@@ -333,26 +385,5 @@ export default function Home() {
 							</p>
 						</div>
 					</div>
-				</div> */}
-			</section>
-
-			<section className="mx-4 pt-12 pb-28 mb-16">
-				<div className="mx-auto p-20 flex flex-col items-center justify-center text-center bg-green-100 rounded max-w-7xl">
-					<h1 className="text-5xl font-bold ">
-						Get <span className="underline decoration-green-400">paid</span> for
-						knowing the <span className="text-green-800 ">right</span> people
-					</h1>
-					<p className=" my-6 text-xl max-w-xl">
-						Find great talent and get paid for it - it&apos;s a win-win with our
-						bounty recruitment program.
-					</p>
-					<HoverButton href="/opportunities" type="green">
-						{status === "authenticated"
-							? "Current Opportunities"
-							: "Start Recruiting Now"}
-					</HoverButton>
-				</div>
-			</section>
-		</Layout>
-	)
+				</div> */
 }

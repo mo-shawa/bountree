@@ -16,7 +16,7 @@ const stepStyles: {
 	1: {
 		numberStyle:
 			"bg-gradient-to-r from-purple-300 to-pink-300 bg-purple-300 border-purple-200",
-		radialGradientColor: "rgb(216, 180, 254, 0.15)",
+		radialGradientColor: "rgb(168, 85, 247, 0.15)",
 		pillColor: "bg-gradient-to-r from-pink-300 to-purple-300 text-purple-900",
 	},
 	2: {

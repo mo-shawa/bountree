@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import { classNames } from "@/utils/misc"
 import HoverButton from "../Misc/HoverButton"
+import { motion } from "framer-motion"
 
 export default function Navigation() {
 	const { data: session, status } = useSession()
@@ -38,7 +39,7 @@ export default function Navigation() {
 				{ name: "FAQ", href: "#", current: isCurrent("#") },
 		  ]
 	return (
-		<>
+		<nav>
 			<div
 				className="navbar fixed top-2 left-1/2 
       transform -translate-x-1/2 z-50 rounded-2xl shadow-lg
@@ -155,6 +156,6 @@ export default function Navigation() {
 					)}
 				</div>
 			</div>
-		</>
+		</nav>
 	)
 }

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { motion } from "framer-motion"
 
 type Props = {
 	children?: React.ReactNode
@@ -40,7 +41,11 @@ export default function HoverButton({
 	type = "primary",
 }: Props) {
 	return (
-		<>
+		<motion.button
+			whileTap={{
+				scale: 0.95,
+			}}
+		>
 			<Link
 				href={href || "#"}
 				target={target || "_blank"}
@@ -58,6 +63,6 @@ export default function HoverButton({
 
 				<span className="relative">{children}</span>
 			</Link>
-		</>
+		</motion.button>
 	)
 }
