@@ -1,25 +1,25 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import serverAuthenticate from "@/utils/serverAuthenticate"
-import IApplication from "@/types/application"
-import { createApplication } from "../../../../controllers/application"
-import { getOpportunityById } from "../../../../controllers/opportunity"
+import { NextApiRequest, NextApiResponse } from 'next'
+import serverAuthenticate from '@/utils/serverAuthenticate'
+import IApplication from '@/types/application'
+import { createApplication } from '@/controllers/application'
+import { getOpportunityById } from '@/controllers/opportunity'
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
 	const { token } = await serverAuthenticate(req)
-	if (!token) return res.status(401).json({ error: "Unauthorized" })
+	if (!token) return res.status(401).json({ error: 'Unauthorized' })
 
 	const { method } = req
 
 	try {
-		if (method === "POST") {
+		if (method === 'POST') {
 			const parsedBody = JSON.parse(req.body)
 
 			const application: IApplication = {
 				...parsedBody,
-				status: "pending",
+				status: 'pending',
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			}

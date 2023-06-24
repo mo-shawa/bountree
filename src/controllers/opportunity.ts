@@ -1,5 +1,5 @@
-import clientPromise from '../db/connect'
-import IOpportunity from '../src/types/opportunity'
+import clientPromise from '../../db/connect'
+import IOpportunity from '../types/opportunity'
 import { ObjectId } from 'mongodb'
 
 export async function getLatestOpportunities() {

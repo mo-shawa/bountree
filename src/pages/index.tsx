@@ -1,55 +1,57 @@
-import Image from "next/image"
-import Link from "next/link"
-import Layout from "@/components/Layout/Layout"
-import { useSession } from "next-auth/react"
-import ArrowSVG from "@/components/Misc/ArrowSVG"
-import { useEffect, useLayoutEffect, useState } from "react"
-import OpportunityCard from "@/components/Opportunities/OpportunityCard"
-import { Loader } from "@/components/Loader/Loader"
-import IOpportunity from "@/types/opportunity"
-import { wait } from "@/utils/misc"
-import Floaters from "@/components/Misc/Floaters"
-import HoverButton from "@/components/Misc/HoverButton"
-import HowItWorksCard from "@/components/Misc/HowItWorksCard"
-import { motion, useAnimate, usePresence, stagger } from "framer-motion"
+import Image from 'next/image'
+import Link from 'next/link'
+import Layout from '@/components/Layout/Layout'
+import { useSession } from 'next-auth/react'
+import ArrowSVG from '@/components/Misc/ArrowSVG'
+import { useEffect, useLayoutEffect, useState } from 'react'
+import OpportunityCard from '@/components/Opportunities/OpportunityCard'
+import { Loader } from '@/components/Loader/Loader'
+import IOpportunity from '@/types/opportunity'
+import { wait } from '@/utils/misc'
+import Floaters from '@/components/Misc/Floaters'
+import HoverButton from '@/components/Misc/HoverButton'
+import HowItWorksCard from '@/components/Misc/HowItWorksCard'
+import { motion, useAnimate, usePresence, stagger } from 'framer-motion'
+import { getLatestOpportunities } from '@/controllers/opportunity'
+import { InferGetServerSidePropsType, GetServerSideProps } from 'next'
 
 const staggerChildren = stagger(0.1, {
 	startDelay: 0.2,
 })
 
-export default function Home() {
+export default function Home({
+	latestOpportunities,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	const { status } = useSession()
-	const [latestOpportunities, setLatestOpportunities] = useState([])
+	// const [latestOpportunities, setLatestOpportunities] = useState([])
 	const [scope, animate] = useAnimate()
 	const [isPresent, safeToRemove] = usePresence()
 
-	useEffect(() => {
-		const fetchLatestOpportunities = async () => {
-			await wait()
-			const res = await fetch("/api/opportunities/latest")
-			const { data } = await res.json()
-			setLatestOpportunities(data)
-		}
-		fetchLatestOpportunities()
-	}, [])
+	// useEffect(() => {
+	// 	const fetchLatestOpportunities = async () => {
+	// 		await wait()
+	// 		const res = await fetch('/api/opportunities/latest')
+	// 		const { data } = await res.json()
+	// 		setLatestOpportunities(data)
+	// 	}
+	// 	fetchLatestOpportunities()
+	// }, [])
 
-	useEffect(() => {
-		const enterAnimation = async () => {
-			if (!isPresent) return
-			await animate(
-				".animate",
-				{
-					opacity: [0, 1],
-					x: [-10, 0],
-				},
-				{ duration: 0.5, delay: stagger(0.5), ease: [0.32, 0.23, 0.4, 0.9] }
-			)
+	// useEffect(() => {
+	// 	if (!isPresent) return
+	// 	const enterAnimation = async () => {
+	// 		await animate(
+	// 			'.animate',
+	// 			{
+	// 				opacity: [0, 1],
+	// 				x: [-10, 0],
+	// 			},
+	// 			{ duration: 0.5, delay: stagger(0.5), ease: [0.32, 0.23, 0.4, 0.9] }
+	// 		)
+	// 	}
 
-			// await animate()
-		}
-
-		enterAnimation()
-	}, [])
+	// 	enterAnimation()
+	// }, [])
 
 	return (
 		<Layout classNames="bg-white">
@@ -59,10 +61,13 @@ export default function Home() {
 						ref={scope}
 						className=" flex flex-col items-center lg:items-start justify-center z-10"
 					>
-						<Link className="animate" href="/product">
+						<Link
+							className="animate"
+							href="/product"
+						>
 							<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full bg-gray-100 px-4 py-0.5 hover:bg-purple-200 transition-colors duration-500">
 								<div>
-									Are you a startup? Hire with{" "}
+									Are you a startup? Hire with{' '}
 									<span className="font-bold">bountree!</span>
 								</div>
 								<ArrowSVG className="fill-purple-500" />
@@ -81,9 +86,9 @@ export default function Home() {
 								href="/opportunities"
 								className="mt-6 animate"
 							>
-								{status === "authenticated"
-									? "Current opportunities"
-									: "Start referring now"}
+								{status === 'authenticated'
+									? 'Current opportunities'
+									: 'Start referring now'}
 							</HoverButton>
 
 							<HoverButton
@@ -97,29 +102,29 @@ export default function Home() {
 					</div>
 					<div className="h-full relative  mt-10">
 						<Floaters />
-						<Image
+						{/* <Image
 							src="/static/hero.png"
 							alt="hero image"
 							width={500}
 							height={500}
 							className="mx-auto relative"
-						/>
+						/> */}
 
-						{/* {latestOpportunities.length ? (
+						{latestOpportunities.length ? (
 							latestOpportunities.map((opportunity: IOpportunity, index) => (
 								<OpportunityCard
 									key={opportunity.id}
 									opportunity={opportunity}
 									className={
 										index !== 1
-											? "scale-75 shadow-none"
-											: "scale-[0.85] shadow-none"
+											? 'scale-75 shadow-none'
+											: 'scale-[0.85] shadow-none'
 									}
 								/>
 							))
 						) : (
 							<Loader />
-						)} */}
+						)}
 					</div>
 				</div>
 				<div className="w-full max-w-7xl p-4 z-10">
@@ -187,9 +192,15 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section id="latest-jobs" className="mx-4 py-12 "></section>
+			<section
+				id="latest-jobs"
+				className="mx-4 py-12 "
+			></section>
 
-			<section className="bg-neutral-50 py-16 px-4" id="how-it-works">
+			<section
+				className="bg-neutral-50 py-16 px-4"
+				id="how-it-works"
+			>
 				<h1 className="text-3xl md:text-5xl text-center font-thin">
 					Turn connections into
 					<br />
@@ -223,7 +234,10 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section id="details" className="mx-4 py-12 ">
+			{/* <section
+				id="details"
+				className="mx-4 py-12 "
+			>
 				<div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto relative">
 					<div>
 						<div className="min-h-[50vh] flex flex-col justify-center items-center lg:items-start">
@@ -294,23 +308,26 @@ export default function Home() {
 						</p>
 					</div>
 				</div>
-			</section>
+			</section> */}
 
 			<section className="mx-4 pt-12 pb-28 mb-16">
 				<div className="mx-auto p-20 flex flex-col items-center justify-center text-center bg-green-100 rounded max-w-7xl">
 					<h1 className="text-3xl md:text-5xl font-bold ">
-						Get <span className="">paid</span> for knowing the{" "}
-						<span className="underline decoration-green-400 ">right</span>{" "}
+						Get <span className="">paid</span> for knowing the{' '}
+						<span className="underline decoration-green-400 ">right</span>{' '}
 						people
 					</h1>
 					<p className=" my-6 text-xl max-w-xl">
 						Find great talent and get paid for it - it&apos;s a win-win with our
 						bounty recruitment program.
 					</p>
-					<HoverButton href="/opportunities" type="green">
-						{status === "authenticated"
-							? "Current Opportunities"
-							: "Start Recruiting Now"}
+					<HoverButton
+						href="/opportunities"
+						type="green"
+					>
+						{status === 'authenticated'
+							? 'Current Opportunities'
+							: 'Start Recruiting Now'}
 					</HoverButton>
 				</div>
 			</section>
@@ -386,4 +403,13 @@ export default function Home() {
 						</div>
 					</div>
 				</div> */
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+	const latestOpportunities = await getLatestOpportunities()
+	return {
+		props: {
+			latestOpportunities: JSON.parse(JSON.stringify(latestOpportunities)),
+		},
+	}
 }

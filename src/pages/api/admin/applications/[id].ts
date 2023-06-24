@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import serverAuthenticate from "@/utils/serverAuthenticate"
-import { updateApplicationStatus } from "../../../../../controllers/application"
-import { sendCandidateUpdateEmail } from "@/utils/email"
+import { NextApiRequest, NextApiResponse } from 'next'
+import serverAuthenticate from '@/utils/serverAuthenticate'
+import { updateApplicationStatus } from '@/controllers/application'
+import { sendCandidateUpdateEmail } from '@/utils/email'
 
 export default async function handler(
 	req: NextApiRequest,
@@ -10,11 +10,11 @@ export default async function handler(
 	const { token } = await serverAuthenticate(req)
 	const { method } = req
 
-	if (token?.email?.split("@")[1] !== "bountree.app") {
-		return res.status(403).json({ error: "Forbidden" })
+	if (token?.email?.split('@')[1] !== 'bountree.app') {
+		return res.status(403).json({ error: 'Forbidden' })
 	}
 	try {
-		if (method === "PUT") {
+		if (method === 'PUT') {
 			const parsedBody = JSON.parse(req.body)
 
 			const {
@@ -36,7 +36,7 @@ export default async function handler(
 			)
 			let sendGridResponse
 
-			if (["interviewing", "rejected", "hired"].includes(status)) {
+			if (['interviewing', 'rejected', 'hired'].includes(status)) {
 				sendGridResponse = await sendCandidateUpdateEmail({
 					userName,
 					userEmail,

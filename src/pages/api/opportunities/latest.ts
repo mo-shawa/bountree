@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getLatestOpportunities } from '../../../../controllers/opportunity'
+import { getLatestOpportunities } from '@/controllers/opportunity'
 
 export default async function handler(
 	req: NextApiRequest,

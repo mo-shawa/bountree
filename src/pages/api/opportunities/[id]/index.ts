@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import {
 	getOpportunityByIdWithApplications,
 	updateOpportunity,
-} from '../../../../../controllers/opportunity'
+} from '@/controllers/opportunity'
 import serverAuthenticate from '@/utils/serverAuthenticate'
 
 export default async function handler(
