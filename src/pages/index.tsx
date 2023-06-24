@@ -111,17 +111,19 @@ export default function Home({
 						/> */}
 
 						{latestOpportunities.length ? (
-							latestOpportunities.map((opportunity: IOpportunity, index) => (
-								<OpportunityCard
-									key={opportunity.id}
-									opportunity={opportunity}
-									className={
-										index !== 1
-											? 'scale-75 shadow-none'
-											: 'scale-[0.85] shadow-none'
-									}
-								/>
-							))
+							latestOpportunities.map(
+								(opportunity: IOpportunity, index: number) => (
+									<OpportunityCard
+										key={opportunity.id}
+										opportunity={opportunity}
+										className={
+											index !== 1
+												? 'scale-75 shadow-none'
+												: 'scale-[0.85] shadow-none'
+										}
+									/>
+								)
+							)
 						) : (
 							<Loader />
 						)}
@@ -200,6 +202,11 @@ export default function Home({
 			<section
 				className="bg-neutral-50 py-16 px-4"
 				id="how-it-works"
+				style={{
+					backgroundImage:
+						'radial-gradient(#cecece 0.6000000000000001px, rgb(250 250 250) 0.6000000000000001px)',
+					backgroundSize: '12px 12px',
+				}}
 			>
 				<h1 className="text-3xl md:text-5xl text-center font-thin">
 					Turn connections into
