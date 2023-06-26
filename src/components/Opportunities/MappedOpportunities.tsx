@@ -33,7 +33,7 @@ export default function MappedOpportunities({ data }: OpportunitiesProps) {
 
 	return (
 		<>
-			<section className="bg-b-blue-dark">
+			<section className="bg-gray-50">
 				<div className="mx-auto px-4 w-full max-w-7xl">
 					<Filter
 						filteredBy={filteredBy}
