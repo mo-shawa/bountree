@@ -12,6 +12,12 @@
 	}
 }
 
+h1,
+h2,
+h3 {
+	@apply leading-snug tracking-tight;
+}
+
 .badge {
 	@apply py-2.5 text-xs font-normal;
 }

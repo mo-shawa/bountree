@@ -138,19 +138,21 @@ export default function Navigation() {
 						</div>
 					) : (
 						<>
-							<HoverButton
+							{/* <HoverButton
 								type="outline"
 								className="hidden lg:flex"
 								onClick={signIn}
+								target="_self"
 							>
 								Sign in
-							</HoverButton>
+							</HoverButton> */}
 							<HoverButton
 								type="secondary"
-								className="hidden lg:flex"
+								// className="hidden lg:flex"
 								onClick={signIn}
+								target="_self"
 							>
-								Sign up
+								Sign in
 							</HoverButton>
 						</>
 					)}
