@@ -52,7 +52,7 @@ export default function PostDetail() {
 		)
 	}, [post])
 
-	if (status === "loading") return <Loader />
+	if (status === "loading" || !post) return <Loader />
 
 	if (status === "unauthenticated" || session === null) {
 		signIn("", { callbackUrl: window.location.href })
@@ -67,8 +67,6 @@ export default function PostDetail() {
 			</Layout>
 		)
 	}
-
-	if (!post) return <Loader />
 
 	return (
 		<Layout classNames="flex justify-center pt-24 bg-neutral-50">

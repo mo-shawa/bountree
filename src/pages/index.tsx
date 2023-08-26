@@ -247,7 +247,7 @@ export default function Home({
 							</div>
 							<h1 className="text-5xl font-bold mb-4">How it works</h1>
 							<p className="text-lg text-center lg:text-left">
-								<span className="font-bold">βountree</span> connects top talent
+								<span className="font-bold">bountree</span> connects top talent
 								with innovative startups looking to hire. As a recruiter on our
 								platform, you have the freedom to work when you want and earn as
 								much as you want. The sky&apos;s the limit.
@@ -259,7 +259,7 @@ export default function Home({
 							</div>
 							<h1 className="text-5xl font-bold mb-4">Recruit like a pro</h1>
 							<p className="text-lg text-center lg:text-left">
-								<span className="font-bold">βountree</span> connects top talent
+								<span className="font-bold">bountree</span> connects top talent
 								with innovative startups looking to hire. As a recruiter on our
 								platform, you can earn rewards by referring candidates to
 								opportunities.
@@ -271,7 +271,7 @@ export default function Home({
 							</div>
 							<h1 className="text-5xl font-bold mb-4">Recruit like a pro</h1>
 							<p className="text-lg text-center lg:text-left">
-								<span className="font-bold">βountree</span> connects top talent
+								<span className="font-bold">bountree</span> connects top talent
 								with innovative startups looking to hire. As a recruiter on our
 								platform, you can earn rewards by referring candidates to
 								opportunities.
@@ -302,7 +302,7 @@ export default function Home({
 						</div>
 						<h1 className="text-3xl md:text-5xl font-bold mb-4">Part two</h1>
 						<p className="text-lg text-center lg:text-left">
-							<span className="font-bold">βountree</span> connects top talent
+							<span className="font-bold">bountree</span> connects top talent
 							with innovative startups looking to hire. As a recruiter on our
 							platform, you can earn rewards by referring candidates to
 							opportunities.
@@ -311,75 +311,77 @@ export default function Home({
 				</div>
 			</section> */}
 
-			<div className="mx-auto my-12 py-8  w-full max-w-7xl">
-				<div className="p-5 mx-auto max-w-4xl text-center">
-					<div className="text-xs mx-auto sm:text-base mb-3 flex w-fit rounded-full bg-purple-100 text-purple-500 px-4 py-0.5 font-semibold">
-						Refer a friend and earn
+			<section className="mx-4">
+				<div className="mx-auto my-12 py-8  w-full max-w-7xl">
+					<div className="p-5 mx-auto max-w-4xl text-center">
+						<div className="text-xs mx-auto sm:text-base mb-3 flex w-fit rounded-full bg-purple-100 text-purple-500 px-4 py-0.5 font-semibold">
+							Refer a friend and earn
+						</div>
+						<h1 className="md:text-5xl  text-4xl  text-center font-bold mb-8">
+							Your network is your net worth... <br /> earn bounties by tapping
+							into it.
+						</h1>
+						<p className="mb-10 text-lg text-justify">
+							<span className="font-bold">bountree</span> connects top talent with
+							innovative startups looking to hire. As a recruiter on our platform,
+							you have the freedom to work when you want and earn as much as you
+							want. The sky&apos;s the limit.
+						</p>
+						<Image
+							src="/static/opportunity-detail.jpg"
+							height={460}
+							width={937}
+							alt="Opportunity Detail"
+							className="rounded-lg shadow-md shadow-gray-500"
+						/>
 					</div>
-					<h1 className="md:text-5xl  text-4xl  text-center font-bold mb-8">
-						Your network is your net worth... <br /> earn bounties by tapping
-						into it.
-					</h1>
-					<p className="mb-10 text-lg text-justify">
-						<span className="font-bold">βountree</span> connects top talent with
-						innovative startups looking to hire. As a recruiter on our platform,
-						you have the freedom to work when you want and earn as much as you
-						want. The sky&apos;s the limit.
-					</p>
+				</div>
+				<div className="px-5 mx-auto my-12 py-12 bg-purple-50 w-full max-w-7xl  rounded-lg grid md:grid-cols-2 gap-4 shadow">
+					<div className=" flex flex-col gap-4">
+						<h3 className="text-3xl font-bold ">Recruit like a pro</h3>
+						<h4 className="font-semibold max-w-sm text-2xl ">
+							We&apos;ve built the tools and resources you need to excel as a
+							recruiter and find the perfect matches.
+						</h4>
+						<p className="text-xl text-purple-900 mb-13">
+							bountree&apos;s recruiter tools help you succeed at every stage of
+							the interview process.
+						</p>
+					</div>
 					<Image
-						src="/static/opportunity-detail.jpg"
-						height={460}
-						width={937}
-						alt="Opportunity Detail"
-						className="rounded-lg shadow-md shadow-gray-500"
+						className="md:inline m-auto"
+						src="/static/dashboard.png"
+						width={538}
+						height={307}
+						alt="leads"
 					/>
 				</div>
-			</div>
-			<div className="px-5 mx-auto my-12 py-12 bg-purple-50 w-full max-w-7xl  rounded-lg grid md:grid-cols-2 gap-4 shadow">
-				<div className=" flex flex-col gap-4">
-					<h3 className="text-3xl font-bold ">Recruit like a pro</h3>
-					<h4 className="font-semibold max-w-sm text-2xl ">
-						We&apos;ve built the tools and resources you need to excel as a
-						recruiter and find the perfect matches.
-					</h4>
-					<p className="text-xl text-purple-900 mb-13">
-						βountree&apos;s recruiter tools help you succeed at every stage of
-						the interview process.
-					</p>
-				</div>
-				<Image
-					className="md:inline m-auto"
-					src="/static/dashboard.png"
-					width={538}
-					height={307}
-					alt="leads"
-				/>
-			</div>
-			<div className="mx-auto my-12 w-full max-w-7xl  rounded-lg">
-				<div className="grid grid-cols-2 gap-12 md:gap-4">
-					<div className="col-span-2 md:col-span-1 shadow bg-purple-50  py-6 px-6 rounded-lg">
-						<h3 className="text-3xl font-bold mb-5">Less is more.</h3>
-						<p className="text-lg">
-							Our platform prioritizes simplicity to enhance the user
-							experience. Join βountree and start earning in your first week by
-							working on your own terms, with startups that interest you and
-							make the most of your time.
-						</p>
-					</div>
-					<div className="col-span-2 md:col-span-1 shadow bg-pink-100  py-6 px-6 rounded-lg">
-						<h3 className="text-3xl font-bold mb-5">No secrets here.</h3>
-						<p className="text-lg">
-							It&apos;s time to empower recruiters.{" "}
-							<span className="font-bold">βountree</span> let&apos;s you unlock
-							your full potential with clarity at every step. Startups share
-							their needs transparently with recruiters, who can communicate
-							directly with hiring managers.
-						</p>
+				<div className="mx-auto my-12 w-full max-w-7xl  rounded-lg">
+					<div className="grid grid-cols-2 gap-12 md:gap-4">
+						<div className="col-span-2 md:col-span-1 shadow bg-purple-50  py-6 px-6 rounded-lg">
+							<h3 className="text-3xl font-bold mb-5">Less is more.</h3>
+							<p className="text-lg">
+								Our platform prioritizes simplicity to enhance the user
+								experience. Join bountree and start earning in your first week by
+								working on your own terms, with startups that interest you and
+								make the most of your time.
+							</p>
+						</div>
+						<div className="col-span-2 md:col-span-1 shadow bg-pink-100  py-6 px-6 rounded-lg">
+							<h3 className="text-3xl font-bold mb-5">No secrets here.</h3>
+							<p className="text-lg">
+								It&apos;s time to empower recruiters.{" "}
+								<span className="font-bold">bountree</span> let&apos;s you unlock
+								your full potential with clarity at every step. Startups share
+								their needs transparently with recruiters, who can communicate
+								directly with hiring managers.
+							</p>
+						</div>
 					</div>
 				</div>
-			</div>
+			</section>
 
-			<section className="mx-4 pt-12 pb-28 mb-16">
+			<section className="mx-4 md:pt-12  mb-16">
 				<div className="mx-auto p-20 flex flex-col items-center justify-center text-center bg-green-100 rounded max-w-7xl">
 					<h1 className="text-3xl md:text-5xl font-bold ">
 						Get <span className="">paid</span> for knowing the{" "}

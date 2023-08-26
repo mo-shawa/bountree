@@ -34,7 +34,7 @@ export default function ProductPage() {
 						<JobDescriptionGenerator />
 						<p className="mt-2 text-justify">
 							Hire top talent without spending all your time crafting the
-							perfect job description with βountree's Job Description Generator!
+							perfect job description with bountree's Job Description Generator!
 							Create tailored and professional job postings that reflect your
 							company's unique voice.
 						</p>

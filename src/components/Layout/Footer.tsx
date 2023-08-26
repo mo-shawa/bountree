@@ -44,7 +44,7 @@ export default function Footer() {
 				</div>
 
 				<small className=" flex gap-2 flex-row">
-					<span>2023 βountree</span> <span>© All Right Reserved</span>
+					<span>2023 bountree</span> <span>© All Right Reserved</span>
 				</small>
 			</div>
 		</footer>
