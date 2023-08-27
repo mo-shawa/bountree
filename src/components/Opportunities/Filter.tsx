@@ -16,7 +16,7 @@ export default function Filter({ filteredBy, setFilteredBy }: FilterProps) {
 			<div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] z-10 xs:hidden ">
 				<div
 					tabIndex={0}
-					className="collapse rounded-lg shadow-md p-4 my-4 collapse-arrow bg-gray-100"
+					className="collapse rounded-md shadow-md p-4 my-4 collapse-arrow bg-gray-100"
 				>
 					<div className="collapse-title text-2xl">Filter</div>
 					<div className="collapse-content">

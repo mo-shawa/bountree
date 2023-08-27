@@ -4,7 +4,6 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import { classNames } from "@/utils/misc"
 import HoverButton from "../Misc/HoverButton"
-import { motion } from "framer-motion"
 
 export default function Navigation() {
 	const { data: session, status } = useSession()
@@ -33,10 +32,11 @@ export default function Navigation() {
 					: []),
 		  ]
 		: [
-				{ name: "Referrers", href: "#", current: isCurrent("#") },
-				{ name: "Employers", href: "/product", current: isCurrent("/product") },
-				{ name: "Blog", href: "#", current: isCurrent("#") },
-				{ name: "FAQ", href: "#", current: isCurrent("#") },
+				// { name: "Referrers", href: "#", current: isCurrent("#") },
+				{ name: "Product", href: "/product", current: isCurrent("/product") },
+				{ name: "Open Roles", href: "/opportunities", current: isCurrent("/opportunities") },
+				// { name: "Blog", href: "#", current: isCurrent("#") },
+				// { name: "FAQ", href: "#", current: isCurrent("#") },
 		  ]
 	return (
 		<nav>

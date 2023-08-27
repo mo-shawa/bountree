@@ -21,14 +21,14 @@ export default function Top({ post }: { post: IOpportunity }) {
 						height={80}
 					/>
 					<div className="flex flex-col justify-between">
-						<h4 className="uppercase  text-sm text-b-yellow ">
+						<h4 className="uppercase text-sm text-b-yellow font-semibold">
 							{post.company.name}
 						</h4>
 						<p className="text-lg">{post.title}</p>
 
 						<p className=" text-xs">
 							{post.remote ? "Remote" : "In Office"} - {post.location} -{" "}
-							<span className="text-b-yellow">{salary}</span>
+							<span className="text-b-yellow font-semibold">{salary}</span>
 						</p>
 					</div>
 				</div>

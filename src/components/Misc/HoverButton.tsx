@@ -48,13 +48,10 @@ export default function HoverButton({
 		>
 			<Link
 				href={href || "#"}
-				target={target || "_blank"}
+				target={target || "_self"}
 				onClick={onClick}
 				className={
-					`relative inline-flex items-center justify-center px-8 py-2 overflow-hidden font-medium  rounded-lg group shadow-lg hover:shadow-xl  transition-all duration-500 ease-in-out ` +
-					className +
-					` ` +
-					buttonType[type].outer
+					`relative inline-flex items-center justify-center px-8 py-2 overflow-hidden font-medium  rounded-md group shadow-lg hover:shadow-xl  transition-all duration-500 ease-in-out ${className}	${buttonType[type].outer}`
 				}
 			>
 				<span

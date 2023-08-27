@@ -18,7 +18,7 @@ export default function ArrowButton({
 }: Props) {
 	return (
 		<Link
-			className={`mt-6 flex items-center w-fit cursor-pointer rounded-lg bg-gradient-to-br from-purple-300 to-pink-300 px-4 py-1.5 text-base hover:bg-gradient-to-tr transition-colors ${className}`}
+			className={`mt-6 flex items-center w-fit cursor-pointer rounded-md bg-gradient-to-br from-purple-300 to-pink-300 px-4 py-1.5 text-base hover:bg-gradient-to-tr transition-colors ${className}`}
 			onClick={onClick}
 			href={href || "#"}
 			target={target || "_self"}

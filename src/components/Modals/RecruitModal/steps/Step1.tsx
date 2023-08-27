@@ -73,7 +73,7 @@ export default function Step1({
 				</label>
 
 				{file ? (
-					<div className="alert alert-success shadow-lg  items-start rounded-md">
+					<div className="alert alert-success shadow-lg rounded-md">
 						<div>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -88,8 +88,8 @@ export default function Step1({
 									d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 								/>
 							</svg>
-							<span>CV Submitted!</span>
 						</div>
+							<span>CV Submitted!</span>
 					</div>
 				) : (
 					<input

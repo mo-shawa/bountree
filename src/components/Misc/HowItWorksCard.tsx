@@ -54,7 +54,7 @@ export default function HowItWorksCard({
 	return (
 		<div
 			onMouseMove={handleMouseMove}
-			className="group relative flex flex-col items-center mt-16 pb-5 px-4 rounded-lg shadow w-full max-w-xs bg-white mx-auto"
+			className="group relative flex flex-col items-center mt-16 pb-5 px-4 rounded-md shadow w-full max-w-xs bg-white mx-auto"
 		>
 			<motion.div
 				className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"

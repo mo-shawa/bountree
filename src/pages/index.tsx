@@ -11,57 +11,23 @@ import { wait } from "@/utils/misc"
 import Floaters from "@/components/Misc/Floaters"
 import HoverButton from "@/components/Misc/HoverButton"
 import HowItWorksCard from "@/components/Misc/HowItWorksCard"
-import { motion, useAnimate, usePresence, stagger } from "framer-motion"
 import { getLatestOpportunities } from "@/controllers/opportunity"
 import { InferGetServerSidePropsType, GetServerSideProps } from "next"
 
-const staggerChildren = stagger(0.1, {
-	startDelay: 0.2,
-})
 
 export default function Home({
 	latestOpportunities,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	const { status } = useSession()
-	// const [latestOpportunities, setLatestOpportunities] = useState([])
-	const [scope, animate] = useAnimate()
-	const [isPresent, safeToRemove] = usePresence()
-
-	// useEffect(() => {
-	// 	const fetchLatestOpportunities = async () => {
-	// 		await wait()
-	// 		const res = await fetch('/api/opportunities/latest')
-	// 		const { data } = await res.json()
-	// 		setLatestOpportunities(data)
-	// 	}
-	// 	fetchLatestOpportunities()
-	// }, [])
-
-	// useEffect(() => {
-	// 	if (!isPresent) return
-	// 	const enterAnimation = async () => {
-	// 		await animate(
-	// 			'.animate',
-	// 			{
-	// 				opacity: [0, 1],
-	// 				x: [-10, 0],
-	// 			},
-	// 			{ duration: 0.5, delay: stagger(0.5), ease: [0.32, 0.23, 0.4, 0.9] }
-	// 		)
-	// 	}
-
-	// 	enterAnimation()
-	// }, [])
 
 	return (
 		<Layout classNames="bg-white">
 			<section className=" flex flex-col justify-center items-center overflow-hidden md:overflow-visible mt-20 ">
 				<div className="grid lg:grid-cols-2 py-12 w-full max-w-7xl px-4 mt-20 ">
 					<div
-						ref={scope}
 						className=" flex flex-col items-center lg:items-start justify-center z-10"
 					>
-						<Link className="animate" href="/product">
+						<Link  href="/product">
 							<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full bg-gray-100 px-4 py-0.5 hover:bg-purple-200 transition-colors duration-500">
 								<div>
 									Are you a startup? Hire with{" "}
@@ -70,10 +36,10 @@ export default function Home({
 								<ArrowSVG className="fill-purple-500" />
 							</div>
 						</Link>
-						<h1 className="lg:text-left text-center text-5xl md:text-5xl font-bold animate">
+						<h1 className="lg:text-left text-center text-5xl md:text-5xl font-bold">
 							Get paid to refer <br /> top talent.
 						</h1>
-						<div className=" mt-6 w-full text-center lg:text-left text-lg leading-snug md:w-2/3 animate">
+						<div className=" mt-6 w-full text-center lg:text-left text-lg leading-snug md:w-2/3">
 							Why refer candidates to startups for free when you can earn
 							rewards with <span className="font-bold">bountree?</span>
 						</div>
@@ -81,7 +47,7 @@ export default function Home({
 							<HoverButton
 								type="secondary"
 								href="/opportunities"
-								className="mt-6 animate"
+								className="mt-6"
 							>
 								{status === "authenticated"
 									? "Current opportunities"
@@ -90,7 +56,7 @@ export default function Home({
 
 							<HoverButton
 								href="/opportunities"
-								className="mt-6 animate"
+								className="mt-6"
 								type="outline"
 							>
 								Learn more
@@ -198,7 +164,7 @@ export default function Home({
 				id="how-it-works"
 				style={{
 					backgroundImage:
-						"radial-gradient(#cecece 0.6000000000000001px, rgb(250 250 250) 0.6000000000000001px)",
+						"radial-gradient(#cecece 0.6px, rgb(250 250 250) 0.6px)",
 					backgroundSize: "12px 12px",
 				}}
 			>
@@ -218,19 +184,17 @@ export default function Home({
 					<HowItWorksCard
 						step={1}
 						pill="Connect"
-						description="Join the hunt for the perfect match and turn connections into valuable opportunities.
-						"
+						description="Join the hunt for the perfect match and turn connections into valuable opportunities."
 					/>
 					<HowItWorksCard
 						step={2}
 						pill="Interview"
-						description="Stay organized and in control with real-time tracking of candidate interviews, ensuring efficient and effective hiring.
-						"
+						description="Stay organized and in control with real-time tracking of candidate interviews, ensuring efficient and effective hiring."
 					/>
 					<HowItWorksCard
 						step={3}
 						pill="Collect"
-						description="Skyrocket your earning potential with Bountree's unlimited possibilities for referrer rewards and bounties."
+						description="Skyrocket your earning potential with Bountree's unlimited possibilities for referrer rewards and bounties."
 					/>
 				</div>
 			</section>
@@ -284,7 +248,7 @@ export default function Home({
 							height={460}
 							width={937}
 							alt="Opportunity Detail"
-							className="rounded-lg shadow-md shadow-gray-500 "
+							className="rounded-md shadow-md shadow-gray-500 "
 						/>
 					</div>
 				</div>
@@ -294,7 +258,7 @@ export default function Home({
 						height={460}
 						width={937}
 						alt="Opportunity Detail"
-						className="rounded-lg shadow-md shadow-gray-500"
+						className="rounded-md shadow-md shadow-gray-500"
 					/>
 					<div className="flex flex-col justify-center items-center lg:items-start py-28">
 						<div className="text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5 bg-gradient-to-r from-orange-300 to-yellow-300 text-yellow-900 font-semibold ">
@@ -312,7 +276,7 @@ export default function Home({
 			</section> */}
 
 			<section className="mx-4">
-				<div className="mx-auto my-12 py-8  w-full max-w-7xl">
+				<div className="mx-auto my-12 py-8 w-full max-w-7xl">
 					<div className="p-5 mx-auto max-w-4xl text-center">
 						<div className="text-xs mx-auto sm:text-base mb-3 flex w-fit rounded-full bg-purple-100 text-purple-500 px-4 py-0.5 font-semibold">
 							Refer a friend and earn
@@ -328,15 +292,15 @@ export default function Home({
 							want. The sky&apos;s the limit.
 						</p>
 						<Image
-							src="/static/opportunity-detail.jpg"
+							src="/static/opportunity-detail.png"
 							height={460}
 							width={937}
 							alt="Opportunity Detail"
-							className="rounded-lg shadow-md shadow-gray-500"
+							className="rounded-md shadow"
 						/>
 					</div>
 				</div>
-				<div className="px-5 mx-auto my-12 py-12 bg-purple-50 w-full max-w-7xl  rounded-lg grid md:grid-cols-2 gap-4 shadow">
+				<div className="px-5 mx-auto my-12 py-12 bg-purple-50 w-full max-w-7xl  rounded-md grid md:grid-cols-2 gap-4 shadow">
 					<div className=" flex flex-col gap-4">
 						<h3 className="text-3xl font-bold ">Recruit like a pro</h3>
 						<h4 className="font-semibold max-w-sm text-2xl ">
@@ -356,9 +320,9 @@ export default function Home({
 						alt="leads"
 					/>
 				</div>
-				<div className="mx-auto my-12 w-full max-w-7xl  rounded-lg">
-					<div className="grid grid-cols-2 gap-12 md:gap-4">
-						<div className="col-span-2 md:col-span-1 shadow bg-purple-50  py-6 px-6 rounded-lg">
+				<div className="mx-auto my-12 w-full max-w-7xl rounded-md">
+					<div className="grid grid-cols-2 gap-12">
+						<div className="col-span-2 md:col-span-1 shadow bg-purple-50  py-6 px-6 rounded-md">
 							<h3 className="text-3xl font-bold mb-5">Less is more.</h3>
 							<p className="text-lg">
 								Our platform prioritizes simplicity to enhance the user
@@ -367,7 +331,7 @@ export default function Home({
 								make the most of your time.
 							</p>
 						</div>
-						<div className="col-span-2 md:col-span-1 shadow bg-pink-100  py-6 px-6 rounded-lg">
+						<div className="col-span-2 md:col-span-1 shadow bg-pink-100  py-6 px-6 rounded-md">
 							<h3 className="text-3xl font-bold mb-5">No secrets here.</h3>
 							<p className="text-lg">
 								It&apos;s time to empower recruiters.{" "}
@@ -381,8 +345,8 @@ export default function Home({
 				</div>
 			</section>
 
-			<section className="mx-4 md:pt-12  mb-16">
-				<div className="mx-auto p-20 flex flex-col items-center justify-center text-center bg-green-100 rounded max-w-7xl">
+			<section className="mx-4 mb-16">
+				<div className="mx-auto p-20 flex flex-col items-center justify-center text-center bg-green-100 rounded-md max-w-7xl shadow">
 					<h1 className="text-3xl md:text-5xl font-bold ">
 						Get <span className="">paid</span> for knowing the{" "}
 						<span className="underline decoration-green-400 ">right</span>{" "}

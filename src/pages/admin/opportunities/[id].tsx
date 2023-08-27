@@ -144,7 +144,7 @@ export default function Opportunity() {
 	if (!opportunity) return <Loader />
 
 	return (
-		<Layout classNames="bg-b-blue-dark mx-auto w-full py-10">
+		<Layout classNames="mt-12 mx-auto w-full py-10">
 			<section className="max-w-3xl p-5 rounded mx-auto bg-white/10">
 				<Image
 					src={opportunity?.company.image}
@@ -154,21 +154,21 @@ export default function Opportunity() {
 					className="rounded-md mx-auto"
 				/>
 
-				<p className="text-white my-3 text-center">
+				<p className=" my-3 text-center">
 					A{" "}
 					<span className="text-semibold text-warning border-warning border p-1 rounded">
 						Yellow border
 					</span>{" "}
 					means that field will be updated.
 				</p>
-				<p className="text-white my-3 text-center">
+				<p className="my-3 text-center">
 					Watch out for unintended changes 👉😎👉
 				</p>
 
 				<form className="w-full" onSubmit={handleSubmit}>
 					<div className="form-control w-full">
 						<label className="label">
-							<span className="label-text text-white">Title</span>
+							<span className="label-text ">Title</span>
 						</label>
 						<input
 							type="text"
@@ -184,8 +184,8 @@ export default function Opportunity() {
 						/>
 					</div>
 					<div className="form-control w-full ">
-						<label className="label text-white">
-							<span className="label-text text-white">Category</span>
+						<label className="label ">
+							<span className="label-text ">Category</span>
 						</label>
 						<select
 							className={classNames(
@@ -212,7 +212,7 @@ export default function Opportunity() {
 						</select>
 						<div className="form-control w-full">
 							<label className="label">
-								<span className="label-text text-white">Description</span>
+								<span className="label-text ">Description</span>
 							</label>
 							<textarea
 								name="description"
@@ -228,7 +228,7 @@ export default function Opportunity() {
 						</div>
 						<div className="form-control w-full">
 							<label className="label">
-								<span className="label-text text-white">Ideal Candidate</span>
+								<span className="label-text ">Ideal Candidate</span>
 							</label>
 							<textarea
 								rows={7}
@@ -245,7 +245,7 @@ export default function Opportunity() {
 							/>
 							<div className="form-control w-full">
 								<label className="label">
-									<span className="label-text text-white">Requirements</span>
+									<span className="label-text ">Requirements</span>
 								</label>
 								<textarea
 									rows={7}
@@ -270,7 +270,7 @@ export default function Opportunity() {
 							</div>
 							<div className="form-control w-full">
 								<label className="label">
-									<span className="label-text text-white">Status</span>
+									<span className="label-text ">Status</span>
 								</label>
 								<select
 									className={classNames(
@@ -292,7 +292,7 @@ export default function Opportunity() {
 							</div>
 							<div className="form-control w-full">
 								<label className="label">
-									<span className="label-text text-white">Perks</span>
+									<span className="label-text ">Perks</span>
 								</label>
 								<textarea
 									rows={7}
@@ -317,7 +317,7 @@ export default function Opportunity() {
 							</div>
 							<div className="form-control w-full">
 								<label className="label">
-									<span className="label-text text-white">Reward</span>
+									<span className="label-text ">Reward</span>
 								</label>
 								<input
 									type="number"
@@ -333,7 +333,7 @@ export default function Opportunity() {
 									)}
 								/>
 								<label className="label">
-									<span className="label-text text-white">Reward Currency</span>
+									<span className="label-text ">Reward Currency</span>
 								</label>
 								<input
 									type="text"
@@ -352,7 +352,7 @@ export default function Opportunity() {
 								{opportunityFormData?.salary?.fixed ? (
 									<>
 										<label className="label">
-											<span className="label-text text-white">Salary</span>
+											<span className="label-text ">Salary</span>
 										</label>
 										<input
 											type="number"
@@ -371,7 +371,7 @@ export default function Opportunity() {
 								) : (
 									<>
 										<label className="label">
-											<span className="label-text text-white">
+											<span className="label-text ">
 												Minimum Salary
 											</span>
 										</label>
@@ -389,7 +389,7 @@ export default function Opportunity() {
 											)}
 										/>
 										<label className="label">
-											<span className="label-text text-white">
+											<span className="label-text ">
 												Maximum Salary
 											</span>
 										</label>
@@ -410,7 +410,7 @@ export default function Opportunity() {
 								)}
 
 								<label className="label">
-									<span className="label-text text-white">Salary Currency</span>
+									<span className="label-text ">Salary Currency</span>
 								</label>
 								<input
 									type="text"
@@ -427,7 +427,7 @@ export default function Opportunity() {
 								/>
 
 								<label className="label">
-									<span className="label-text text-white">Location</span>
+									<span className="label-text ">Location</span>
 								</label>
 								<input
 									type="text"
@@ -443,7 +443,7 @@ export default function Opportunity() {
 								/>
 
 								<label className="label">
-									<span className="label-text text-white">Remote</span>
+									<span className="label-text ">Remote</span>
 								</label>
 								<input
 									type="checkbox"
@@ -458,7 +458,7 @@ export default function Opportunity() {
 									)}
 								/>
 								<label className="label">
-									<span className="label-text text-white">Company Name</span>
+									<span className="label-text ">Company Name</span>
 								</label>
 								<input
 									type="text"
@@ -474,7 +474,7 @@ export default function Opportunity() {
 									)}
 								/>
 								<label className="label">
-									<span className="label-text text-white">Company About</span>
+									<span className="label-text ">Company About</span>
 								</label>
 								<textarea
 									name="company.about"
@@ -489,7 +489,7 @@ export default function Opportunity() {
 									)}
 								/>
 								<label className="label">
-									<span className="label-text text-white">Company URL</span>
+									<span className="label-text ">Company URL</span>
 								</label>
 								<input
 									type="text"
@@ -505,7 +505,7 @@ export default function Opportunity() {
 									)}
 								/>
 								<label className="label">
-									<span className="label-text text-white">Company Founded</span>
+									<span className="label-text ">Company Founded</span>
 								</label>
 								<input
 									type="text"
@@ -521,7 +521,7 @@ export default function Opportunity() {
 									)}
 								/>
 								<label className="label">
-									<span className="label-text text-white">
+									<span className="label-text ">
 										Company Industry
 									</span>
 								</label>
@@ -539,7 +539,7 @@ export default function Opportunity() {
 									)}
 								/>
 								<label className="label">
-									<span className="label-text text-white">
+									<span className="label-text ">
 										Company Employees
 									</span>
 								</label>
@@ -557,7 +557,7 @@ export default function Opportunity() {
 									)}
 								/>
 								<label className="label">
-									<span className="label-text text-white">Company Stage</span>
+									<span className="label-text ">Company Stage</span>
 								</label>
 								<select
 									name="company.stage"
