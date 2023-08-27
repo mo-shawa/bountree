@@ -81,7 +81,7 @@ export default function ApplicantCard({
 			<div
 				className={classNames(
 					open ? "collapse-open pb-4" : "",
-					"collapse mt-4 border-t collapse-arrow rounded-b p-0 hover:text-blue-500 focus:text-blue-500 transition-colors duration-300 ease-in-out"
+					"collapse mt-4 border-t rounded-t-none collapse-arrow rounded-b p-0 hover:text-blue-500 focus:text-blue-500 transition-colors duration-300 ease-in-out"
 				)}
 			>
 				<input tabIndex={0} type="checkbox" className="peer" />

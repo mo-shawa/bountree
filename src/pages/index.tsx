@@ -3,17 +3,15 @@ import Link from "next/link"
 import Layout from "@/components/Layout/Layout"
 import { useSession } from "next-auth/react"
 import ArrowSVG from "@/components/Misc/ArrowSVG"
-import { useEffect, useLayoutEffect, useState } from "react"
 import OpportunityCard from "@/components/Opportunities/OpportunityCard"
 import { Loader } from "@/components/Loader/Loader"
 import IOpportunity from "@/types/opportunity"
-import { wait } from "@/utils/misc"
 import Floaters from "@/components/Misc/Floaters"
 import HoverButton from "@/components/Misc/HoverButton"
 import HowItWorksCard from "@/components/Misc/HowItWorksCard"
 import { getLatestOpportunities } from "@/controllers/opportunity"
 import { InferGetServerSidePropsType, GetServerSideProps } from "next"
-import { ArrowUturnUpIcon, LockOpenIcon, UserPlusIcon,CurrencyDollarIcon } from "@heroicons/react/24/outline"
+import { ArrowUturnUpIcon, LockOpenIcon, UserPlusIcon } from "@heroicons/react/24/outline"
 
 
 export default function Home({
@@ -64,7 +62,7 @@ export default function Home({
 							</HoverButton>
 						</div>
 					</div>
-					<div className="h-full relative  mt-10">
+					<div className="h-full relative mt-10">
 						<Floaters />
 						{/* <Image
 							src="/static/hero.png"
