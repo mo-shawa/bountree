@@ -46,7 +46,7 @@ export default function Navigation() {
 			>
 				<div className="navbar-start">
 					<div className="dropdown">
-						<label tabIndex={0} className="btn btn-ghost lg:hidden">
+						<label tabIndex={0} className="btn btn-ghost lg:hidden rounded-full">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								className="h-5 w-5"
@@ -64,13 +64,13 @@ export default function Navigation() {
 						</label>
 						<ul
 							tabIndex={0}
-							className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+							className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 gap-2"
 						>
 							{navigation.map((item) => (
 								<li
 									className={classNames(
-										item.current ? "bg-base-200" : "",
-										"cursor-pointer hover:bg-base-200"
+										item.current ? "bg-b-yellow/20 font-semibold" : "",
+										"cursor-pointer hover:bg-base-200 p-4 rounded-lg"
 									)}
 									key={item.name}
 								>
@@ -122,16 +122,16 @@ export default function Navigation() {
 							</label>
 							<ul
 								tabIndex={0}
-								className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+								className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 gap-2"
 							>
-								<li>
-									<Link href="/dashboard" className="justify-between">
+								<li >
+									<Link href="/dashboard" className="justify-between p-4">
 										Dashboard
 									</Link>
 								</li>
 
-								<li onClick={() => signOut({ callbackUrl: "/" })}>
-									<a href="#">Sign out</a>
+								<li  onClick={() => signOut({ callbackUrl: "/" })}>
+									<a className="p-4" href="#">Sign out</a>
 								</li>
 							</ul>
 						</div>
