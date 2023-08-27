@@ -1,3 +1,4 @@
+import { CurrencyDollarIcon, ChatBubbleLeftRightIcon, LinkIcon } from "@heroicons/react/24/outline"
 import { useMotionValue, motion, useMotionTemplate } from "framer-motion"
 
 type HowItWorksCardProps = {
@@ -11,6 +12,7 @@ const stepStyles: {
 		numberStyle: string
 		radialGradientColor: string
 		pillColor: string
+		icon?: JSX.Element
 	}
 } = {
 	1: {
@@ -18,18 +20,21 @@ const stepStyles: {
 			"bg-gradient-to-r from-purple-300 to-pink-300 bg-purple-300 border-purple-200",
 		radialGradientColor: "rgb(168, 85, 247, 0.15)",
 		pillColor: "bg-gradient-to-r from-pink-300 to-purple-300 text-purple-900",
+		icon: <LinkIcon className="h-8 w-8 text-black/50" />,
 	},
 	2: {
 		numberStyle:
 			"bg-gradient-to-r from-yellow-300 to-orange-300 bg-yellow-300 border-yellow-200",
 		radialGradientColor: "rgb(234, 179, 8, 0.15)",
 		pillColor: "bg-gradient-to-r from-yellow-300 to-orange-300 text-orange-900",
+		icon: <ChatBubbleLeftRightIcon className="h-8 w-8 text-black/50" />,
 	},
 	3: {
 		numberStyle:
 			"bg-gradient-to-r from-green-300 to-lime-300 bg-green-300 border-green-200",
 		radialGradientColor: "rgb(34, 197, 94, 0.15)",
 		pillColor: "bg-gradient-to-r from-lime-300 to-green-300 text-green-900",
+		icon: <CurrencyDollarIcon className="h-8 w-8 text-black/50 ml-0.5" />,
 	},
 }
 
@@ -71,7 +76,7 @@ export default function HowItWorksCard({
 			<div
 				className={`w-20 h-20 rounded-full  flex items-center justify-center -translate-y-1/2  text-white font-mono text-2xl border-4  font-bold ${stepStyles[step].numberStyle}`}
 			>
-				{step}
+				{stepStyles[step].icon ? stepStyles[step].icon : step}
 			</div>
 			<div
 				className={`text-xs sm:text-base  mb-3 flex w-fit rounded-full px-4 py-0.5  font-semibold -translate-y-1/2 ${stepStyles[step].pillColor}`}

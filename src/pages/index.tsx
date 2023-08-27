@@ -13,6 +13,7 @@ import HoverButton from "@/components/Misc/HoverButton"
 import HowItWorksCard from "@/components/Misc/HowItWorksCard"
 import { getLatestOpportunities } from "@/controllers/opportunity"
 import { InferGetServerSidePropsType, GetServerSideProps } from "next"
+import { ArrowUturnUpIcon, LockOpenIcon, UserPlusIcon,CurrencyDollarIcon } from "@heroicons/react/24/outline"
 
 
 export default function Home({
@@ -55,7 +56,7 @@ export default function Home({
 							</HoverButton>
 
 							<HoverButton
-								href="/opportunities"
+								href="/product"
 								className="mt-6"
 								type="outline"
 							>
@@ -164,7 +165,7 @@ export default function Home({
 				id="how-it-works"
 				style={{
 					backgroundImage:
-						"radial-gradient(#cecece 0.6px, rgb(250 250 250) 0.6px)",
+						"radial-gradient(#cecece 0.5px, rgb(250,250,250) 1px)",
 					backgroundSize: "12px 12px",
 				}}
 			>
@@ -281,9 +282,9 @@ export default function Home({
 						<div className="text-xs mx-auto sm:text-base mb-3 flex w-fit rounded-full bg-purple-100 text-purple-500 px-4 py-0.5 font-semibold">
 							Refer a friend and earn
 						</div>
-						<h1 className="md:text-5xl  text-4xl  text-center font-bold mb-8">
-							Your network is your net worth... <br /> earn bounties by tapping
-							into it.
+						<h1 data-tip="facts" className="md:text-5xl tooltip text-4xl  text-center font-bold mb-8">
+						Your network is your net worth <br /> Earn bounties by tapping
+							into it
 						</h1>
 						<p className="mb-10 text-lg text-justify">
 							<span className="font-bold">bountree</span> connects top talent with
@@ -301,8 +302,11 @@ export default function Home({
 					</div>
 				</div>
 				<div className="px-5 mx-auto my-12 py-12 bg-purple-50 w-full max-w-7xl  rounded-md grid md:grid-cols-2 gap-4 shadow">
-					<div className=" flex flex-col gap-4">
-						<h3 className="text-3xl font-bold ">Recruit like a pro</h3>
+					<div className=" flex flex-col gap-4 justify-between">
+						<div className="flex gap-2 items-center">
+							<UserPlusIcon className="text-purple-900 h-10 w-10 inline" />
+							<h3 className="text-3xl font-bold text-purple-900">Recruit like a pro</h3>
+						</div>
 						<h4 className="font-semibold max-w-sm text-2xl ">
 							We&apos;ve built the tools and resources you need to excel as a
 							recruiter and find the perfect matches.
@@ -313,7 +317,7 @@ export default function Home({
 						</p>
 					</div>
 					<Image
-						className="md:inline m-auto"
+						className="md:inline m-auto h-auto w-full shadow-md rounded-md"
 						src="/static/dashboard.png"
 						width={538}
 						height={307}
@@ -322,8 +326,12 @@ export default function Home({
 				</div>
 				<div className="mx-auto my-12 w-full max-w-7xl rounded-md">
 					<div className="grid grid-cols-2 gap-12">
-						<div className="col-span-2 md:col-span-1 shadow bg-purple-50  py-6 px-6 rounded-md">
-							<h3 className="text-3xl font-bold mb-5">Less is more.</h3>
+						<div className="col-span-2 md:col-span-1 shadow bg-pink-100  py-6 px-6 rounded-md">
+						<div className="flex gap-2 items-center  mb-5">
+
+						<ArrowUturnUpIcon className="text-pink-900 h-10 w-10 inline" />
+							<h3 className="text-3xl font-bold text-pink-900">Less is more.</h3>
+</div>
 							<p className="text-lg">
 								Our platform prioritizes simplicity to enhance the user
 								experience. Join bountree and start earning in your first week by
@@ -331,8 +339,11 @@ export default function Home({
 								make the most of your time.
 							</p>
 						</div>
-						<div className="col-span-2 md:col-span-1 shadow bg-pink-100  py-6 px-6 rounded-md">
-							<h3 className="text-3xl font-bold mb-5">No secrets here.</h3>
+						<div className="col-span-2 md:col-span-1 shadow bg-yellow-50  py-6 px-6 rounded-md">
+						<div className="flex gap-2 items-center mb-5">
+							<LockOpenIcon className="text-yellow-900 h-10 w-10 inline" />
+							<h3 className="text-3xl font-bold text-yellow-900">No secrets here.</h3>
+						</div>
 							<p className="text-lg">
 								It&apos;s time to empower recruiters.{" "}
 								<span className="font-bold">bountree</span> let&apos;s you unlock
@@ -347,11 +358,11 @@ export default function Home({
 
 			<section className="mx-4 mb-16">
 				<div className="mx-auto p-20 flex flex-col items-center justify-center text-center bg-green-100 rounded-md max-w-7xl shadow">
-					<h1 className="text-3xl md:text-5xl font-bold ">
-						Get <span className="">paid</span> for knowing the{" "}
-						<span className="underline decoration-green-400 ">right</span>{" "}
-						people
-					</h1>
+						<h1 className="text-3xl md:text-5xl font-bold ">
+							Get <span className="">paid</span> for knowing the{" "}
+							<span className="underline decoration-green-400 ">right</span>{" "}
+							people
+						</h1>
 					<p className=" my-6 text-xl max-w-xl">
 						Find great talent and get paid for it - it&apos;s a win-win with our
 						bounty recruitment program.

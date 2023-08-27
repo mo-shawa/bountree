@@ -1,5 +1,4 @@
 import IOpportunity from "@/types/opportunity"
-import Image from "next/image"
 import {
 	UsersIcon,
 	GlobeAltIcon,
@@ -11,7 +10,7 @@ import { ReactElement } from "react"
 export default function CompanySection({ post }: { post: IOpportunity }) {
 	return (
 		<div className="col-span-6 lg:col-span-4 py-6">
-			<h1 className="text-xl text-left text-b-yellow">
+			<h1 className="text-xl text-left text-b-yellow font-semibold">
 				About {post.company.name}
 			</h1>
 			<p className="max-w-2xl my-4  ">{post.company.about}</p>

@@ -14,7 +14,6 @@ export default function Navigation() {
 	}
 
 	const isAdmin = session?.user.email.split("@")[1] === "bountree.app" || false
-	console.log(session)
 	const navigation = session
 		? [
 				{
@@ -42,7 +41,7 @@ export default function Navigation() {
 		<nav>
 			<div
 				className="navbar fixed top-2 left-1/2 
-      transform -translate-x-1/2 z-50 rounded-2xl shadow-lg
+      transform -translate-x-1/2 z-50 rounded-full shadow-lg
       filter backdrop-blur-xl w-[80rem] max-w-[calc(100vw-3rem)] bg-white/50"
 			>
 				<div className="navbar-start">
@@ -94,9 +93,9 @@ export default function Navigation() {
 								<li key={item.name}>
 									<Link
 										className={classNames(
-											"cursor-pointer rounded-full transition-colors hover:bg-pink-50",
+											"cursor-pointer rounded-full transition-colors hover:bg-neutral-100",
 											item.current
-												? "bg-gradient-to-r from-pink-200 to-purple-200"
+												? "bg-b-yellow/50 font-semibold"
 												: ""
 										)}
 										href={item.href}

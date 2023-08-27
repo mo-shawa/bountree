@@ -25,7 +25,7 @@ export default function ProductPage() {
 						</ArrowButton>
 						<p className="text-2xl font-bold lg:mb-0 mb-8 ">
 							Or try out our magic{' '}
-							<span className="text-b-yellow">job description generator</span>!
+							<span className="text-b-yellow">job description generator</span>
 							<span className="hidden lg:inline">👉</span>
 							<span className="lg:hidden inline">👇</span>
 						</p>
