@@ -7,33 +7,33 @@ import CompanySection from "./CompanySection"
 import FeedbackSection from "./FeedbackSection"
 
 export default function PrimarySection({
-	post,
-	applicationsRemaining,
-	setModalOpen,
-	isAdmin,
+  post,
+  applicationsRemaining,
+  setModalOpen,
+  isAdmin,
 }: {
-	post: IOpportunity
-	applicationsRemaining: number
-	setModalOpen: (open: boolean) => void
-	isAdmin: boolean
+  post: IOpportunity
+  applicationsRemaining: number
+  setModalOpen: (open: boolean) => void
+  isAdmin: boolean
 }) {
-	const hasRejectionFeedback = post.applications.some(
-		(a: IApplication) => a.status === "rejected" && a.rejectionFeedback
-	)
-	return (
-		<div className="col-span-6 lg:col-span-4 mr-2">
-			<Top post={post} />
+  const hasRejectionFeedback = post.applications.some(
+    (a: IApplication) => a.status === "rejected" && a.rejectionFeedback
+  )
+  return (
+    <div className="col-span-6 mr-2 lg:col-span-4">
+      <Top post={post} />
 
-			<ReferralCard
-				mobile={true}
-				post={post}
-				applicationsRemaining={applicationsRemaining}
-				setModalOpen={setModalOpen}
-				isAdmin={isAdmin}
-			/>
-			<SecondarySection post={post} />
-			<CompanySection post={post} />
-			{hasRejectionFeedback && <FeedbackSection post={post} />}
-		</div>
-	)
+      <ReferralCard
+        mobile={true}
+        post={post}
+        applicationsRemaining={applicationsRemaining}
+        setModalOpen={setModalOpen}
+        isAdmin={isAdmin}
+      />
+      <SecondarySection post={post} />
+      <CompanySection post={post} />
+      {hasRejectionFeedback && <FeedbackSection post={post} />}
+    </div>
+  )
 }

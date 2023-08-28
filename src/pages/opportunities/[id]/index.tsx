@@ -11,90 +11,90 @@ import PrimarySection from "@/components/Opportunity/PrimarySection"
 import ReferralCard from "@/components/Opportunity/ReferralCard"
 
 export default function PostDetail() {
-	const router = useRouter()
-	const { id } = router.query as { id: string }
+  const router = useRouter()
+  const { id } = router.query as { id: string }
 
-	const { data: session, status } = useSession()
+  const { data: session, status } = useSession()
 
-	const [post, setPost] = useState<IOpportunity>()
-	const [modalOpen, setModalOpen] = useState<boolean>(false)
-	const [error, setError] = useState<string>()
-	const [applicationsRemaining, setApplicationsRemaining] = useState<number>(5)
+  const [post, setPost] = useState<IOpportunity>()
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
+  const [error, setError] = useState<string>()
+  const [applicationsRemaining, setApplicationsRemaining] = useState<number>(5)
 
-	const isAdmin = session?.user.email.split("@")[1] === "bountree.app" || false
+  const isAdmin = session?.user.email.split("@")[1] === "bountree.app" || false
 
-	useEffect(() => {
-		async function fetchPost() {
-			const res = await fetch(`/api/opportunities/${id}`)
-			const data = await res.json()
+  useEffect(() => {
+    async function fetchPost() {
+      const res = await fetch(`/api/opportunities/${id}`)
+      const data = await res.json()
 
-			if (!res.ok || data.success === false) {
-				setError(
-					"An error occurred while loading the post. Please try again in a few minutes."
-				)
-				return
-			}
+      if (!res.ok || data.success === false) {
+        setError(
+          "An error occurred while loading the post. Please try again in a few minutes."
+        )
+        return
+      }
 
-			setPost(data.opportunity)
-		}
+      setPost(data.opportunity)
+    }
 
-		if (router.isReady) fetchPost()
-	}, [id, router.isReady, session?.user._id])
+    if (router.isReady) fetchPost()
+  }, [id, router.isReady, session?.user._id])
 
-	useEffect(() => {
-		if (!post) return
+  useEffect(() => {
+    if (!post) return
 
-		setApplicationsRemaining(
-			(session?.user.applicationLimit || 5) -
-				post.applications.filter(
-					(a: IApplication) => a.userId === session?.user._id
-				).length
-		)
-	}, [post, session?.user.applicationLimit, session?.user._id])
+    setApplicationsRemaining(
+      (session?.user.applicationLimit || 5) -
+        post.applications.filter(
+          (a: IApplication) => a.userId === session?.user._id
+        ).length
+    )
+  }, [post, session?.user.applicationLimit, session?.user._id])
 
-	if (status === "loading" || !post) return <Loader />
+  if (status === "loading" || !post) return <Loader />
 
-	if (status === "unauthenticated" || session === null) {
-		signIn("", { callbackUrl: window.location.href })
-	}
+  if (status === "unauthenticated" || session === null) {
+    signIn("", { callbackUrl: window.location.href })
+  }
 
-	if (error) {
-		return (
-			<Layout classNames="bg-b-blue-dark flex justify-center">
-				<div className="py-10 bg-white rounded flex flex-row justify-between items-center p-4 my-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-					<h1 className="text-xl mx-auto rounded-full">{error}</h1>
-				</div>
-			</Layout>
-		)
-	}
+  if (error) {
+    return (
+      <Layout classNames="bg-b-blue-dark flex justify-center">
+        <div className="absolute left-1/2 top-1/2 my-4 flex -translate-x-1/2 -translate-y-1/2 transform flex-row items-center justify-between rounded bg-white p-4 py-10">
+          <h1 className="mx-auto rounded-full text-xl">{error}</h1>
+        </div>
+      </Layout>
+    )
+  }
 
-	return (
-		<Layout classNames="flex justify-center pt-24 bg-neutral-50">
-			<section className="px-4 max-w-7xl w-full grid grid-cols-6 ">
-				<PrimarySection
-					post={post}
-					applicationsRemaining={applicationsRemaining}
-					setModalOpen={setModalOpen}
-					isAdmin={isAdmin}
-				/>
-				<ReferralCard
-					post={post}
-					applicationsRemaining={applicationsRemaining}
-					setModalOpen={setModalOpen}
-					isAdmin={isAdmin}
-				/>
-				{modalOpen && (
-					<RecruitModal
-						requirements={post.requirements}
-						opportunityId={id}
-						userId={session?.user.id}
-						setModalOpen={setModalOpen}
-						setPost={setPost}
-						applicationsRemaining={applicationsRemaining}
-						setApplicationsRemaining={setApplicationsRemaining}
-					/>
-				)}
-			</section>
-		</Layout>
-	)
+  return (
+    <Layout classNames="flex justify-center pt-24 bg-neutral-50">
+      <section className="grid w-full max-w-7xl grid-cols-6 px-4 ">
+        <PrimarySection
+          post={post}
+          applicationsRemaining={applicationsRemaining}
+          setModalOpen={setModalOpen}
+          isAdmin={isAdmin}
+        />
+        <ReferralCard
+          post={post}
+          applicationsRemaining={applicationsRemaining}
+          setModalOpen={setModalOpen}
+          isAdmin={isAdmin}
+        />
+        {modalOpen && (
+          <RecruitModal
+            requirements={post.requirements}
+            opportunityId={id}
+            userId={session?.user.id}
+            setModalOpen={setModalOpen}
+            setPost={setPost}
+            applicationsRemaining={applicationsRemaining}
+            setApplicationsRemaining={setApplicationsRemaining}
+          />
+        )}
+      </section>
+    </Layout>
+  )
 }

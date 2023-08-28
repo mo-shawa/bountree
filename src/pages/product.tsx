@@ -1,92 +1,89 @@
-import Layout from '@/components/Layout/Layout'
-import ArrowButton from '@/components/Misc/ArrowButton'
-import Image from 'next/image'
-import JobDescriptionGenerator from '@/components/JobDescriptionGenerator'
+import Layout from "@/components/Layout/Layout"
+import ArrowButton from "@/components/Misc/ArrowButton"
+import Image from "next/image"
+import JobDescriptionGenerator from "@/components/JobDescriptionGenerator"
 
 export default function ProductPage() {
-	return (
-		<Layout classNames=" pt-28">
-			<section className="flex flex-col justify-center items-center">
-				<div className="py-28 flex flex-col gap-2 p-4 lg:flex-row w-full max-w-7xl">
-					<div className="w-full text-center lg:text-left max-w-7xl flex flex-col items-center lg:items-start gap-8">
-						<h1 className="text-5xl max-w-sm font-bold">
-							There's a better way to hire
-						</h1>
-						<p className="text-xl max-w-lg">
-							Skip the headache of recruitment and let the{' '}
-							<span className="font-bold text-b-yellow">bountree</span> referral
-							network find your dream team.
-						</p>
-						<ArrowButton
-							target="_blank"
-							href="https://calendly.com/wdib"
-						>
-							Book a Demo
-						</ArrowButton>
-						<p className="text-2xl font-bold lg:mb-0 mb-8 ">
-							Or try out our magic{' '}
-							<span className="text-b-yellow">job description generator</span>
-							<span className="hidden lg:inline">👉</span>
-							<span className="lg:hidden inline">👇</span>
-						</p>
-					</div>
-					<div className="w-full">
-						<JobDescriptionGenerator />
-						<p className="mt-2 text-justify">
-							Hire top talent without spending all your time crafting the
-							perfect job description with bountree's Job Description Generator!
-							Create tailored and professional job postings that reflect your
-							company's unique voice.
-						</p>
-					</div>
-				</div>
+  return (
+    <Layout classNames=" pt-28">
+      <section className="flex flex-col items-center justify-center">
+        <div className="flex w-full max-w-7xl flex-col gap-2 p-4 py-28 lg:flex-row">
+          <div className="flex w-full max-w-7xl flex-col items-center gap-8 text-center lg:items-start lg:text-left">
+            <h1 className="max-w-sm text-5xl font-bold">
+              There's a better way to hire
+            </h1>
+            <p className="max-w-lg text-xl">
+              Skip the headache of recruitment and let the{" "}
+              <span className="font-bold text-b-yellow">bountree</span> referral
+              network find your dream team.
+            </p>
+            <ArrowButton target="_blank" href="https://calendly.com/wdib">
+              Book a Demo
+            </ArrowButton>
+            <p className="mb-8 text-2xl font-bold lg:mb-0 ">
+              Or try out our magic{" "}
+              <span className="text-b-yellow">job description generator</span>
+              <span className="hidden lg:inline">👉</span>
+              <span className="inline lg:hidden">👇</span>
+            </p>
+          </div>
+          <div className="w-full">
+            <JobDescriptionGenerator />
+            <p className="mt-2 text-justify">
+              Hire top talent without spending all your time crafting the
+              perfect job description with bountree's Job Description Generator!
+              Create tailored and professional job postings that reflect your
+              company's unique voice.
+            </p>
+          </div>
+        </div>
 
-				<small className="mb-5">Trusted by</small>
-				<div className="grid grid-cols-3 md:grid-cols-6 max-w-5xl gap-4 mb-20 mx-4">
-					<Image
-						src="/static/product/coinmena.png"
-						alt="company logo"
-						width={200}
-						height={200}
-						className="bg-white rounded-full p-3 h-full w-full mx-auto object-contain max-h-16"
-					/>
-					<Image
-						src="/static/product/clara.png"
-						alt="company logo"
-						width={200}
-						height={200}
-						className="bg-white rounded-full p-3 h-full w-full mx-auto object-contain max-h-16"
-					/>
-					<Image
-						src="/static/product/syarah.png"
-						alt="company logo"
-						width={200}
-						height={200}
-						className="bg-white rounded-full p-3 h-full w-full mx-auto object-contain max-h-16"
-					/>
-					<Image
-						src="/static/product/zest.png"
-						alt="company logo"
-						width={200}
-						height={200}
-						className="bg-white rounded-full p-3 h-full w-full mx-auto object-contain max-h-16"
-					/>
-					<Image
-						src="/static/product/pluto.png"
-						alt="company logo"
-						width={200}
-						height={200}
-						className="bg-white rounded-full p-3 h-full w-full mx-auto object-contain max-h-16"
-					/>
-					<Image
-						src="/static/product/stake.png"
-						alt="company logo"
-						width={200}
-						height={200}
-						className="bg-white rounded-full p-3 h-full w-full mx-auto object-contain max-h-16"
-					/>
-				</div>
-			</section>
-		</Layout>
-	)
+        <small className="mb-5">Trusted by</small>
+        <div className="mx-4 mb-20 grid max-w-5xl grid-cols-3 gap-4 md:grid-cols-6">
+          <Image
+            src="/static/product/coinmena.png"
+            alt="company logo"
+            width={200}
+            height={200}
+            className="mx-auto h-full max-h-16 w-full rounded-full bg-white object-contain p-3"
+          />
+          <Image
+            src="/static/product/clara.png"
+            alt="company logo"
+            width={200}
+            height={200}
+            className="mx-auto h-full max-h-16 w-full rounded-full bg-white object-contain p-3"
+          />
+          <Image
+            src="/static/product/syarah.png"
+            alt="company logo"
+            width={200}
+            height={200}
+            className="mx-auto h-full max-h-16 w-full rounded-full bg-white object-contain p-3"
+          />
+          <Image
+            src="/static/product/zest.png"
+            alt="company logo"
+            width={200}
+            height={200}
+            className="mx-auto h-full max-h-16 w-full rounded-full bg-white object-contain p-3"
+          />
+          <Image
+            src="/static/product/pluto.png"
+            alt="company logo"
+            width={200}
+            height={200}
+            className="mx-auto h-full max-h-16 w-full rounded-full bg-white object-contain p-3"
+          />
+          <Image
+            src="/static/product/stake.png"
+            alt="company logo"
+            width={200}
+            height={200}
+            className="mx-auto h-full max-h-16 w-full rounded-full bg-white object-contain p-3"
+          />
+        </div>
+      </section>
+    </Layout>
+  )
 }
