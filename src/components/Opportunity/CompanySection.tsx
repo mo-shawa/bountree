@@ -1,34 +1,40 @@
-import IOpportunity from '@/types/opportunity'
-import Image from 'next/image'
+import IOpportunity from "@/types/opportunity"
+import {
+	UsersIcon,
+	GlobeAltIcon,
+	CakeIcon,
+	BuildingOffice2Icon,
+} from "@heroicons/react/24/outline"
+import { ReactElement } from "react"
 
 export default function CompanySection({ post }: { post: IOpportunity }) {
 	return (
 		<div className="col-span-6 lg:col-span-4 py-6">
-			<h1 className="text-xl text-left text-b-yellow">
+			<h1 className="text-xl text-left text-b-yellow font-semibold">
 				About {post.company.name}
 			</h1>
 			<p className="max-w-2xl my-4  ">{post.company.about}</p>
 			<div className="grid max-w-xl grid-cols-2 gap-4 grid-rows-2 py-10 ">
 				<GridIcon
-					text={post.company.employees + ' Employees'}
-					icon="/static/svg/opportunity/people.svg"
+					text={post.company.employees + " Employees"}
+					icon={<UsersIcon height={34} width={34} />}
 				/>
 				<GridIcon
 					text={post.company.founded}
-					icon="/static/svg/opportunity/birthday.svg"
+					icon={<CakeIcon width={34} height={34} />}
 				/>
 				<GridIcon
 					text={post.company.industry}
-					icon="/static/svg/opportunity/industry.svg"
+					icon={<BuildingOffice2Icon height={34} width={34} />}
 				/>
 				<a
-					className="hover:bg-white/10 rounded transition-colors"
+					className="hover:bg-purple-500/10 rounded transition-colors"
 					target="_blank"
 					href={post.company.url}
 				>
 					<GridIcon
 						text="Website"
-						icon="/static/svg/all-roles.svg"
+						icon={<GlobeAltIcon height={34} width={34} />}
 					/>
 				</a>
 			</div>
@@ -36,15 +42,10 @@ export default function CompanySection({ post }: { post: IOpportunity }) {
 	)
 }
 
-function GridIcon({ icon, text }: { icon: string; text: string }) {
+function GridIcon({ icon, text }: { icon: ReactElement; text: string }) {
 	return (
 		<div className="col-span-1 row-span-2 md:row-span-1 flex items-center gap-4 p-4 ">
-			<Image
-				src={icon}
-				width={34}
-				height={34}
-				alt={icon}
-			/>
+			{icon}
 			<h4 className="text-sm ">{text}</h4>
 		</div>
 	)

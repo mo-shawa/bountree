@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import { getAdminApplications } from "../../../../../controllers/application"
-import serverAuthenticate from "@/utils/serverAuthenticate"
+import { NextApiRequest, NextApiResponse } from 'next'
+import { getAdminApplications } from '@/controllers/application'
+import serverAuthenticate from '@/utils/serverAuthenticate'
 
 export default async function handler(
 	req: NextApiRequest,
@@ -10,9 +10,9 @@ export default async function handler(
 		const { token } = await serverAuthenticate(req)
 		const { method } = req
 
-		if (method === "GET") {
-			if (token?.email?.split("@")[1] !== "bountree.app") {
-				return res.status(403).json({ error: "Forbidden" })
+		if (method === 'GET') {
+			if (token?.email?.split('@')[1] !== 'bountree.app') {
+				return res.status(403).json({ error: 'Forbidden' })
 			}
 
 			const applications = await getAdminApplications()

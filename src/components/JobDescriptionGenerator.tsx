@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react"
-import { classNames, isEmail } from "@/utils/misc"
-import CountdownTimer from "./Misc/CountdownTimer"
+import { useState, useEffect } from 'react'
+import { classNames, isEmail } from '@/utils/misc'
+import CountdownTimer from './Misc/CountdownTimer'
 
 export default function JobDescriptionGenerator() {
 	const [formData, setFormData] = useState({
-		email: "",
-		jobTitle: "",
-		tone: "Professional",
+		email: '',
+		jobTitle: '',
+		tone: 'Professional',
 	})
 	const [loading, setLoading] = useState(false)
-	const [message, setMessage] = useState("")
-	const [displayResponse, setDisplayResponse] = useState("")
+	const [message, setMessage] = useState('')
+	const [displayResponse, setDisplayResponse] = useState('')
 	const [submitDisabled, setSubmitDisabled] = useState(true)
 
 	useEffect(() => {
@@ -47,7 +47,7 @@ export default function JobDescriptionGenerator() {
 		e.preventDefault()
 		if (submitDisabled || loading) return
 		if (!formData.email || !formData.jobTitle) return
-		setDisplayResponse("")
+		setDisplayResponse('')
 
 		setLoading(true)
 		console.log(formData)
@@ -55,7 +55,7 @@ export default function JobDescriptionGenerator() {
 		const query = new URLSearchParams(formData).toString()
 		console.log(query)
 
-		const res = await fetch("/api/ai/generate-job-description?" + query)
+		const res = await fetch('/api/ai/generate-job-description?' + query)
 
 		const data = await res.json()
 		console.log(data)
@@ -64,7 +64,7 @@ export default function JobDescriptionGenerator() {
 	}
 
 	return (
-		<div className="flex flex-col md:flex-row w-full rounded gap-2 h-min">
+		<div className="flex flex-col md:flex-row w-full rounded gap-2 h-min border">
 			<Form
 				loading={loading}
 				handleChange={handleChange}
@@ -72,7 +72,7 @@ export default function JobDescriptionGenerator() {
 				submitDisabled={submitDisabled}
 				formData={formData}
 			/>
-			<div className="bg-white text-black w-full p-5 rounded relative ">
+			<div className="bg-gray-50 text-black w-full p-5 rounded relative ">
 				<textarea
 					className="textarea textarea-ghost resize-none w-full"
 					name="output"
@@ -80,7 +80,7 @@ export default function JobDescriptionGenerator() {
 					rows={10}
 					value={displayResponse}
 				></textarea>
-				{loading && <CountdownTimer />}{" "}
+				{loading && <CountdownTimer />}{' '}
 			</div>
 		</div>
 	)
@@ -156,12 +156,12 @@ function Form({
 			<button
 				onClick={(e) => handleSubmit(e)}
 				className={classNames(
-					"btn relative",
-					submitDisabled ? "btn-disabled" : "",
-					loading ? "loading" : ""
+					'btn relative',
+					submitDisabled ? 'btn-disabled' : '',
+					loading ? 'loading' : ''
 				)}
 			>
-				{loading ? "Loading" : "Generate"}
+				{loading ? 'Loading' : 'Generate'}
 			</button>
 		</div>
 	)

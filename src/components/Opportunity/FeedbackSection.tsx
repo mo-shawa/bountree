@@ -8,7 +8,7 @@ export default function FeedbackSection({ post }: { post: IOpportunity }) {
 	return (
 		<div className="pb-10">
 			<div className="col-span-6 lg:col-span-4 py-6 ">
-				<h1 className="text-xl text-left text-b-yellow">Rejection Feedback</h1>
+				<h1 className="text-xl text-left text-b-yellow font-semibold">Rejection Feedback</h1>
 				<p className=" max-w-2xl my-4 ">
 					To increase your chances of success, we recommend reviewing feedback
 					from previous candidates who were not selected for the role to gain a

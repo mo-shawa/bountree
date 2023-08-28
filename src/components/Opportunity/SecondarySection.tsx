@@ -9,16 +9,16 @@ export default function SecondarySection({ post, isSharing = false }: Props) {
 	return (
 		<div>
 			<div className="pb-5 md:py-6">
-				<h1 className="text-xl text-left text-b-yellow">Role Description</h1>
+				<h1 className="text-xl text-left text-b-yellow font-semibold">Role Description</h1>
 				<p className=" max-w-2xl my-4 text-justify ">{post.description}</p>
 			</div>
 			<div className="pb-5 md:py-6">
-				<h1 className="text-xl text-left text-b-yellow">The Ideal Candidate</h1>
+				<h1 className="text-xl text-left text-b-yellow font-semibold">The Ideal Candidate</h1>
 				<p className=" max-w-2xl my-4 text-justify ">{post.idealCandidate}</p>
 			</div>
 			{isSharing && (
 				<div className="py-6 ">
-					<h1 className="text-xl text-left text-b-yellow">
+					<h1 className="text-xl text-left text-b-yellow font-semibold">
 						Position Requirements
 					</h1>
 
@@ -34,7 +34,7 @@ export default function SecondarySection({ post, isSharing = false }: Props) {
 				</div>
 			)}
 			<div className="py-6 ">
-				<h1 className="text-xl text-left text-b-yellow">Role Perks</h1>
+				<h1 className="text-xl text-left text-b-yellow font-semibold">Role Perks</h1>
 				{post.perks.description && (
 					<p className=" max-w-2xl my-4 ">{post.perks.description}</p>
 				)}

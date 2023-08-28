@@ -1,13 +1,13 @@
-import IApplication from "@/types/application"
-import clientPromise from "../db/connect"
-import { ObjectId } from "mongodb"
+import IApplication from '@/types/application'
+import clientPromise from '../../db/connect'
+import { ObjectId } from 'mongodb'
 
 export async function createApplication(
 	application: IApplication
 ): Promise<any> {
 	const client = await clientPromise
 	const db = client.db(process.env.DATABASE_NAME)
-	const applications = db.collection("applications")
+	const applications = db.collection('applications')
 
 	const newApplication = await applications.insertOne({
 		...application,
@@ -25,30 +25,30 @@ export async function getAdminApplications() {
 	const client = await clientPromise
 	const db = client.db(process.env.DATABASE_NAME)
 	const applications = await db
-		.collection("applications")
+		.collection('applications')
 		.aggregate([
 			{
 				$lookup: {
-					from: "opportunities",
-					localField: "opportunityId",
-					foreignField: "_id",
-					as: "opportunity",
+					from: 'opportunities',
+					localField: 'opportunityId',
+					foreignField: '_id',
+					as: 'opportunity',
 				},
 			},
 			{
-				$unwind: "$opportunity",
+				$unwind: '$opportunity',
 			},
 			{
 				$lookup: {
-					from: "users",
-					localField: "userId",
-					foreignField: "_id",
-					as: "user",
+					from: 'users',
+					localField: 'userId',
+					foreignField: '_id',
+					as: 'user',
 				},
 			},
 			{
 				$unwind: {
-					path: "$user",
+					path: '$user',
 				},
 			},
 		])
@@ -64,19 +64,19 @@ export async function updateApplicationStatus(
 ) {
 	const client = await clientPromise
 	const db = client.db(process.env.DATABASE_NAME)
-	const applications = db.collection("applications")
+	const applications = db.collection('applications')
 
 	const updatedApplication = await applications.findOneAndUpdate(
 		{ _id: new ObjectId(id) },
 		{
 			$set: {
 				status,
-				...(status === "rejected" && reason
+				...(status === 'rejected' && reason
 					? { rejectionFeedback: reason }
 					: {}),
 			},
 		},
-		{ returnDocument: "after" }
+		{ returnDocument: 'after' }
 	)
 
 	return updatedApplication
@@ -87,7 +87,7 @@ export async function getApplicationsByUser(id: string) {
 	const db = client.db(process.env.DATABASE_NAME)
 
 	const applications = await db
-		.collection("applications")
+		.collection('applications')
 		.aggregate([
 			{
 				$match: {
@@ -96,14 +96,14 @@ export async function getApplicationsByUser(id: string) {
 			},
 			{
 				$lookup: {
-					from: "opportunities",
-					localField: "opportunityId",
-					foreignField: "_id",
-					as: "opportunity",
+					from: 'opportunities',
+					localField: 'opportunityId',
+					foreignField: '_id',
+					as: 'opportunity',
 				},
 			},
 			{
-				$unwind: "$opportunity",
+				$unwind: '$opportunity',
 			},
 		])
 		.toArray()
@@ -121,7 +121,7 @@ export async function checkDuplicateApplicant(
 
 	// Check if candidate has already been submitted to this opportunity
 
-	const foundCandidate = await db.collection("applications").findOne({
+	const foundCandidate = await db.collection('applications').findOne({
 		opportunityId: new ObjectId(opportunityId),
 		$or: [{ linkedin }, { candidateEmail }],
 	})

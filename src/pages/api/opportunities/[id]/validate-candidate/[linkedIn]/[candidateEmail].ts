@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import { checkDuplicateApplicant } from "../../../../../../../controllers/application"
+import { NextApiRequest, NextApiResponse } from 'next'
+import { checkDuplicateApplicant } from '@/controllers/application'
 
 export default async function handler(
 	req: NextApiRequest,
@@ -8,18 +8,18 @@ export default async function handler(
 	const { method, query } = req
 	const { id: opportunityId, linkedIn, candidateEmail } = query
 
-	if (!opportunityId || typeof opportunityId !== "string")
-		return res.status(400).json({ error: "Invalid ID" })
+	if (!opportunityId || typeof opportunityId !== 'string')
+		return res.status(400).json({ error: 'Invalid ID' })
 
-	if (!linkedIn || typeof linkedIn !== "string")
-		return res.status(400).json({ error: "Invalid linkedIn" })
+	if (!linkedIn || typeof linkedIn !== 'string')
+		return res.status(400).json({ error: 'Invalid linkedIn' })
 
-	if (!candidateEmail || typeof candidateEmail !== "string") {
-		return res.status(400).json({ error: "Invalid email" })
+	if (!candidateEmail || typeof candidateEmail !== 'string') {
+		return res.status(400).json({ error: 'Invalid email' })
 	}
 
 	try {
-		if (method === "GET") {
+		if (method === 'GET') {
 			const application = await checkDuplicateApplicant(
 				opportunityId,
 				linkedIn,

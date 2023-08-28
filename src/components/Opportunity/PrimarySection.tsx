@@ -1,10 +1,10 @@
-import IOpportunity from '@/types/opportunity'
-import IApplication from '@/types/application'
-import Top from './Top'
-import ReferralCard from './ReferralCard'
-import SecondarySection from './SecondarySection'
-import CompanySection from './CompanySection'
-import FeedbackSection from './FeedbackSection'
+import IOpportunity from "@/types/opportunity"
+import IApplication from "@/types/application"
+import Top from "./Top"
+import ReferralCard from "./ReferralCard"
+import SecondarySection from "./SecondarySection"
+import CompanySection from "./CompanySection"
+import FeedbackSection from "./FeedbackSection"
 
 export default function PrimarySection({
 	post,
@@ -18,10 +18,10 @@ export default function PrimarySection({
 	isAdmin: boolean
 }) {
 	const hasRejectionFeedback = post.applications.some(
-		(a: IApplication) => a.status === 'rejected' && a.rejectionFeedback
+		(a: IApplication) => a.status === "rejected" && a.rejectionFeedback
 	)
 	return (
-		<div className="col-span-6 lg:col-span-4">
+		<div className="col-span-6 lg:col-span-4 mr-2">
 			<Top post={post} />
 
 			<ReferralCard

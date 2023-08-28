@@ -1,28 +1,31 @@
-import Layout from "@/components/Layout/Layout"
-import ArrowButton from "@/components/Misc/ArrowButton"
-import Image from "next/image"
-import JobDescriptionGenerator from "@/components/JobDescriptionGenerator"
+import Layout from '@/components/Layout/Layout'
+import ArrowButton from '@/components/Misc/ArrowButton'
+import Image from 'next/image'
+import JobDescriptionGenerator from '@/components/JobDescriptionGenerator'
 
 export default function ProductPage() {
 	return (
-		<Layout classNames="bg-b-blue-dark text-b-blue-dark">
-			<section className="flex flex-col justify-center items-center bg-b-blue-dark text-white">
+		<Layout classNames=" pt-28">
+			<section className="flex flex-col justify-center items-center">
 				<div className="py-28 flex flex-col gap-2 p-4 lg:flex-row w-full max-w-7xl">
 					<div className="w-full text-center lg:text-left max-w-7xl flex flex-col items-center lg:items-start gap-8">
 						<h1 className="text-5xl max-w-sm font-bold">
 							There's a better way to hire
 						</h1>
 						<p className="text-xl max-w-lg">
-							Skip the headache of recruitment and let the{" "}
-							<span className="font-bold text-b-yellow">βountree</span> referral
+							Skip the headache of recruitment and let the{' '}
+							<span className="font-bold text-b-yellow">bountree</span> referral
 							network find your dream team.
 						</p>
-						<ArrowButton target="_blank" href="https://calendly.com/wdib">
+						<ArrowButton
+							target="_blank"
+							href="https://calendly.com/wdib"
+						>
 							Book a Demo
 						</ArrowButton>
 						<p className="text-2xl font-bold lg:mb-0 mb-8 ">
-							Or try out our magic{" "}
-							<span className="text-b-yellow">job description generator</span>!
+							Or try out our magic{' '}
+							<span className="text-b-yellow">job description generator</span>
 							<span className="hidden lg:inline">👉</span>
 							<span className="lg:hidden inline">👇</span>
 						</p>
@@ -31,7 +34,7 @@ export default function ProductPage() {
 						<JobDescriptionGenerator />
 						<p className="mt-2 text-justify">
 							Hire top talent without spending all your time crafting the
-							perfect job description with βountree's Job Description Generator!
+							perfect job description with bountree's Job Description Generator!
 							Create tailored and professional job postings that reflect your
 							company's unique voice.
 						</p>

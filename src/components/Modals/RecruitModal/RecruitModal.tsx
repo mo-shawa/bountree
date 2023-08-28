@@ -115,6 +115,8 @@ export default function RecruitModal({
 				handleCheckboxChange={handleCheckboxChange}
 			/>,
 		])
+
+	// Definitely better doing this with a reducer 🤷‍♂️
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 
@@ -213,11 +215,9 @@ export default function RecruitModal({
 						className="absolute inset-0 backdrop-blur-md flex items-center justify-center"
 					>
 						{loading && (
-							<>
 								<Loader>
-									<p className="text-white text-2xl mt-3">{message}</p>
+									<p className=" text-2xl mt-3">{message}</p>
 								</Loader>
-							</>
 						)}
 						{success === undefined && !loading && (
 							<RecruitForm

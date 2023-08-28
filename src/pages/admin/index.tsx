@@ -56,7 +56,7 @@ export default function Admin() {
 	if (!applications || applications.length === 0) return <Loader />
 
 	return (
-		<Layout classNames="bg-b-blue-dark">
+		<Layout >
 			<div className="overflow-x-auto w-full max-w-7xl mx-auto  p-4">
 				<h1 className="text-2xl font-bold my-5 text-white">Applications</h1>
 				<Link
@@ -95,7 +95,7 @@ export default function Admin() {
 
 				<div
 					tabIndex={0}
-					className="collapse collapse-arrow border mt-12 rounded-lg bg-red-900 "
+					className="collapse collapse-arrow border mt-12 rounded-md bg-red-900 "
 				>
 					<h1
 						id="archived"
@@ -104,7 +104,7 @@ export default function Admin() {
 						Archived (rejections)
 					</h1>
 
-					<div className="collapse-content">
+					<div className="collapse-content bg-white">
 						<table className=" table table-zebra w-full">
 							<thead>
 								<tr>
@@ -117,7 +117,7 @@ export default function Admin() {
 									<th>Update status</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody >
 								{archived.length &&
 									archived.map((app, idx) => {
 										return (

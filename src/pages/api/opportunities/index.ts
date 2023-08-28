@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import serverAuthenticate from "@/utils/serverAuthenticate"
-import { getOpportunities } from "../../../../controllers/opportunity"
+import { NextApiRequest, NextApiResponse } from 'next'
+import serverAuthenticate from '@/utils/serverAuthenticate'
+import { getOpportunities } from '@/controllers/opportunity'
 
 export default async function handler(
 	req: NextApiRequest,
@@ -8,10 +8,10 @@ export default async function handler(
 ) {
 	try {
 		const { token } = await serverAuthenticate(req)
-		if (!token) return res.status(401).json({ error: "Unauthorized" })
+		if (!token) return res.status(401).json({ error: 'Unauthorized' })
 		const { method } = req
 
-		if (method === "GET") {
+		if (method === 'GET') {
 			const opportunities = await getOpportunities()
 			return res.status(200).json({ success: true, data: opportunities })
 		}

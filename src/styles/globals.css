@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+	.animation-delay-2000 {
+		animation-delay: 2000ms;
+	}
+
+	.animation-delay-4000 {
+		animation-delay: 4000ms;
+	}
+}
+
+h1,
+h2,
+h3,h4 {
+	@apply leading-snug tracking-tight;
+}
+
 .badge {
 	@apply py-2.5 text-xs font-normal;
 }
@@ -28,7 +44,7 @@ main {
 	display: inline-block;
 	position: relative;
 	border: 3px solid;
-	border-color: #fff #fff transparent transparent;
+	border-color: #c3b688  #c3b688  transparent transparent;
 	box-sizing: border-box;
 	animation: rotation 1s linear infinite;
 }
@@ -54,7 +70,7 @@ main {
 .loader::before {
 	width: 32px;
 	height: 32px;
-	border-color: #fff #fff transparent transparent;
+	border-color: #555248  #555248  transparent transparent;
 	animation: rotation 1.5s linear infinite;
 }
 
