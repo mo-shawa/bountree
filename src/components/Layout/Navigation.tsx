@@ -68,18 +68,20 @@ export default function Navigation() {
 						>
 							{navigation.map((item) => (
 								<li
-									className={classNames(
-										item.current ? "bg-b-yellow/20 font-semibold" : "",
-										"cursor-pointer hover:bg-base-200 p-4 rounded-lg"
-									)}
+									
 									key={item.name}
 								>
+									<Link className={classNames(
+										item.current ? "bg-b-yellow/20 font-semibold" : "",
+										"cursor-pointer hover:bg-base-200 p-4 rounded-lg"
+									)} href={item.href}>
 									{item.name}
+									</Link>
 								</li>
 							))}
 						</ul>
 					</div>
-					<Link href="/" className="cursor-pointer mx-4 text-xl">
+					<Link href="/" className="hidden xs:block cursor-pointer mx-4 text-xl">
 						<Image
 							src="/static/svg/bountree.svg"
 							alt="Logo"
@@ -87,6 +89,7 @@ export default function Navigation() {
 							height={30}
 						/>
 					</Link>
+				
 					<div className=" hidden lg:flex">
 						<ul className="menu menu-horizontal px-1 gap-4">
 							{navigation.map((item) => (
@@ -107,6 +110,14 @@ export default function Navigation() {
 						</ul>
 					</div>
 				</div>
+				<Link href="/" className="block xs:hidden justify-self-center cursor-pointer mx-4 text-xl">
+						<Image
+							src="/static/svg/icon.svg"
+							alt="Icon"
+							width={30}
+							height={30}
+						/>
+					</Link>
 				<div className="navbar-end gap-2">
 					{status === "authenticated" ? (
 						<div className="dropdown dropdown-end">
@@ -125,7 +136,7 @@ export default function Navigation() {
 								className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 gap-2"
 							>
 								<li >
-									<Link href="/dashboard" className="justify-between p-4">
+									<Link href="/dashboard" className="p-4">
 										Dashboard
 									</Link>
 								</li>
@@ -150,6 +161,7 @@ export default function Navigation() {
 								// className="hidden lg:flex"
 								onClick={signIn}
 								target="_self"
+								className="rounded-r-full rounded-l-full text"
 							>
 								Sign in
 							</HoverButton>

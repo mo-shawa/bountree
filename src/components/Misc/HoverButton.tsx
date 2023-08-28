@@ -58,7 +58,7 @@ export default function HoverButton({
 					className={`absolute w-0 h-0 transition-all duration-500 ease-in-out rounded-full group-hover:w-72 group-hover:h-72 ${buttonType[type].inner}`}
 				></span>
 
-				<span className="relative">{children}</span>
+				<span className="relative whitespace-nowrap">{children}</span>
 			</Link>
 		</motion.button>
 	)
