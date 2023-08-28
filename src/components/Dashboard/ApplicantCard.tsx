@@ -27,17 +27,17 @@ export default function ApplicantCard({
 		: `${formatCurrency(min, currency)} - ${formatCurrency(max, currency)}`
 
 	const buttonStyles =
-		"btn bg-b-blue-dark text-white shadow hover:bg-blue-500 hover:text-white border-white/10  hover:border-transparent transition-all duration-300 ease-in-out text-sm font-normal"
+		"btn bg-b-blue-dark text-white shadow hover:bg-b-yellow hover:text-white border-white/10  hover:border-transparent transition-all duration-300 ease-in-out text-sm font-normal"
 
 	return (
-		<div className="shadow w-full bg-white rounded-md border p-4 pb-0 hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out focus-within:border-blue-500">
+		<div className="shadow w-full bg-white rounded-md border p-4 pb-0 hover:border-b-yellow hover:shadow-md transition-all duration-300 ease-in-out focus-within:border-b-yellow">
 			<div className="w-full  flex flex-row justify-between items-center ">
 				<div className="h-full flex justify-between w-full items-center">
 					<div className="flex gap-4">
 						<div className="font-thin text-xs flex flex-col xs:justify-between gap-2">
 							<a
 								href={`/opportunities/${opportunityId}`}
-								className="flex items-center gap-2 whitespace-nowrap text-ellipsis hover:text-blue-500"
+								className="flex items-center gap-2 whitespace-nowrap text-ellipsis hover:text-b-yellow"
 							>
 								<p>{opportunity?.title}</p>-<p>{opportunity?.company.name}</p>
 							</a>
@@ -47,9 +47,9 @@ export default function ApplicantCard({
 							<div className="flex gap-2 text-xs font-thin text-gray-500 hover:text-blue">
 								<p>Applied {new Date(createdAt).toLocaleDateString()}</p>-
 								<a href={cv as string}>
-									<p className="font-medium hover:text-blue-500 flex items-center group">
+									<p className="font-medium hover:text-b-yellow flex items-center group">
 										View CV
-										<ArrowSVG className="fill-blue-500 group-hover:fill-black" />
+										<ArrowSVG className="fill-b-yellow group-hover:fill-black" />
 									</p>
 								</a>
 							</div>
@@ -81,11 +81,11 @@ export default function ApplicantCard({
 			<div
 				className={classNames(
 					open ? "collapse-open pb-4" : "",
-					"collapse mt-4 border-t rounded-t-none collapse-arrow rounded-b p-0 hover:text-blue-500 focus:text-blue-500 transition-colors duration-300 ease-in-out"
+					"collapse mt-4 border-t rounded-t-none collapse-arrow rounded-b p-0 hover:text-b-yellow focus:text-b-yellow transition-colors duration-300 ease-in-out"
 				)}
 			>
 				<input tabIndex={0} type="checkbox" className="peer" />
-				<div className=" collapse-title text-md font-medium px-0 peer-checked:text-blue-500 ">
+				<div className=" collapse-title text-md font-semibold px-0 peer-checked:text-b-yellow ">
 					Details
 				</div>
 				<div className="collapse-content p-0 flex flex-col gap-4 ">
