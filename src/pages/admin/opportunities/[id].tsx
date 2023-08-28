@@ -39,7 +39,7 @@ export default function Opportunity() {
 		}
 
 		if (id && router.isReady) fetchOpportunity()
-	}, [router.isReady])
+	}, [router.isReady, id])
 
 	async function handleSubmit(event: any) {
 		event.preventDefault()

@@ -39,7 +39,7 @@ export default function PostDetail() {
 		}
 
 		if (router.isReady) fetchPost()
-	}, [id, router.isReady])
+	}, [id, router.isReady, session?.user._id])
 
 	useEffect(() => {
 		if (!post) return
@@ -50,7 +50,7 @@ export default function PostDetail() {
 					(a: IApplication) => a.userId === session?.user._id
 				).length
 		)
-	}, [post])
+	}, [post, session?.user.applicationLimit, session?.user._id])
 
 	if (status === "loading" || !post) return <Loader />
 
