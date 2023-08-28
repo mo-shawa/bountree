@@ -62,16 +62,8 @@ export default function Home({
 							</HoverButton>
 						</div>
 					</div>
-					<div className="h-full relative mt-10">
-						<Floaters />
-						{/* <Image
-							src="/static/hero.png"
-							alt="hero image"
-							width={500}
-							height={500}
-							className="mx-auto relative"
-						/> */}
-
+					<div className="h-full mt-10 relative overflow-visible">
+							<Floaters />
 						{latestOpportunities.length ? (
 							latestOpportunities.map(
 								(opportunity: IOpportunity, index: number) => (
