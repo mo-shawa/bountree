@@ -21,7 +21,7 @@ export default function Home({
 
 	return (
 		<Layout classNames="bg-white">
-			<section className=" flex flex-col justify-center items-center overflow-hidden md:overflow-visible mt-20 ">
+			<section className=" flex flex-col justify-center items-center overflow-hidden md:overflow-visible mt-12 ">
 				<div className="grid lg:grid-cols-2 py-12 w-full max-w-7xl px-4 mt-20 ">
 					<div
 						className=" flex flex-col items-center lg:items-start justify-center z-10"
