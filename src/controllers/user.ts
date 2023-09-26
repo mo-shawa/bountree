@@ -1,7 +1,7 @@
 import clientPromise from "../../db/connect"
 import { ObjectId } from "mongodb"
 import IUser from "@/types/user"
-import type IApplication from "@/types/application"
+import type { Application } from "@/types/application"
 
 export async function getAdminUsers() {
   const client = await clientPromise
@@ -34,7 +34,7 @@ export async function updateUser(id: string, data: Partial<IUser>) {
 
 export async function addApplicationToUser(
   id: string,
-  application: IApplication
+  application: Application
 ) {
   const client = await clientPromise
   const db = client.db(process.env.DATABASE_NAME)

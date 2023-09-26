@@ -2,7 +2,7 @@ import Layout from "@/components/Layout/Layout"
 import { useSession } from "next-auth/react"
 import { signIn } from "next-auth/react"
 import { useState, useEffect } from "react"
-import IApplication from "@/types/application"
+import { Application } from "@/types/application"
 import { useRouter } from "next/router"
 import Sidebar from "@/components/Dashboard/Sidebar"
 import MainContent from "@/components/Dashboard/MainContent"
@@ -10,10 +10,10 @@ import MainContent from "@/components/Dashboard/MainContent"
 export default function Dashboard() {
   const { data: session, status } = useSession()
 
-  const [applicants, setApplicants] = useState<IApplication[]>([])
+  const [applicants, setApplicants] = useState<Application[]>([])
   const router = useRouter()
 
-  const getPotentialEarnings = (applicants: IApplication[]) => {
+  const getPotentialEarnings = (applicants: Application[]) => {
     const uniqueApplicants = applicants.filter(
       (app, index, self) =>
         index ===
@@ -36,13 +36,10 @@ export default function Dashboard() {
       return acc + curr.opportunity?.reward.amount!
     }, 0)
 
-  // console.log(potentialEarnings)
-
   useEffect(() => {
     async function getDashboardData() {
       const res = await fetch(`/api/users/${session?.user.id}/dashboard`)
       const data = await res.json()
-      console.log(data)
       setApplicants(data.opportunities)
     }
 

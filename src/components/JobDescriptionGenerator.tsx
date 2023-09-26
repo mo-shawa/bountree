@@ -50,15 +50,12 @@ export default function JobDescriptionGenerator() {
     setDisplayResponse("")
 
     setLoading(true)
-    console.log(formData)
 
     const query = new URLSearchParams(formData).toString()
-    console.log(query)
 
     const res = await fetch("/api/ai/generate-job-description?" + query)
 
     const data = await res.json()
-    console.log(data)
     setMessage(data.choices[0].message.content)
     setLoading(false)
   }

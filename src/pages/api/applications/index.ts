@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import serverAuthenticate from "@/utils/serverAuthenticate"
-import IApplication from "@/types/application"
+import { Application, ApplicationWithout_Id } from "@/types/application"
 import { createApplication } from "@/controllers/application"
-import { getOpportunityById } from "@/controllers/opportunity"
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,14 +16,14 @@ export default async function handler(
     if (method === "POST") {
       const parsedBody = JSON.parse(req.body)
 
-      const application: IApplication = {
+      const application: ApplicationWithout_Id = {
         ...parsedBody,
         status: "pending",
         createdAt: new Date(),
         updatedAt: new Date(),
       }
 
-      const newApplication = await createApplication(application)
+      const newApplication: Application = await createApplication(application)
 
       return res.status(200).json({ newApplication })
     }

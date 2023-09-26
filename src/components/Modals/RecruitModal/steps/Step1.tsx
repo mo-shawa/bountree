@@ -1,9 +1,8 @@
 import React, { ChangeEvent } from "react"
-import IApplication from "@/types/application"
-import { useRef, useEffect } from "react"
+import { ApplicationInput } from "@/types/application"
 
 type Props = {
-  formData: Partial<IApplication>
+  formData: ApplicationInput
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void
   setFile: (file: File) => void
   file: File | undefined

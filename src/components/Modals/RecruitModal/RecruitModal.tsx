@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import IApplication from "@/types/application"
+import { ApplicationInput } from "@/types/application"
 import IOpportunity from "@/types/opportunity"
 import { Loader } from "../../Loader/Loader"
 import { useSession } from "next-auth/react"
@@ -34,7 +34,7 @@ export default function RecruitModal({
 }: Props) {
   const { data: session } = useSession()
 
-  const [formData, setFormData] = useState<Partial<IApplication>>({
+  const [formData, setFormData] = useState<ApplicationInput>({
     userId: session?.user?.id,
     opportunityId,
     name: "",
@@ -131,8 +131,6 @@ export default function RecruitModal({
     )
 
     const linkedInUsed = await resLinkedIn.json()
-    console.log({ resLinkedIn, linkedInUsed })
-    // const linkedInUsed = true
     if (linkedInUsed.application) {
       setSuccess(false)
       setLoading(false)
@@ -176,9 +174,6 @@ export default function RecruitModal({
         cv: `https://storage.googleapis.com/bountree-pdf-bucket/${encodedFileName}`,
       }),
     })
-    const json = await res.json()
-
-    console.log(json)
 
     if (!res.ok) {
       setSuccess(false)

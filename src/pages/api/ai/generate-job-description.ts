@@ -9,10 +9,6 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
-export const config = {
-  runtime: "edge",
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -46,7 +42,6 @@ export default async function handler(
     const jobDescription: string | undefined =
       response.data.choices[0].message?.content
     const formattedJD: string = jobDescription!.replaceAll("\r?\n", "<br/>")
-    console.log({ jobDescription, formattedJD })
 
     // save email for marketing
     const foundUser = await checkEmailListForUser(email as string)

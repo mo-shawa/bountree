@@ -2,7 +2,7 @@ import Layout from "@/components/Layout/Layout"
 import { useSession } from "next-auth/react"
 import { signIn } from "next-auth/react"
 import { useState, useEffect, useCallback } from "react"
-import IApplication from "@/types/application"
+import { ApplicationWithUser } from "@/types/application"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { Loader } from "@/components/Loader/Loader"
@@ -13,10 +13,10 @@ import Unauthorized from "@/components/Admin/Unauthorized"
 
 export default function Admin() {
   const { data: session, status } = useSession()
-  const [applications, setApplications] = useState<IApplication[]>([])
-  const [archived, setArchived] = useState<IApplication[]>([])
+  const [applications, setApplications] = useState<ApplicationWithUser[]>([])
+  const [archived, setArchived] = useState<ApplicationWithUser[]>([])
   const [selectedApplication, setSelectedApplication] =
-    useState<IApplication | null>(null)
+    useState<ApplicationWithUser | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
   const router = useRouter()
 
@@ -28,10 +28,10 @@ export default function Admin() {
       const data = await res.json()
       console.log(data)
       const applications = data.applications.filter(
-        (app: IApplication) => app.status !== "rejected"
+        (app: ApplicationWithUser) => app.status !== "rejected"
       )
       const archived = data.applications.filter(
-        (app: IApplication) => app.status === "rejected"
+        (app: ApplicationWithUser) => app.status === "rejected"
       )
       setApplications(applications)
       setArchived(archived)
@@ -44,12 +44,15 @@ export default function Admin() {
     signIn("", { callbackUrl: router.asPath })
   }
 
-  const handleOnSelectApplication = useCallback((application: IApplication) => {
-    setModalOpen(() => {
-      setSelectedApplication(application)
-      return true
-    })
-  }, [])
+  const handleOnSelectApplication = useCallback(
+    (application: ApplicationWithUser) => {
+      setModalOpen(() => {
+        setSelectedApplication(application)
+        return true
+      })
+    },
+    []
+  )
 
   if (session && !isAdmin) return <Unauthorized session={session} />
 
@@ -153,10 +156,10 @@ function Row({
   handleOnSelectApplication,
   setApplications,
 }: {
-  application: IApplication
+  application: ApplicationWithUser
   num: number
-  handleOnSelectApplication: (application: IApplication) => void
-  setApplications: React.Dispatch<React.SetStateAction<IApplication[]>>
+  handleOnSelectApplication: (application: ApplicationWithUser) => void
+  setApplications: React.Dispatch<React.SetStateAction<ApplicationWithUser[]>>
 }) {
   const [selectedStatus, setSelectedStatus] = useState(application.status)
   const [reason, setReason] = useState("")

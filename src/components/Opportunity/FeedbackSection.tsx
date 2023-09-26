@@ -1,9 +1,9 @@
 import IOpportunity from "@/types/opportunity"
-import IApplication from "@/types/application"
+import { Application } from "@/types/application"
 
 export default function FeedbackSection({ post }: { post: IOpportunity }) {
   const applicationsWithFeedback = post.applications.filter(
-    (app: IApplication) => app.rejectionFeedback
+    (app: Application) => app.rejectionFeedback
   )
   return (
     <div className="pb-10">
@@ -18,7 +18,7 @@ export default function FeedbackSection({ post }: { post: IOpportunity }) {
         </p>
       </div>
       <ul className="ml-5 list-disc md:ml-14 ">
-        {applicationsWithFeedback.map((app: IApplication, i: number) => (
+        {applicationsWithFeedback.map((app: Application, i: number) => (
           <li key={app._id as string} className="my-4">
             {`Candidate #${i + 1}: ${app.rejectionFeedback}`}
           </li>

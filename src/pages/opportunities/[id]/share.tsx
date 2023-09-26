@@ -19,8 +19,6 @@ export default function SharedOpportunity() {
       const res = await fetch(`/api/opportunities/${id}/share`)
       const data = await res.json()
 
-      console.log({ res, data })
-
       if (data.error) {
         setError(
           "An error occurred while loading the post. Please try again in a few minutes."

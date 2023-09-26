@@ -1,10 +1,10 @@
 import ArrowSVG from "../Misc/ArrowSVG"
 import ApplicantCard from "./ApplicantCard"
-import IApplication from "@/types/application"
+import { Application } from "@/types/application"
 import Link from "next/link"
 
 type Props = {
-  applicants?: IApplication[]
+  applicants: Application[]
 }
 
 export default function Content({ applicants }: Props) {

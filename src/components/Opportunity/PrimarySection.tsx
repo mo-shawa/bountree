@@ -1,5 +1,5 @@
 import IOpportunity from "@/types/opportunity"
-import IApplication from "@/types/application"
+import { Application } from "@/types/application"
 import Top from "./Top"
 import ReferralCard from "./ReferralCard"
 import SecondarySection from "./SecondarySection"
@@ -18,7 +18,7 @@ export default function PrimarySection({
   isAdmin: boolean
 }) {
   const hasRejectionFeedback = post.applications.some(
-    (a: IApplication) => a.status === "rejected" && a.rejectionFeedback
+    (a: Application) => a.status === "rejected" && a.rejectionFeedback
   )
   return (
     <div className="col-span-6 mr-2 lg:col-span-4">

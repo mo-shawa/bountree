@@ -1,5 +1,5 @@
 import type { ObjectId, Document } from "mongodb"
-import IApplication from "./application"
+import { Application } from "./application"
 
 export default interface IOpportunity extends Document {
   title: string

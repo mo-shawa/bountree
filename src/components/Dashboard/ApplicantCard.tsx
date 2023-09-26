@@ -1,9 +1,9 @@
-import IApplication from "@/types/application"
+import { Application } from "@/types/application"
 import { classNames, formatCurrency } from "@/utils/misc"
 import ArrowSVG from "../Misc/ArrowSVG"
 import { statusStyle } from "@/utils/misc"
 
-type Props = IApplication & {
+type Props = Application & {
   open: boolean
 }
 

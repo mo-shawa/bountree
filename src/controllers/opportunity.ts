@@ -27,8 +27,6 @@ export async function getOpportunityByIdWithApplications(id: string) {
     .find({ opportunityId: new ObjectId(id) })
     .toArray()
 
-  console.log({ foundOpportunity, applications })
-
   foundOpportunity.applications = applications
   return foundOpportunity
 }

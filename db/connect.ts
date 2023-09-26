@@ -1,6 +1,6 @@
 import { MongoClient, MongoClientOptions, ServerApiVersion } from "mongodb"
 
-const uri = process.env.DATABASE_URI as string // your mongodb connection string
+const uri = process.env.DATABASE_URI as string
 const options: MongoClientOptions = {
   maxPoolSize: 1,
   maxIdleTimeMS: 10000,
@@ -25,28 +25,6 @@ class Singleton {
       // is preserved across module reloads caused by HMR (Hot Module Replacement).
       global._mongoClientPromise = this.clientPromise
     }
-
-    this.client.addListener("close", () => {
-      console.log("MongoDB connection closed")
-    })
-    this.client.addListener("reconnect", () => {
-      console.log("MongoDB reconnected")
-    })
-    this.client.addListener("timeout", () => {
-      console.log("MongoDB connection timed out")
-    })
-    this.client.addListener("error", (err) => {
-      console.log("MongoDB error", err)
-    })
-    this.client.addListener("connectionPoolClosed", () => {
-      console.log("MongoDB connection pool closed")
-    })
-    this.client.addListener("connectionPoolCreated", () => {
-      console.log("MongoDB connection pool created")
-    })
-    this.client.addListener("connectionCreated", () => {
-      console.log("MongoDB connection created")
-    })
   }
 
   public static get instance() {
@@ -58,6 +36,6 @@ class Singleton {
 }
 const clientPromise = Singleton.instance
 
-// Export a module-scoped MongoClient promise. By doing this in a
-// separate module, the client can be shared across functions.
 export default clientPromise
+
+// This is a bandaid at best. Use a serverless-ready database like FaunaDB or DynamoDB instead. Learn from my suffering.

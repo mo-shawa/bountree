@@ -1,9 +1,9 @@
-import IApplication from "@/types/application"
+import { ApplicationInput } from "@/types/application"
 import clientPromise from "../../db/connect"
 import { ObjectId } from "mongodb"
 
 export async function createApplication(
-  application: IApplication
+  application: ApplicationInput
 ): Promise<any> {
   const client = await clientPromise
   const db = client.db(process.env.DATABASE_NAME)

@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react"
 import Loader from "@/components/Loader/Loader"
 import { signIn } from "next-auth/react"
 import RecruitModal from "@/components/Modals/RecruitModal/RecruitModal"
-import IApplication from "@/types/application"
+import { Application } from "@/types/application"
 import PrimarySection from "@/components/Opportunity/PrimarySection"
 import ReferralCard from "@/components/Opportunity/ReferralCard"
 
@@ -47,7 +47,7 @@ export default function PostDetail() {
     setApplicationsRemaining(
       (session?.user.applicationLimit || 5) -
         post.applications.filter(
-          (a: IApplication) => a.userId === session?.user._id
+          (a: Application) => a.userId === session?.user._id
         ).length
     )
   }, [post, session?.user.applicationLimit, session?.user._id])

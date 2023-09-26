@@ -1,4 +1,4 @@
-import IApplication from "@/types/application"
+import { Application } from "@/types/application"
 import { Session } from "next-auth"
 import Image from "next/image"
 import { formatCurrency } from "@/utils/misc"
@@ -8,7 +8,7 @@ type SidebarProps = {
   totalEarnings: number
   potentialEarnings: number
   session: Session | null
-  applicants?: IApplication[]
+  applicants?: Application[]
 }
 
 export default function SideBar({

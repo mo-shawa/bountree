@@ -1,9 +1,9 @@
-import IApplication from "@/types/application"
+import { ApplicationInput } from "@/types/application"
 import React, { ChangeEvent } from "react"
 import { InformationCircleIcon } from "@heroicons/react/24/outline"
 
 type Props = {
-  formData: Partial<IApplication>
+  formData: ApplicationInput
   handleChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
@@ -36,28 +36,25 @@ export default function Step2({ formData, handleChange }: Props) {
           className="input  bg-gray-100 shadow"
         />
       </div>
-      {/* <div className="form-control w-full max-w-xs my-4">
-				<label
-					htmlFor="secondary"
-					className="label"
-				>
-					<span className="label-text">Secondary link</span>
-					<div
-						className="tooltip tooltip-left"
-						data-tip="Example: https://github.com/user "
-					>
-						<InformationCircleIcon className="h-5 w-5 text-gray-600" />
-					</div>
-				</label>
-				<input
-					value={formData.secondary}
-					name="secondary"
-					onChange={handleChange}
-					type="text"
-					placeholder="(Optional) GitHub, Behance, etc."
-					className="input  bg-gray-100 shadow"
-				/>
-			</div> */}
+      <div className="form-control my-4 w-full max-w-xs">
+        <label htmlFor="secondary" className="label">
+          <span className="label-text">Secondary link</span>
+          <div
+            className="tooltip tooltip-left"
+            data-tip="Example: https://github.com/user "
+          >
+            <InformationCircleIcon className="h-5 w-5 text-gray-600" />
+          </div>
+        </label>
+        <input
+          value={formData.secondary}
+          name="secondary"
+          onChange={handleChange}
+          type="text"
+          placeholder="(Optional) GitHub, Behance, etc."
+          className="input  bg-gray-100 shadow"
+        />
+      </div>
       <div className="form-control mb-4 w-full max-w-xs">
         <label htmlFor="description" className="label">
           <span className="label-text">
