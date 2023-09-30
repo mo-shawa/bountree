@@ -1,7 +1,7 @@
-import IOpportunity from "@/types/opportunity"
+import { Opportunity } from "@/types/opportunity"
 
 type Props = {
-  post: IOpportunity
+  post: Opportunity
   isSharing?: boolean
 }
 

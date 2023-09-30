@@ -1,7 +1,11 @@
-import IOpportunity from "@/types/opportunity"
+import { OpportunityWithApplications } from "@/types/opportunity"
 import { Application } from "@/types/application"
 
-export default function FeedbackSection({ post }: { post: IOpportunity }) {
+export default function FeedbackSection({
+  post,
+}: {
+  post: OpportunityWithApplications
+}) {
   const applicationsWithFeedback = post.applications.filter(
     (app: Application) => app.rejectionFeedback
   )

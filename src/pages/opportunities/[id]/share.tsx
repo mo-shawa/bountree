@@ -1,7 +1,7 @@
 import Top from "@/components/Opportunity/Top"
 import SecondarySection from "@/components/Opportunity/SecondarySection"
 import CompanySection from "@/components/Opportunity/CompanySection"
-import IOpportunity from "@/types/opportunity"
+import { Opportunity } from "@/types/opportunity"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import { Loader } from "@/components/Loader/Loader"
@@ -11,7 +11,7 @@ export default function SharedOpportunity() {
   const router = useRouter()
   const { id } = router.query as { id: string }
 
-  const [post, setPost] = useState<IOpportunity>()
+  const [post, setPost] = useState<Opportunity>()
   const [error, setError] = useState<string>()
 
   useEffect(() => {

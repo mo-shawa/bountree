@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import Layout from "@/components/Layout/Layout"
 import { useEffect, useState } from "react"
-import IOpportunity from "../../../types/opportunity"
+import { OpportunityWithApplications } from "@/types/opportunity"
 import { useSession } from "next-auth/react"
 import Loader from "@/components/Loader/Loader"
 import { signIn } from "next-auth/react"
@@ -16,7 +16,7 @@ export default function PostDetail() {
 
   const { data: session, status } = useSession()
 
-  const [post, setPost] = useState<IOpportunity>()
+  const [post, setPost] = useState<OpportunityWithApplications>()
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [error, setError] = useState<string>()
   const [applicationsRemaining, setApplicationsRemaining] = useState<number>(5)

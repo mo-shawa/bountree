@@ -1,13 +1,9 @@
-import IOpportunity from "@/types/opportunity"
+import { Opportunity } from "@/types/opportunity"
 import Image from "next/image"
-import { formatCurrency } from "@/utils/misc"
+import { formatCurrency, getSalaryString } from "@/utils/misc"
 
-export default function Top({ post }: { post: IOpportunity }) {
-  const { fixed, min, max, currency } = post.salary
-
-  const salary = fixed
-    ? formatCurrency(fixed, currency)
-    : `${formatCurrency(min, currency)} - ${formatCurrency(max, currency)}`
+export default function Top({ post }: { post: Opportunity }) {
+  const salary = getSalaryString(post)
 
   return (
     <div className="col-span-6 mb-10 mt-12 flex h-min w-full flex-row items-center justify-between lg:col-span-4 ">

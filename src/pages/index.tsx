@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react"
 import ArrowSVG from "@/components/Misc/ArrowSVG"
 import OpportunityCard from "@/components/Opportunities/OpportunityCard"
 import { Loader } from "@/components/Loader/Loader"
-import IOpportunity from "@/types/opportunity"
+import { Opportunity } from "@/types/opportunity"
 import Floaters from "@/components/Misc/Floaters"
 import HoverButton from "@/components/Misc/HoverButton"
 import HowItWorksCard from "@/components/Misc/HowItWorksCard"
@@ -63,7 +63,7 @@ export default function Home({
             <Floaters />
             {latestOpportunities.length ? (
               latestOpportunities.map(
-                (opportunity: IOpportunity, index: number) => (
+                (opportunity: Opportunity, index: number) => (
                   <OpportunityCard
                     key={opportunity.id}
                     opportunity={opportunity}

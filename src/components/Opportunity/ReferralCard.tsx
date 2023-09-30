@@ -1,4 +1,4 @@
-import IOpportunity from "@/types/opportunity"
+import { Opportunity } from "@/types/opportunity"
 import { classNames } from "@/utils/misc"
 import Pill from "../Misc/Pill"
 import Link from "next/link"
@@ -11,7 +11,7 @@ export default function ReferralCard({
   mobile = false,
   isAdmin,
 }: {
-  post: IOpportunity
+  post: Opportunity
   applicationsRemaining: number
   setModalOpen: (open: boolean) => void
   mobile?: boolean

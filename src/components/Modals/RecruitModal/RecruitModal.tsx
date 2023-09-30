@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { ApplicationInput } from "@/types/application"
-import IOpportunity from "@/types/opportunity"
+import { OpportunityWithApplications } from "@/types/opportunity"
 import { Loader } from "../../Loader/Loader"
 import { useSession } from "next-auth/react"
 import { getGCSUploadData } from "@/utils/cloudStorage"
@@ -18,7 +18,7 @@ type Props = {
   userId: string
   opportunityId: string
   setModalOpen: (open: boolean) => void
-  setPost: (post: IOpportunity) => void
+  setPost: (post: OpportunityWithApplications) => void
   applicationsRemaining: number
   setApplicationsRemaining: (prev: number) => void
   requirements: string[]

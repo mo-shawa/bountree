@@ -1,5 +1,5 @@
 import clientPromise from "../../db/connect"
-import IOpportunity from "../types/opportunity"
+import { Opportunity } from "../types/opportunity"
 import { ObjectId } from "mongodb"
 
 export async function getLatestOpportunities() {
@@ -42,14 +42,16 @@ export async function getOpportunityById(id: string) {
   return foundOpportunity
 }
 
-export async function createOpportunity(opportunity: IOpportunity) {
+export async function createOpportunity(opportunity: Opportunity) {
   const client = await clientPromise
   const db = client.db(process.env.DATABASE_NAME)
-  const newOpportunity = await db.collection("opportunities").insertOne({
-    ...opportunity,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  })
+  const newOpportunity = await db
+    .collection<Opportunity>("opportunities")
+    .insertOne({
+      ...opportunity,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
   return newOpportunity
 }
 
@@ -97,7 +99,7 @@ export async function addApplicationToOpportunity(
 
 export async function updateOpportunity(
   opportunityId: string,
-  opportunity: IOpportunity
+  opportunity: Opportunity
 ) {
   const client = await clientPromise
   const db = client.db(process.env.DATABASE_NAME)

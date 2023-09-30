@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react"
 import OpportunityCard from "./OpportunityCard"
 import Filter from "./Filter"
-import IOpportunity from "@/types/opportunity"
+import { Opportunity } from "@/types/opportunity"
 import { formatCurrency } from "@/utils/misc"
 
 type OpportunitiesProps = {
-  data: IOpportunity[]
+  data: Opportunity[]
 }
 
 export default function MappedOpportunities({ data }: OpportunitiesProps) {
-  const [filteredData, setFilteredData] = useState<IOpportunity[]>()
+  const [filteredData, setFilteredData] = useState<Opportunity[]>()
   const [filteredBy, setFilteredBy] = useState<string>("All roles")
 
   useEffect(() => {
@@ -38,10 +38,7 @@ export default function MappedOpportunities({ data }: OpportunitiesProps) {
           <Filter filteredBy={filteredBy} setFilteredBy={setFilteredBy} />
           {filteredData && filteredData.length ? (
             filteredData.map((opportunity) => (
-              <OpportunityCard
-                opportunity={opportunity}
-                key={opportunity._id}
-              />
+              <OpportunityCard opportunity={opportunity} key={opportunity.id} />
             ))
           ) : (
             <div className="my-4 flex w-full flex-row items-center justify-between rounded-md bg-white p-4">

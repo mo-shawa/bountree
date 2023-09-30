@@ -1,22 +1,18 @@
 import Image from "next/image"
 import Link from "next/link"
 import Pill from "../Misc/Pill"
-import { classNames, formatCurrency } from "@/utils/misc"
+import { classNames, formatCurrency, getSalaryString } from "@/utils/misc"
 import { PauseCircleIcon, XCircleIcon } from "@heroicons/react/24/solid"
-import IOpportunity from "@/types/opportunity"
+import { Opportunity } from "@/types/opportunity"
 
 export default function OpportunityCard({
   opportunity,
   className = "",
 }: {
-  opportunity: IOpportunity
+  opportunity: Opportunity
   className?: string
 }) {
-  const { fixed, min, max, currency } = opportunity.salary
-
-  const salary = fixed
-    ? formatCurrency(fixed, currency)
-    : `${formatCurrency(min, currency)} - ${formatCurrency(max, currency)}`
+  const salary = getSalaryString(opportunity)
 
   const statusPillLeft = (() => {
     if (["paused", "closed"].includes(opportunity.status)) {

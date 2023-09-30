@@ -1,4 +1,5 @@
 import { ApplicationStatus } from "@/types/application"
+import { Opportunity } from "@/types/opportunity"
 
 export function classNames(...className: string[]) {
   return className.filter(Boolean).join(" ")
@@ -11,6 +12,26 @@ export function formatCurrency(amount?: number, currency: string = "USD") {
     currency: currency,
     maximumFractionDigits: 0,
   })
+}
+
+export function getSalaryString(opportunity: Opportunity) {
+  const { type, currency } = opportunity.salary
+  let salary
+  if (type === "fixed") {
+    const fixed = opportunity?.salary.fixed
+    salary = formatCurrency(fixed, currency)
+  }
+
+  if (type === "range") {
+    const min = opportunity?.salary.min
+    const max = opportunity?.salary.max
+    salary = `${formatCurrency(min, currency)} - ${formatCurrency(
+      max,
+      currency
+    )}`
+  }
+
+  return salary
 }
 
 export function isEmail(email: string) {

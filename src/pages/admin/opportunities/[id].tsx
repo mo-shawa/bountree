@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent } from "react"
-import IOpportunity from "@/types/opportunity"
+import { Opportunity } from "@/types/opportunity"
 import { useRouter } from "next/router"
 import { useSession } from "next-auth/react"
 import Unauthorized from "@/components/Admin/Unauthorized"
@@ -8,16 +8,14 @@ import { classNames } from "@/utils/misc"
 import Image from "next/image"
 import { Loader } from "@/components/Loader/Loader"
 
-export default function Opportunity() {
-  // Edit opportunity form
-
+export default function OpportunityEditor() {
   const { data: session } = useSession()
 
   const isAdmin = session?.user.email.split("@")[1] === "bountree.app" || false
 
-  const [opportunity, setOpportunity] = useState<IOpportunity>()
+  const [opportunity, setOpportunity] = useState<Opportunity>()
   const [opportunityFormData, setOpportunityFormData] = useState<
-    Partial<IOpportunity>
+    Partial<Opportunity>
   >({})
 
   const [requirements, setRequirements] = useState<string[]>([])
@@ -31,7 +29,8 @@ export default function Opportunity() {
     async function fetchOpportunity() {
       const response = await fetch(`/api/opportunities/${id}`)
       const data = await response.json()
-      const opportunity: IOpportunity = data.opportunity
+      const opportunity: Opportunity = data.opportunity
+      console.log({ opportunity })
       setOpportunity(opportunity)
       setOpportunityFormData(opportunity)
       setRequirements(opportunity.requirements)
@@ -47,9 +46,12 @@ export default function Opportunity() {
     if (!opportunity) return
 
     // Send a PUT request to the API with only the fields that have changed
-    const changedFields: Partial<IOpportunity> = {}
+    const changedFields: Partial<Opportunity> = {}
 
-    for (const [key, value] of Object.entries(opportunityFormData)) {
+    for (const [key, value] of Object.entries(opportunityFormData) as [
+      keyof Opportunity,
+      any
+    ][]) {
       if (value !== opportunity[key]) {
         changedFields[key] = value
       }
@@ -97,11 +99,14 @@ export default function Opportunity() {
     event.preventDefault()
 
     if (event.target.name.split(".").length > 1) {
-      const [property, nestedProperty] = event.target.name.split(".")
+      const [property, nestedProperty] = event.target.name.split(".") as [
+        keyof Opportunity,
+        any
+      ]
       setOpportunityFormData({
         ...opportunityFormData,
         [property]: {
-          ...opportunityFormData[property],
+          ...(opportunityFormData[property] as {}),
 
           [nestedProperty]:
             event.target.type === "number"
@@ -321,7 +326,7 @@ export default function Opportunity() {
                 </label>
                 <input
                   type="number"
-                  name="reward.amount"
+                  name="reward.fixed"
                   value={opportunityFormData?.reward?.amount}
                   onChange={handleChange}
                   className={classNames(
@@ -349,61 +354,64 @@ export default function Opportunity() {
                   )}
                 />
 
-                {opportunityFormData?.salary?.fixed ? (
-                  <>
-                    <label className="label">
-                      <span className="label-text ">Salary</span>
-                    </label>
-                    <input
-                      type="number"
-                      name="salary.fixed"
-                      value={opportunityFormData?.salary?.fixed}
-                      onChange={handleChange}
-                      className={classNames(
-                        "input-bordered input w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",
-                        opportunityFormData?.salary?.fixed !==
-                          opportunity?.salary?.fixed
-                          ? "border-yellow-500  "
-                          : ""
-                      )}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <label className="label">
-                      <span className="label-text ">Minimum Salary</span>
-                    </label>
-                    <input
-                      type="number"
-                      name="salary.min"
-                      value={opportunityFormData?.salary?.min}
-                      onChange={handleChange}
-                      className={classNames(
-                        "input-bordered input w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",
-                        opportunityFormData?.salary?.min !==
-                          opportunity?.salary?.min
-                          ? "border-yellow-500  "
-                          : ""
-                      )}
-                    />
-                    <label className="label">
-                      <span className="label-text ">Maximum Salary</span>
-                    </label>
-                    <input
-                      type="number"
-                      name="salary.max"
-                      value={opportunityFormData?.salary?.max}
-                      onChange={handleChange}
-                      className={classNames(
-                        "input-bordered input w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",
-                        opportunityFormData?.salary?.max !==
-                          opportunity?.salary?.max
-                          ? "border-yellow-500  "
-                          : ""
-                      )}
-                    />
-                  </>
-                )}
+                {opportunityFormData?.salary?.type === "fixed" &&
+                  opportunity?.salary?.type === "fixed" && (
+                    <>
+                      <label className="label">
+                        <span className="label-text ">Salary</span>
+                      </label>
+                      <input
+                        type="number"
+                        name="salary.fixed"
+                        value={opportunityFormData?.salary?.fixed}
+                        onChange={handleChange}
+                        className={classNames(
+                          "input-bordered input w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",
+                          opportunityFormData?.salary?.fixed !==
+                            opportunity?.salary?.fixed
+                            ? "border-yellow-500  "
+                            : ""
+                        )}
+                      />
+                    </>
+                  )}
+                {opportunityFormData?.salary?.type === "range" &&
+                  opportunity?.salary?.type === "range" && (
+                    <>
+                      <label className="label">
+                        <span className="label-text ">Minimum Salary</span>
+                      </label>
+                      <input
+                        type="number"
+                        name="salary.min"
+                        value={opportunityFormData?.salary?.min}
+                        onChange={handleChange}
+                        className={classNames(
+                          "input-bordered input w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",
+                          opportunityFormData?.salary?.min !==
+                            opportunity?.salary?.min
+                            ? "border-yellow-500  "
+                            : ""
+                        )}
+                      />
+                      <label className="label">
+                        <span className="label-text ">Maximum Salary</span>
+                      </label>
+                      <input
+                        type="number"
+                        name="salary.max"
+                        value={opportunityFormData?.salary?.max}
+                        onChange={handleChange}
+                        className={classNames(
+                          "input-bordered input w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",
+                          opportunityFormData?.salary?.max !==
+                            opportunity?.salary?.max
+                            ? "border-yellow-500  "
+                            : ""
+                        )}
+                      />
+                    </>
+                  )}
 
                 <label className="label">
                   <span className="label-text ">Salary Currency</span>
@@ -459,7 +467,7 @@ export default function Opportunity() {
                 <input
                   type="text"
                   name="company.name"
-                  value={opportunityFormData?.company.name}
+                  value={opportunityFormData?.company?.name}
                   onChange={handleChange}
                   className={classNames(
                     "input-bordered input w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",
@@ -474,7 +482,7 @@ export default function Opportunity() {
                 </label>
                 <textarea
                   name="company.about"
-                  value={opportunityFormData?.company.about}
+                  value={opportunityFormData?.company?.about}
                   onChange={handleChange}
                   className={classNames(
                     "textarea-bordered textarea w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",
@@ -490,7 +498,7 @@ export default function Opportunity() {
                 <input
                   type="text"
                   name="company.url"
-                  value={opportunityFormData?.company.url}
+                  value={opportunityFormData?.company?.url}
                   onChange={handleChange}
                   className={classNames(
                     "input-bordered input w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",
@@ -506,7 +514,7 @@ export default function Opportunity() {
                 <input
                   type="text"
                   name="company.founded"
-                  value={opportunityFormData?.company.founded}
+                  value={opportunityFormData!.company!.founded}
                   onChange={handleChange}
                   className={classNames(
                     "input-bordered input w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",
@@ -522,7 +530,7 @@ export default function Opportunity() {
                 <input
                   type="text"
                   name="company.industry"
-                  value={opportunityFormData?.company.industry}
+                  value={opportunityFormData?.company?.industry}
                   onChange={handleChange}
                   className={classNames(
                     "input-bordered input w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",
@@ -538,7 +546,7 @@ export default function Opportunity() {
                 <input
                   type="text"
                   name="company.employees"
-                  value={opportunityFormData?.company.employees}
+                  value={opportunityFormData?.company?.employees}
                   onChange={handleChange}
                   className={classNames(
                     "input-bordered input w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",
@@ -553,7 +561,7 @@ export default function Opportunity() {
                 </label>
                 <select
                   name="company.stage"
-                  value={opportunityFormData?.company.stage}
+                  value={opportunityFormData?.company?.stage}
                   onChange={handleChange}
                   className={classNames(
                     "select-bordered select w-full border-4 focus:border-transparent focus:ring-2 focus:ring-blue-600",

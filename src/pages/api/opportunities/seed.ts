@@ -1,6 +1,6 @@
 import clientPromise from "../../../../db/connect"
 import { NextApiRequest, NextApiResponse } from "next"
-import IOpportunity from "@/types/opportunity"
+import { Opportunity } from "@/types/opportunity"
 import serverAuthenticate from "@/utils/serverAuthenticate"
 
 export default async function handler(
@@ -17,7 +17,7 @@ export default async function handler(
   const db = client.db(process.env.DATABASE_NAME)
   const collection = db.collection("opportunities")
 
-  const opportunity: IOpportunity = {
+  const opportunity: Omit<Opportunity, "_id"> = {
     title: "Investor Relations Associate",
     category: "Operations",
     description: `You'll help drive our mission to support early-stage tech entrepreneurs across the MENA region and beyond. As an Investor Relations Associate, you will be responsible for maintaining and building relationships with our current and potential investors, providing them with key insights into our portfolio companies and the broader venture capital landscape. You will work closely with our senior team members to support fundraising and business development efforts, and help shape the future of our ecosystem in the region. An ideal candidate should be prepared to commence as soon as possible from our Dubai office.`,
@@ -42,6 +42,7 @@ export default async function handler(
       currency: "USD",
     },
     salary: {
+      type: "range",
       min: 300000,
       max: 348000,
       currency: "AED",
@@ -53,7 +54,7 @@ export default async function handler(
       about: `BECO Capital is a top decile TVPI UAE based early-stage fund with $450M AUM across 3 vintages that is growing exponentially to build a global platform that invests in cutting edge tech globally. We're a team of entrepreneurial digital natives and have invested in 45+ startups across a wide range of sectors, including the region's biggest success stories.`,
       url: "https://becocapital.com/",
       image: "/static/opportunities/beco.png",
-      founded: "2012",
+      founded: 2012,
       industry: "Venture Capital",
       employees: "30+",
       stage: "growth",

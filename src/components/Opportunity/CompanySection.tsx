@@ -1,4 +1,4 @@
-import IOpportunity from "@/types/opportunity"
+import { Opportunity } from "@/types/opportunity"
 import {
   UsersIcon,
   GlobeAltIcon,
@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/outline"
 import { ReactElement } from "react"
 
-export default function CompanySection({ post }: { post: IOpportunity }) {
+export default function CompanySection({ post }: { post: Opportunity }) {
   return (
     <div className="col-span-6 py-6 lg:col-span-4">
       <h1 className="text-left text-xl font-semibold text-b-yellow">
@@ -20,11 +20,11 @@ export default function CompanySection({ post }: { post: IOpportunity }) {
           icon={<UsersIcon height={34} width={34} />}
         />
         <GridIcon
-          text={post.company.founded}
+          text={post.company.founded.toString()}
           icon={<CakeIcon width={34} height={34} />}
         />
         <GridIcon
-          text={post.company.industry}
+          text={post.company.industry!}
           icon={<BuildingOffice2Icon height={34} width={34} />}
         />
         <a

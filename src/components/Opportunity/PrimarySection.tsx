@@ -1,4 +1,4 @@
-import IOpportunity from "@/types/opportunity"
+import { Opportunity, OpportunityWithApplications } from "@/types/opportunity"
 import { Application } from "@/types/application"
 import Top from "./Top"
 import ReferralCard from "./ReferralCard"
@@ -12,7 +12,7 @@ export default function PrimarySection({
   setModalOpen,
   isAdmin,
 }: {
-  post: IOpportunity
+  post: OpportunityWithApplications
   applicationsRemaining: number
   setModalOpen: (open: boolean) => void
   isAdmin: boolean

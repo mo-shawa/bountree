@@ -1,5 +1,5 @@
 import type { Document, ObjectId } from "mongodb"
-import IOpportunity from "./opportunity"
+import { Opportunity } from "./opportunity"
 import IUser from "./user"
 
 export type Application = {
@@ -9,7 +9,7 @@ export type Application = {
   name: string
   candidateEmail?: string
   opportunityId: ObjectId | string
-  opportunity?: IOpportunity
+  opportunity?: Opportunity
   cv: File | string
   linkedin: string
   secondary?: string

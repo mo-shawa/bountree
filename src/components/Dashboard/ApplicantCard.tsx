@@ -20,7 +20,16 @@ export default function ApplicantCard({
   open,
   rejectionFeedback,
 }: Props) {
-  const { fixed, min, max, currency } = opportunity!.salary
+  let min, max, fixed, currency
+
+  if (opportunity?.salary.type === "fixed") {
+    fixed = opportunity?.salary.fixed
+    currency = opportunity?.salary.currency
+  } else {
+    min = opportunity?.salary.min
+    max = opportunity?.salary.max
+    currency = opportunity?.salary.currency
+  }
 
   const salary = fixed
     ? formatCurrency(fixed, currency)
